@@ -9,6 +9,7 @@ package chess.engine.pieces;
 
 public interface Piece {
     int getValue();
+    String getName();
     Color getColor();
     void move();
 }

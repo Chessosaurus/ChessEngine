@@ -9,10 +9,12 @@ package chess.engine.pieces;
 
 public class King implements Piece {
     private int value;
+    private String name;
     private Color color;
 
     public King(Color color) {
         this.value = 10;  // Wert des Königs ist 10
+        this.name = "K";
         this.color = color;
     }
 
@@ -20,6 +22,9 @@ public class King implements Piece {
     public int getValue() {
         return value;
     }
+
+    @Override
+    public String getName(){return name;}
 
     @Override
     public Color getColor() {

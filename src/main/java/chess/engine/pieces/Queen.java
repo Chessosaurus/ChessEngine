@@ -9,10 +9,12 @@ package chess.engine.pieces;
 
 public class Queen implements Piece {
     private int value;
+    private String name;
     private Color color;
 
     public Queen(Color color) {
         this.value = 9;  // Wert der Dame ist 9
+        this.name = "Q";
         this.color = color;
     }
 
@@ -20,6 +22,9 @@ public class Queen implements Piece {
     public int getValue() {
         return value;
     }
+
+    @Override
+    public String getName(){return name;}
 
     @Override
     public Color getColor() {

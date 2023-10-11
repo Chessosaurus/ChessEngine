@@ -9,10 +9,12 @@ package chess.engine.pieces;
 
 public class Pawn implements Piece {
     private int value;
+    private String name;
     private Color color;
 
     public Pawn(Color color) {
         this.value = 1;  // Der Wert des Bauern ist 1
+        this.name = "P";
         this.color = color;
     }
 
@@ -20,6 +22,9 @@ public class Pawn implements Piece {
     public int getValue() {
         return value;
     }
+
+    @Override
+    public String getName(){return name;}
 
     @Override
     public Color getColor() {

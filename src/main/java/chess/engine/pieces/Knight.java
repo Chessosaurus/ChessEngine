@@ -9,10 +9,12 @@ package chess.engine.pieces;
 
 public class Knight implements Piece {
     private int value;
+    private String name;
     private Color color;
 
     public Knight(Color color) {
         this.value = 3;  // Der Wert des Springers ist 3
+        this.name = "KN";
         this.color = color;
     }
 
@@ -20,6 +22,9 @@ public class Knight implements Piece {
     public int getValue() {
         return value;
     }
+
+    @Override
+    public String getName(){return name;}
 
     @Override
     public Color getColor() {
