@@ -1,0 +1,17 @@
+1. Piece (Schachfigur)
+Die Piece-Klasse repräsentiert eine Schachfigur. Sie enthält Informationen über den Typ (z.B. König, Dame, Bauer) und die Farbe (schwarz oder weiß) der Figur.
+
+2. Board (Spielbrett)
+Die Board-Klasse stellt das Schachbrett dar. Sie enthält Informationen über die aktuelle Position der Figuren, den Spielstatus und enthält Methoden zum Generieren von Zügen, Validieren von Zügen und Bewerten der Stellung.
+
+3. Move (Zug)
+Die Move-Klasse repräsentiert einen Zug im Schach. Sie enthält Informationen über die Start- und Zielposition sowie zusätzliche Informationen für spezielle Züge wie Rochade oder Bauernumwandlung.
+
+4. MoveGenerator (Zuggenerator)
+Die MoveGenerator-Klasse ist verantwortlich für die Generierung aller legalen Züge für eine gegebene Schachstellung. Sie berücksichtigt die Schachregeln und die aktuelle Position der Figuren.
+
+5. Evaluator (Bewerter)
+Die Evaluator-Klasse bewertet die aktuelle Stellung auf dem Schachbrett. Sie analysiert verschiedene Aspekte wie Materialverhältnisse, Positionierung der Figuren, Königssicherheit und Bauernstruktur, um eine Stellungsbeurteilung abzugeben.
+
+6. Search (Suche)
+Die Search-Klasse ist verantwortlich für die Suche nach dem besten Zug basierend auf einem Suchalgorithmus wie MiniMax mit Alpha-Beta-Pruning. Sie bewertet mögliche Züge und deren Auswirkungen auf die Stellung.

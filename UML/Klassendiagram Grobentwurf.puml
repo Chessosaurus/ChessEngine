@@ -1,0 +1,61 @@
+@startuml
+skinparam linetype ortho
+
+class Piece {
+    - type: Type
+    - color: Color
+}
+
+class King {
+    - value: int
+    - color: Color
+    + King(color: Color)
+    + getValue(): int
+    + getColor(): Color
+    + move(): void
+}
+
+enum Color {
+    WHITE
+    BLACK
+}
+
+Piece <|.. King
+Piece --|> Color
+
+class Board {
+    - pieces: Piece[][]
+    - whiteToMove: boolean
+}
+
+Board -- Piece
+
+class Move {
+    - startRow: int
+    - startCol: int
+    - endRow: int
+    - endCol: int
+    - promotedTo: Piece
+
+}
+
+Board -- Move
+
+class MoveGenerator {
+    + generateLegalMoves(board: Board): List<Move>
+}
+
+Board --|> MoveGenerator
+
+class Evaluator {
+    + evaluate(board: Board): int
+}
+
+Board --|> Evaluator
+
+class Search {
+    + findBestMove(board: Board, depth: int): Move
+}
+
+Board --|> Search
+@enduml
