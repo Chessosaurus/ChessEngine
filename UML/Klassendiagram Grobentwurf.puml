@@ -1,7 +1,7 @@
 @startuml
 skinparam linetype ortho
 
-class Piece {
+interface Piece {
     - type: Type
     - color: Color
 }
@@ -15,13 +15,64 @@ class King {
     + move(): void
 }
 
+class Queen {
+    - value: int
+    - color: Color
+    + Queen(color: Color)
+    + getValue(): int
+    + getColor(): Color
+    + move(): void
+}
+
+class Bishop {
+    - value: int
+    - color: Color
+    + Bishop(color: Color)
+    + getValue(): int
+    + getColor(): Color
+    + move(): void
+}
+
+class Knight {
+    - value: int
+    - color: Color
+    + Knight(color: Color)
+    + getValue(): int
+    + getColor(): Color
+    + move(): void
+}
+
+class Rook {
+    - value: int
+    - color: Color
+    + Rook(color: Color)
+    + getValue(): int
+    + getColor(): Color
+    + move(): void
+}
+
+class Pawn{
+    - value: int
+    - color: Color
+    + Pawn(color: Color)
+    + getValue(): int
+    + getColor(): Color
+    + move(): void
+}
+
+
 enum Color {
     WHITE
     BLACK
 }
-
-Piece <|.. King
 Piece --|> Color
+Piece <|.. King
+Piece <|.. Queen
+Piece <|.. Bishop
+Piece <|.. Knight
+Piece <|.. Rook
+Piece <|.. Pawn
+
 
 class Board {
     - pieces: Piece[][]
