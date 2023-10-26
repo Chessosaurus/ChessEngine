@@ -1,4 +1,4 @@
-package chess.engine.pieces;
+package chessosaurus.general.pieces;
 
 /**
  * Das Enum Color repräsentiert die Farben, die in Schachfiguren verwendet werden können.

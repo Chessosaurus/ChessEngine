@@ -1,20 +1,20 @@
-package chess.engine.pieces;
+package chessosaurus.general.pieces;
 
 /**
- * Die Klasse Queen repräsentiert die Schachfigur Dame.
+ * Die Klasse Bishop repräsentiert die Schachfigur Löufer.
  *
  * Version: 1.0
  * Autor: Fabian Eilber
  */
 
-public class Queen implements Piece {
+public class Bishop implements Piece {
     private int value;
     private String name;
     private Color color;
 
-    public Queen(Color color) {
-        this.value = 9;  // Wert der Dame ist 9
-        this.name = "Q";
+    public Bishop(Color color) {
+        this.value = 3;  // Der Wert des Läufers ist 3
+        this.name = "B";
         this.color = color;
     }
 
@@ -33,6 +33,7 @@ public class Queen implements Piece {
 
     @Override
     public void move() {
-        System.out.println("Dame bewegt sich!");
+        System.out.println("Läufer bewegt sich!");
     }
 }
+

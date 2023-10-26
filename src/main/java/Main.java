@@ -1,4 +1,4 @@
-import chess.engine.board.Board;
+import chessosaurus.general.board.Board;
 
 public class Main {
     public static void main(String[] args) {

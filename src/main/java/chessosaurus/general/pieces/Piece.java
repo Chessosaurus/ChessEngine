@@ -1,4 +1,4 @@
-package chess.engine.pieces;
+package chessosaurus.general.pieces;
 
 /**
  * Das Interface Piece repräsentiert eine Schachfigur

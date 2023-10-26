@@ -1,4 +1,4 @@
-package chess.engine.pieces;
+package chessosaurus.general.pieces;
 
 /**
  * Die Klasse Rook repräsentiert die Schachfigur Turm.

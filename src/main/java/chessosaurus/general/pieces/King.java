@@ -1,20 +1,20 @@
-package chess.engine.pieces;
+package chessosaurus.general.pieces;
 
 /**
- * Die Klasse Pawn repräsentiert die Schachfigur Bauer.
+ * Die Klasse King repräsentiert die Schachfigur König.
  *
  * Version: 1.0
  * Autor: Fabian Eilber
  */
 
-public class Pawn implements Piece {
+public class King implements Piece {
     private int value;
     private String name;
     private Color color;
 
-    public Pawn(Color color) {
-        this.value = 1;  // Der Wert des Bauern ist 1
-        this.name = "P";
+    public King(Color color) {
+        this.value = 10;  // Wert des Königs ist 10
+        this.name = "K";
         this.color = color;
     }
 
@@ -33,6 +33,11 @@ public class Pawn implements Piece {
 
     @Override
     public void move() {
-        System.out.println("Bauer bewegt sich!");
+        System.out.println("König bewegt sich!");
     }
 }
+
+
+
+
+

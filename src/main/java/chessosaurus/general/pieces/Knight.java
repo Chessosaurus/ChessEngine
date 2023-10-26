@@ -1,4 +1,4 @@
-package chess.engine.pieces;
+package chessosaurus.general.pieces;
 
 /**
  * Die Klasse Knight repräsentiert die Schachfigur Springer.

@@ -1,20 +1,20 @@
-package chess.engine.pieces;
+package chessosaurus.general.pieces;
 
 /**
- * Die Klasse King repräsentiert die Schachfigur König.
+ * Die Klasse Queen repräsentiert die Schachfigur Dame.
  *
  * Version: 1.0
  * Autor: Fabian Eilber
  */
 
-public class King implements Piece {
+public class Queen implements Piece {
     private int value;
     private String name;
     private Color color;
 
-    public King(Color color) {
-        this.value = 10;  // Wert des Königs ist 10
-        this.name = "K";
+    public Queen(Color color) {
+        this.value = 9;  // Wert der Dame ist 9
+        this.name = "Q";
         this.color = color;
     }
 
@@ -33,11 +33,6 @@ public class King implements Piece {
 
     @Override
     public void move() {
-        System.out.println("König bewegt sich!");
+        System.out.println("Dame bewegt sich!");
     }
 }
-
-
-
-
-

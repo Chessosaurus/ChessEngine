@@ -1,6 +1,12 @@
-package chess.engine.board;
+package chessosaurus.general.board;
+import chessosaurus.general.pieces.*;
 
-import chess.engine.pieces.*;
+/**
+ * Die Klasse Board ist für die Darstellung und Umwandlung des Schachbretts zuständig.
+ *
+ * Version: 1.0
+ * Autor: Fabian Eilber
+ */
 
 public class Board {
     private Piece[][] chessboard;
