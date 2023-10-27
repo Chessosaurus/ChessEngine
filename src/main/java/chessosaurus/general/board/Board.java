@@ -2,77 +2,100 @@ package chessosaurus.general.board;
 import chessosaurus.general.pieces.*;
 
 /**
- * Die Klasse Board ist für die Darstellung und Umwandlung des Schachbretts zuständig.
- *
+ * The Board class is responsible for the representation and transformation of the chessboard.
+ * <p>
  * Version: 1.0
- * Autor: Fabian Eilber
+ * Author: Fabian Eilber
  */
 
 public class Board {
-    private Piece[][] chessboard;
+    private char[][] chessboard;
 
     public Board() {
-        chessboard = new Piece[8][8];
-        initializeChessboard();
+        this.chessboard = new char[8][8];
     }
 
-    /**
-     * Initialisiert das Schachbrett mit den Startpositionen der Schachfiguren für eine neue Schachpartie.
-     * Weiße Figuren werden auf den Reihen 1 und 2 platziert, schwarze Figuren auf den Reihen 7 und 8.
-     * Die Startpositionen entsprechen den Schachregeln.
-     */
-    private void initializeChessboard() {
+    public void importFen(String fenNotation){
 
-        //Weiße Figuren
-        chessboard[0][0] = new Rook(Color.WHITE);
-        chessboard[0][1] = new Knight(Color.WHITE);
-        chessboard[0][2] = new Bishop(Color.WHITE);
-        chessboard[0][3] = new Queen(Color.WHITE);
-        chessboard[0][4] = new King(Color.WHITE);
-        chessboard[0][5] = new Bishop(Color.WHITE);
-        chessboard[0][6] = new Knight(Color.WHITE);
-        chessboard[0][7] = new Rook(Color.WHITE);
+        String[] parts = fenNotation.split(" ");
+        String position = parts[0];
+        int rank = 7;
+        int file = 0;
 
-        for (int i = 0; i < 8; i++) {
-            chessboard[1][i] = new Pawn(Color.WHITE);
-        }
-
-        // Schwarze Figuren
-        chessboard[7][0] = new Rook(Color.BLACK);
-        chessboard[7][1] = new Knight(Color.BLACK);
-        chessboard[7][2] = new Bishop(Color.BLACK);
-        chessboard[7][3] = new Queen(Color.BLACK);
-        chessboard[7][4] = new King(Color.BLACK);
-        chessboard[7][5] = new Bishop(Color.BLACK);
-        chessboard[7][6] = new Knight(Color.BLACK);
-        chessboard[7][7] = new Rook(Color.BLACK);
-
-        for (int i = 0; i < 8; i++) {
-            chessboard[6][i] = new Pawn(Color.BLACK);
+        for (char c : position.toCharArray()) {
+            if (c == '/') {
+                rank--;
+                file = 0; // Zur nächsten Zeile wechseln, Spalte auf 0 zurücksetzen
+            } else if (Character.isDigit(c)) {
+                int emptySpaces = Character.getNumericValue(c);
+                for (int i = 0; i < emptySpaces; i++) {
+                    this.chessboard[rank][file++] = ' ';
+                }
+            } else {
+                this.chessboard[rank][file++] = c;
+            }
         }
     }
 
     /**
-     * Gibt das Schachbrett in der Konsole aus, wobei die Namen der Schachfiguren verwendet werden.
-     * Leerfelder werden durch "-" dargestellt.
+     * Outputs the chessboard in the console, using the names of the chess pieces.
+     * Blank fields are represented by "-".
      */
     public void displayBoard() {
         System.out.println("  A B C D E F G H");
-        System.out.println(" -----------------");
+        System.out.println(" ┏━┳━┳━┳━┳━┳━┳━┳━┓");
 
         for (int i = 0; i < 8; i++) {
-            System.out.print((8 - i) + "|");
+            System.out.print((8 - i) + "┃");
             for (int j = 0; j < 8; j++) {
-                if (chessboard[i][j] != null) {
-                    System.out.print(chessboard[i][j].getName() + "|");
-                } else {
-                    System.out.print(" |");
-                }
+                char piece = chessboard[i][j];
+                String pieceSymbol = getPieceSymbol(piece);
+                System.out.print(pieceSymbol + "┃");
             }
             System.out.println(" " + (8 - i));
-            System.out.println(" +----------------");
+            if (i < 7) {
+                System.out.println(" ┣━┫━┫━┫━┫━┫━┫━┫━┫");
+            } else {
+                System.out.println(" ┗━┻━┻━┻━┻━┻━┻━┻━┛");
+            }
         }
         System.out.println("  A B C D E F G H");
+    }
+
+    /**
+     * Returns the unicode symbol for the piece
+     * @param piece char which describes the piece
+     * @return String to display unicode symbol
+     */
+    private String getPieceSymbol(char piece) {
+        switch (piece) {
+            case 'P':
+                return "♟";
+            case 'R':
+                return "♜";
+            case 'N':
+                return "♞";
+            case 'B':
+                return "♝";
+            case 'Q':
+                return "♛";
+            case 'K':
+                return "♚";
+            case 'p':
+                return "♙";
+            case 'r':
+                return "♖";
+            case 'n':
+                return "♘";
+            case 'b':
+                return "♗";
+            case 'q':
+                return "♕";
+            case 'k':
+                return "♔";
+            default:
+                return " ";
+        }
     }
 
 }
