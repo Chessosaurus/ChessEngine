@@ -1,5 +1,5 @@
 package chessosaurus.protocol;
-import chessosaurus.general.board.Board;
+import chessosaurus.base.Board;
 
 import java.util.Scanner;
 
