@@ -15,6 +15,8 @@ public class UCI {
 
     static String ENGINENAME = "Chessosaurus";
     Board board = new Board();
+    Square[][] chessboard = new Square[8][8];
+
 
     /**
      * uciCommunication() is responsible for receiving UCI protocol commands from the UI and processing them according to the
@@ -105,8 +107,6 @@ public class UCI {
     private void inputPosition(String inputString) {
 
         String input = inputString.substring(9).concat(" ");
-
-        Square[][] chessboard = new Square[8][8];
 
         //Positions of the chess pieces on the field
         if (input.contains("fen")) {
