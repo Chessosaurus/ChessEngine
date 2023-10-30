@@ -1,5 +1,6 @@
 package chessosaurus.protocol;
 import chessosaurus.base.Board;
+import chessosaurus.base.Square;
 
 import java.util.Scanner;
 
@@ -105,18 +106,19 @@ public class UCI {
 
         String input = inputString.substring(9).concat(" ");
 
+        Square[][] chessboard = new Square[8][8];
+
         //Positions of the chess pieces on the field
         if (input.contains("fen")) {
             String fenString = input.substring(4);
             if(fenString.contains("moves")) {
                 fenString = fenString.split("moves")[0].trim();
             }
-            board.importFen(fenString);
+            chessboard = board.importFen(fenString);
         }
         //Moves that have been made
         if (input.contains("moves")) {
             input = input.substring(input.indexOf("moves")+6);
-            //make each of the moves
         }
     }
 
