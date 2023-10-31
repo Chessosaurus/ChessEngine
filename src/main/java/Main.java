@@ -14,7 +14,7 @@ public class Main {
         //Start the communication of the engine
         uci.uciCommunication();
 
-        //Testing => input thist fen-Notation in the console after run:  position fen rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPP2PPP/RNBQKBNR b KQkq - 0 1 moves e2e4 e7e5 g1f3
+        //Testing => input thist fen-Notation in the console after run:  position fen rnbqkbnr/pppppppp/8/8/8/8/PPPPPPP/RNBQKBNR b KQkq - 0 1 moves e2e4 e7e5 g1f3
         //To display the Field enter "print"
     }
 }

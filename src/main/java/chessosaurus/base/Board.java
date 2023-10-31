@@ -24,7 +24,7 @@ public class Board {
      * Transforms the fen-Notation into a processable 2d array
      * @param fenNotation String given by the UI
      */
-    public Square[][] importFen(String fenNotation){
+    public void importFen(String fenNotation){
 
         String[] parts = fenNotation.split(" ");
         String position = parts[0];
@@ -100,10 +100,9 @@ public class Board {
                 }
 
 
-                this.chessboard[rank][file++].setPiece(piece);
+                this.chessboard[file++][rank].setPiece(piece);
             }
         }
-        return this.chessboard;
     }
 
     /**
@@ -187,4 +186,8 @@ public class Board {
         }
     }
 
+
+    public Square[][] getChessboard() {
+        return chessboard;
+    }
 }

@@ -12,8 +12,8 @@ public class Square {
     }
 
     public Square(char rank, char file) {
-    this.file = Character.getNumericValue(file);
-    this.rank = transformToLiteral(rank);
+        this.rank = rank;
+        this.file = Character.getNumericValue(file);
     }
 
     public void setPiece(Piece piece){

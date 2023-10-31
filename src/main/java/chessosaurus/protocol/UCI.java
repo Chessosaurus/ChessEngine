@@ -118,19 +118,17 @@ public class UCI {
             if(fenString.contains("moves")) {
                 fenString = fenString.split("moves")[0].trim();
             }
-            chessboard = board.importFen(fenString);
+            this.board.importFen(fenString);
         }
         //Moves that have been made
         if (input.contains("moves")) {
             input = input.substring(input.indexOf("moves")+6);
-            String     moves[]     = input.split(" ");
-            List<Move> parsedMoves = new ArrayList<Move>();
+            String[] moves = input.split(" ");
+
         for (String move : moves)
             {
-                parsedMoves.add(moveParser.fromUCIToMove(move, chessboard));
+                moveParser.fromUCIToMove(move, this.board);
             }
-
-
         }
     }
 

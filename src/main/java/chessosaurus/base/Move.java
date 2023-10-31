@@ -10,11 +10,11 @@ package chessosaurus.base;
 
 public class Move {
 
-    private Piece piece;
-    private Square from;
-    private Square to;
-    private boolean capture;
-    private PieceType newPieceType;
+    private final Piece piece;
+    private final Square from;
+    private final Square to;
+    private final boolean capture;
+    private final PieceType newPieceType;
 
 
     /**
