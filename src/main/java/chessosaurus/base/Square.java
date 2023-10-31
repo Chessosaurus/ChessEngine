@@ -6,9 +6,14 @@ public class Square {
     private char rank;
     private Piece piece;
 
-    public Square(int file, int rank) {
+    public Square(int rank, int file) {
         this.file = file;
         this.rank = transformToLiteral(rank);
+    }
+
+    public Square(char rank, char file) {
+    this.file = Character.getNumericValue(file);
+    this.rank = transformToLiteral(rank);
     }
 
     public void setPiece(Piece piece){
@@ -21,16 +26,38 @@ public class Square {
 
     private char transformToLiteral(int row){
         return switch (row) {
-            case 0 -> 'a';
-            case 1 -> 'b';
-            case 2 -> 'c';
-            case 3 -> 'd';
-            case 4 -> 'e';
-            case 5 -> 'f';
-            case 6 -> 'g';
-            case 7 -> 'h';
+            case 1 -> 'a';
+            case 2 -> 'b';
+            case 3 -> 'c';
+            case 4 -> 'd';
+            case 5 -> 'e';
+            case 6 -> 'f';
+            case 7 -> 'g';
+            case 8 -> 'h';
             default -> ' ';
         };
     }
 
+    public char getRank()
+    {
+        return rank;
+    }
+
+    public int getFile()
+    {
+        return file;
+    }
+
+    public boolean equalsFrom(String from){
+        String toCheckOn = rank + String.valueOf(file);
+
+        if(from.equals(toCheckOn))
+        {
+            return  true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

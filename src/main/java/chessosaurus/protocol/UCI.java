@@ -1,7 +1,10 @@
 package chessosaurus.protocol;
 import chessosaurus.base.Board;
+import chessosaurus.base.Move;
 import chessosaurus.base.Square;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -16,6 +19,7 @@ public class UCI {
     static String ENGINENAME = "Chessosaurus";
     Board board = new Board();
     Square[][] chessboard = new Square[8][8];
+    MoveParser moveParser = new MoveParser();
 
 
     /**
@@ -119,6 +123,14 @@ public class UCI {
         //Moves that have been made
         if (input.contains("moves")) {
             input = input.substring(input.indexOf("moves")+6);
+            String     moves[]     = input.split(" ");
+            List<Move> parsedMoves = new ArrayList<Move>();
+        for (String move : moves)
+            {
+                parsedMoves.add(moveParser.fromUCIToMove(move, chessboard));
+            }
+
+
         }
     }
 
