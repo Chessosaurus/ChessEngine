@@ -18,7 +18,6 @@ public class UCI {
 
     static String ENGINENAME = "Chessosaurus";
     Board board = new Board();
-    Square[][] chessboard = new Square[8][8];
     MoveParser moveParser = new MoveParser();
 
 
@@ -127,7 +126,7 @@ public class UCI {
 
         for (String move : moves)
             {
-                moveParser.fromUCIToMove(move, this.board);
+                moveParser.fromUCIToMove(move);
             }
         }
     }

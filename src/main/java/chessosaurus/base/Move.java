@@ -10,70 +10,17 @@ package chessosaurus.base;
 
 public class Move {
 
-    private final Piece piece;
     private final Square from;
     private final Square to;
-    private final boolean capture;
-    private final PieceType newPieceType;
 
 
     /**
-     * Generates a move, where the piece is only moved to another square
-     * @param piece moved piece
+     * Generates a move, where the piece is moved to another square
      * @param from start position
      * @param to end position
      */
-    public Move(Piece piece, Square from, Square to){
-        this.piece = piece;
+    public Move(Square from, Square to){
         this.from = from;
         this.to = to;
-        this.capture = false;
-        this.newPieceType = null;
-    }
-
-    /**
-     * Generates a move, where the piece is moved to another square, may cause a capture, may cause a transformation
-     * @param piece moved piece
-     * @param from start position
-     * @param to end position
-     * @param capture is a piece of the enemy going to be captured
-     * @param newPieceType new piece type to replace the old one
-     */
-    public Move(Piece piece, Square from, Square to, boolean capture, PieceType newPieceType){
-        this.piece = piece;
-        this.from = from;
-        this.to = to;
-        this.capture = capture;
-        this.newPieceType = newPieceType;
-    }
-
-    /**
-     * Generates a move, where the piece is moved to another square => capture
-     * @param piece moved piece
-     * @param from start position
-     * @param to end position
-     * @param capture is a piece of the enemy going to be captured
-     */
-    public Move(Piece piece, Square from, Square to, boolean capture){
-        this.piece = piece;
-        this.from = from;
-        this.to = to;
-        this.capture = capture;
-        this.newPieceType = null;
-    }
-
-    /**
-     * Generates a move, where the piece is moved to the enemy baseline => transformation
-     * @param piece moved piece
-     * @param from start position
-     * @param to end position
-     * @param newPieceType new piece type to replace the old one
-     */
-    public Move(Piece piece, Square from, Square to, PieceType newPieceType){
-        this.piece = piece;
-        this.from = from;
-        this.to = to;
-        this.capture = false;
-        this.newPieceType = newPieceType;
     }
 }
