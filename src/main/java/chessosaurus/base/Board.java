@@ -3,8 +3,9 @@ package chessosaurus.base;
 /**
  * The Board class is responsible for the representation and transformation of the chessboard.
  * <p>
- * Version: 1.0
- * Author: Fabian Eilber
+ * @version 1.0
+ * @author Fabian Eilber
+ * @author Fabian Unger
  */
 
 public class Board {
@@ -18,6 +19,11 @@ public class Board {
                 this.chessboard[i][j] = new Square(i+1,j+1);
             }
         }
+    }
+
+    // Copy-Konstruktor
+    public Board(Board board) {
+        this.chessboard = board.getChessboard();
     }
 
     /**
@@ -100,7 +106,7 @@ public class Board {
                 }
 
 
-                this.chessboard[file++][rank].setPiece(piece);
+                this.chessboard[rank][file++].setPiece(piece);
             }
         }
     }

@@ -1,29 +1,28 @@
 package chessosaurus.protocol;
 import chessosaurus.base.Board;
-import chessosaurus.base.Move;
-import chessosaurus.base.Square;
+import chessosaurus.control.IController;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /**
  * The class UCI is responsible for the implementation of the UCI protocol.
  * <p>
- * Version: 1.0
- * Author: Fabian Eilber
+ * @version 1.0
+ * @author Fabian Eilber
+ * @author Fabian Unger
  */
 
 public class UCI {
 
     static String ENGINENAME = "Chessosaurus";
-    Board board = new Board();
+    Board board = null;
     MoveParser moveParser = new MoveParser();
 
+    private final IController controller;
+
+    public UCI(IController controller) {
+        this.controller = controller;
+    }
 
     /**
      * uciCommunication() is responsible for receiving UCI protocol commands from the UI and processing them according to the
@@ -103,7 +102,7 @@ public class UCI {
      * which the engine should analyse.
      */
     private void inputUCINewGame() {
-        //Start new game
+        this.board = this.controller.initializePlayerVsPlayerGame();
     }
 
     /**

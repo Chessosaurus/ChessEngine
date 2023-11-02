@@ -4,8 +4,9 @@ package chessosaurus.base;
  * The Move class is responsible for the representation of a move.
  * For each possible move there is an exclusive constructor.
  * <p>
- * Version: 1.0
- * Author: Fabian Eilber
+ * @version 1.0
+ * @author Fabian Eilber
+ * @author Fabian Unger
  */
 
 public class Move {
@@ -22,5 +23,12 @@ public class Move {
     public Move(Square from, Square to){
         this.from = from;
         this.to = to;
+    }
+
+    public Square getFrom() {
+        return this.from;
+    }
+    public Square getTo() {
+        return this.to;
     }
 }
