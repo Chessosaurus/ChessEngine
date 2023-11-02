@@ -106,7 +106,7 @@ public class Board {
                 }
 
 
-                this.chessboard[file++][rank].setPiece(piece);
+                this.chessboard[rank][file++].setPiece(piece);
             }
         }
     }

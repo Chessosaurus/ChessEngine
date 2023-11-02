@@ -17,7 +17,12 @@ public class Main {
         //Start the communication of the engine
         uci.uciCommunication();
 
-        //Testing => input thist fen-Notation in the console after run:  position fen rnbqkbnr/pppppppp/8/8/8/8/PPPPPPP/RNBQKBNR b KQkq - 0 1 moves e2e4 e7e5 g1f3
-        //To display the Field enter "print"
+
+        /**
+         * Testing the Engine over the Terminal
+         * 1. Input: ucinewgame (This initializes a new game)
+         * 2. Input: position fen rnbqkbnr/pppppppp/8/8/8/8/PPPPPPP/RNBQKBNR b KQkq - 0 1 move e2e4 (this sets the board and converts moves)
+         * 3. Input: print (This will give u feedback concerning the correct build of the board)
+         */
     }
 }

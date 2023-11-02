@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class UCI {
 
     static String ENGINENAME = "Chessosaurus";
-    Board board = new Board();
+    Board board = null;
     MoveParser moveParser = new MoveParser();
 
     private final IController controller;
@@ -102,7 +102,7 @@ public class UCI {
      * which the engine should analyse.
      */
     private void inputUCINewGame() {
-        //Start new game
+        this.board = this.controller.initializePlayerVsPlayerGame();
     }
 
     /**
