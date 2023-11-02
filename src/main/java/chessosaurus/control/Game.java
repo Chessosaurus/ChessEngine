@@ -31,11 +31,10 @@ public class Game {
         Color color = move.getFrom().getPiece().getColor();
 
         Board boardAfterMove;
-        if (color.equals(Color.WHITE)){
-            boardAfterMove = whitePlayer.move(this.chessboard);
-        }
-        else {
-            boardAfterMove = blackPlayer.move(this.chessboard);
+        if (color.equals(Color.WHITE)) {
+            boardAfterMove = whitePlayer.move(move, this.chessboard);
+        } else {
+            boardAfterMove = blackPlayer.move(move, this.chessboard);
         }
         this.chessboard = boardAfterMove;
     }

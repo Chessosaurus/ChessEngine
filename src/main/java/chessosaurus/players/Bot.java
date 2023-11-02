@@ -2,6 +2,7 @@ package chessosaurus.players;
 
 import chessosaurus.base.Board;
 import chessosaurus.base.Color;
+import chessosaurus.base.Move;
 
 /**
  * Bot class is responsible to create and manage a Computer enemy and execute his moves.
@@ -22,7 +23,7 @@ public class Bot implements IPlayer {
     }
 
     @Override
-    public Board move(Board currentBoard) {
+    public Board move(Move move, Board currentBoard) {
         Board board = new Board(currentBoard);
 
         // make move

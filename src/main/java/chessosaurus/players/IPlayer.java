@@ -2,6 +2,7 @@ package chessosaurus.players;
 
 import chessosaurus.base.Board;
 import chessosaurus.base.Color;
+import chessosaurus.base.Move;
 
 /**
  * Interface for players of the game.
@@ -11,6 +12,6 @@ import chessosaurus.base.Color;
 public interface IPlayer {
 
     Color getColor();
-    Board move(Board currentBoard);
+    Board move(Move move, Board currentBoard);
 
 }
