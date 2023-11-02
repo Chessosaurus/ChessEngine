@@ -2,6 +2,8 @@ package chessosaurus.players;
 
 import chessosaurus.base.Board;
 import chessosaurus.base.Color;
+import chessosaurus.base.Move;
+import chessosaurus.review.ReviewerContext;
 
 /**
  * Bot class is responsible to create and manage a Person as player and execute his moves.
@@ -22,11 +24,18 @@ public class Person implements IPlayer {
     }
 
     @Override
-    public Board move(Board currentBoard) {
+    public Board move(Move move, Board currentBoard) {
         Board board = new Board(currentBoard);
 
-        // if isLegalMove return board after move
-        // else
+        ReviewerContext reviewerContext = new ReviewerContext();
+        boolean isLegal = reviewerContext.isLegalMove(move, board);
+
+        if (isLegal) {
+            // Move ausfuehren und Board aendern
+            Board newBoard = new Board(board);
+            return newBoard;
+        }
+
         return board;
     }
 }
