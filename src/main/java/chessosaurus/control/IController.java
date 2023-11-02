@@ -8,7 +8,7 @@ import chessosaurus.base.Move;
  * @version 1.0
  * @author Fabian Unger
  */
-public interface IChessEngine {
+public interface IController {
 
     Board initializePlayerVsPlayerGame();
     Board initializePlayerVsBotGame();

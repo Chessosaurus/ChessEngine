@@ -1,17 +1,15 @@
 package chessosaurus.protocol;
 import chessosaurus.base.Board;
-import chessosaurus.base.Move;
-import chessosaurus.base.Square;
+import chessosaurus.control.IController;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /**
  * The class UCI is responsible for the implementation of the UCI protocol.
  * <p>
- * Version: 1.0
- * Author: Fabian Eilber
+ * @version 1.0
+ * @author Fabian Eilber
+ * @author Fabian Unger
  */
 
 public class UCI {
@@ -20,6 +18,11 @@ public class UCI {
     Board board = new Board();
     MoveParser moveParser = new MoveParser();
 
+    private final IController controller;
+
+    public UCI(IController controller) {
+        this.controller = controller;
+    }
 
     /**
      * uciCommunication() is responsible for receiving UCI protocol commands from the UI and processing them according to the

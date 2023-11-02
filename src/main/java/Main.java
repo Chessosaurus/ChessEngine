@@ -1,3 +1,4 @@
+import chessosaurus.control.BusinessController;
 import chessosaurus.protocol.UCI;
 
 /**
@@ -9,8 +10,10 @@ import chessosaurus.protocol.UCI;
 public class Main {
     public static void main(String[] args) {
 
+        BusinessController controller = new BusinessController();
+
         //Instantiate object of class UCI to ensure communication
-        UCI uci = new UCI();
+        UCI uci = new UCI(controller);
         //Start the communication of the engine
         uci.uciCommunication();
 

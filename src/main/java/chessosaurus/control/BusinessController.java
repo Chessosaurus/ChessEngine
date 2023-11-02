@@ -14,7 +14,7 @@ import java.util.Random;
  * @version 1.0
  * @author Fabian Unger
  */
-public class Chessosaurus implements IChessEngine {
+public class BusinessController implements IController {
     private Game game;
 
     @Override
