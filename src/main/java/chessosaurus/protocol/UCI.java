@@ -3,6 +3,10 @@ import chessosaurus.base.Board;
 import chessosaurus.base.Move;
 import chessosaurus.base.Square;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -28,9 +32,9 @@ public class UCI {
      */
     public void uciCommunication() {
 
+    Scanner inputScanner = new Scanner(System.in);
         while (true) {
 
-            Scanner inputScanner = new Scanner(System.in);
             String inputString = inputScanner.nextLine();
 
             if ("uci".equals(inputString))
@@ -53,7 +57,7 @@ public class UCI {
             {
                 inputPosition(inputString);
             }
-            else if ("go".equals(inputString))
+            else if (inputString.startsWith("go"))
             {
                 inputGo();
             }
@@ -135,7 +139,8 @@ public class UCI {
      * inputGo is used to tell the engine to determine the best move.
      */
     private void inputGo() {
-        //Call to determine best move
+        //@TODO durch den MINIMAX Algorithmus ersetzt werden
+        System.out.println("bestmove h7h5");
     }
 
     /**
