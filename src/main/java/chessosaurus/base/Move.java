@@ -28,7 +28,6 @@ public class Move {
     public Square getFrom() {
         return this.from;
     }
-
     public Square getTo() {
         return this.to;
     }
