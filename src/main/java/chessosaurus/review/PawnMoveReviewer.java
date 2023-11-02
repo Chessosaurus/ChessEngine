@@ -10,6 +10,7 @@ public class PawnMoveReviewer extends MoveReviewerBase{
     boolean isSpecificLegalMove(Move move, Board chessboard) {
         Square from = move.getFrom();
         Square to = move.getTo();
+        Square[][] board = chessboard.getChessboard();
         Color color = from.getPiece().getColor();
         int fromFile = from.getFile();
         int toFile = to.getFile();
@@ -17,15 +18,14 @@ public class PawnMoveReviewer extends MoveReviewerBase{
         char toRank = to.getRank();
 
         //kann nich nach vorne schlagen.
-
-        if (color == Color.WHITE){
-            if(fromFile == 2 && toFile ==4 && fromRank == toRank) return true;  //Checks if White Pawns first move
-            else if (toFile == fromFile+1 && fromRank == toRank) return true;
-            else return false;
-        }else{
-            if(fromFile == 7 && toFile ==5 && fromRank == toRank) return true;  //Checks if Black Pawns first move
-            else if (toFile == fromFile-1 && fromRank == toRank) return true;
-            else return false;
-        }
+        if (board[toRank][toFile].getPiece() == null){
+            if (color == Color.WHITE){
+                if(fromFile == 2 && toFile ==4 && fromRank == toRank) return true;  //Checks if White Pawns first move
+                else return toFile == fromFile + 1 && fromRank == toRank;
+            }else{
+                if(fromFile == 7 && toFile ==5 && fromRank == toRank) return true;  //Checks if Black Pawns first move
+                else return toFile == fromFile - 1 && fromRank == toRank;
+            }
+        } else return false;
     }
 }
