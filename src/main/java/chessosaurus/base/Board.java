@@ -106,7 +106,7 @@ public class Board {
                 }
 
 
-                this.chessboard[rank][file++].setPiece(piece);
+                this.chessboard[file++][rank].setPiece(piece);
             }
         }
     }
@@ -122,13 +122,13 @@ public class Board {
         System.out.println("  A B C D E F G H");
         System.out.println(" ┏━┳━┳━┳━┳━┳━┳━┳━┓");
 
-        for (int i = 0; i < 8; i++) {
+        for (int i = 7; i >= 0; i--) {
             System.out.print((8 - i) + "┃");
             for (int j = 0; j < 8; j++) {
-                if(this.chessboard[i][j].getPiece() == null){
+                if(this.chessboard[j][i].getPiece() == null){
                     pieceSymbol = " ";
                 }else{
-                    Piece piece = this.chessboard[i][j].getPiece();
+                    Piece piece = this.chessboard[j][i].getPiece();
                     pieceSymbol = getPieceSymbol(piece);
                 }
                 System.out.print(pieceSymbol + "┃");
@@ -195,5 +195,9 @@ public class Board {
 
     public Square[][] getChessboard() {
         return chessboard;
+    }
+
+    public void setChessboard(Square[][] chessboard) {
+        this.chessboard = chessboard;
     }
 }

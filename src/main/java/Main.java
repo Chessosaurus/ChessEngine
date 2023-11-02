@@ -21,7 +21,7 @@ public class Main {
         /**
          * Testing the Engine over the Terminal
          * 1. Input: ucinewgame (This initializes a new game)
-         * 2. Input: position fen rnbqkbnr/pppppppp/8/8/8/8/PPPPPPP/RNBQKBNR b KQkq - 0 1 move e2e4 (this sets the board and converts moves)
+         * 2. Input: position fen rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR b KQkq - 0 1 moves e2e4 (this sets the board and converts moves)
          * 3. Input: print (This will give u feedback concerning the correct build of the board)
          */
     }

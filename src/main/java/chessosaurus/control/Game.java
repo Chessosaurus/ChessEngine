@@ -27,6 +27,10 @@ public class Game {
         return this.chessboard;
     }
 
+    public void setChessboard(Board chessboard) {
+        this.chessboard = chessboard;
+    }
+
     public void executeMove(Move move) {
         Color color = move.getFrom().getPiece().getColor();
 

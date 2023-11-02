@@ -1,8 +1,6 @@
 package chessosaurus.players;
 
-import chessosaurus.base.Board;
-import chessosaurus.base.Color;
-import chessosaurus.base.Move;
+import chessosaurus.base.*;
 import chessosaurus.review.ReviewerContext;
 
 /**
@@ -32,7 +30,30 @@ public class Person implements IPlayer {
 
         if (isLegal) {
             // Move ausfuehren und Board aendern
-            Board newBoard = new Board(board);
+            Board newBoard = new Board();
+            Square[][] oldBoard = currentBoard.getChessboard();
+            Piece piece = move.getFrom().getPiece();
+
+            //set old field to null
+            for (int i = 0; i < oldBoard.length; i++) {
+                for (int j = 0; j < oldBoard.length; j++) {
+                    if(oldBoard[i][j].getRank() == move.getFrom().getRank() && oldBoard[i][j].getFile() == move.getFrom().getFile()){
+                        oldBoard[i][j].setPiece(null);
+                    }
+                }
+            }
+
+            //set piece to new field
+            for (int i = 0; i < oldBoard.length; i++) {
+                for (int j = 0; j < oldBoard.length; j++) {
+                    if(oldBoard[i][j].getRank() == move.getTo().getRank() && oldBoard[i][j].getFile() == move.getTo().getFile()){
+                        oldBoard[i][j].setPiece(piece);
+                    }
+                }
+            }
+
+            newBoard.setChessboard(oldBoard);
+
             return newBoard;
         }
 
