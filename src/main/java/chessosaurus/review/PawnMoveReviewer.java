@@ -5,7 +5,22 @@ import chessosaurus.base.Color;
 import chessosaurus.base.Move;
 import chessosaurus.base.Square;
 
+/**
+ * The PawnMoveReviewer class is responsible for review a pawn's move.
+ * <p>
+ * @version 1.0
+ * @author Tobias Hahn
+ */
+
 public class PawnMoveReviewer extends MoveReviewerBase{
+
+    /**
+     * Checks whether a particular move is legal on the chessboard.
+     *
+     * @param move The move to be checked.
+     * @param chessboard The chessboard on which the move is made.
+     * @return {@code true}, if the move was legal, else {@code false}.
+     */
     @Override
     boolean isSpecificLegalMove(Move move, Board chessboard) {
         Square from = move.getFrom();

@@ -5,7 +5,22 @@ import chessosaurus.base.Color;
 import chessosaurus.base.Move;
 import chessosaurus.base.Square;
 
+/**
+ * The BishopMoveReviewer class is responsible for review a bishop's move.
+ * <p>
+ * @version 1.0
+ * @author Tobias Hahn
+ */
+
 public class BishopMoveReviewer extends MoveReviewerBase{
+
+    /**
+     * Checks whether a particular move is legal on the chessboard.
+     *
+     * @param move The move to be checked.
+     * @param chessboard The chessboard on which the move is made.
+     * @return {@code true}, if the move was legal, else {@code false}.
+     */
     @Override
     boolean isSpecificLegalMove(Move move, Board chessboard) {
         Square from = move.getFrom();
@@ -19,7 +34,7 @@ public class BishopMoveReviewer extends MoveReviewerBase{
 
         for(int i = 1; i<=8; i++){
             if(toFile == fromFile+i || toFile == fromFile-i){
-                if(toRank == toRank+i || toRank == fromRank-i){
+                if(toRank == fromRank+i || toRank == fromRank-i){
                     if(toRank > fromRank){
                         if(toFile > fromFile){
                             for(int j = 1; j < toRank-fromRank; j++){
@@ -36,13 +51,13 @@ public class BishopMoveReviewer extends MoveReviewerBase{
                         }
                     } else {
                         if(toFile > fromFile){
-                            for(int j = fromRank; j < fromRank-toRank; j--){
+                            for(int j = fromRank; j > fromRank-toRank; j--){
                                 if(board[fromRank-j][fromFile+j].getPiece() != null){
                                     return false;
                                 }
                             }
                         } else {
-                            for(int j = fromRank; j < fromRank-toRank; j--){
+                            for(int j = fromRank; j > fromRank-toRank; j--){
                                 if(board[fromRank-j][fromFile-j].getPiece() != null){
                                     return false;
                                 }

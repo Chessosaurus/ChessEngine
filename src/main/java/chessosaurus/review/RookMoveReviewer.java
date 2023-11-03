@@ -5,7 +5,22 @@ import chessosaurus.base.Color;
 import chessosaurus.base.Move;
 import chessosaurus.base.Square;
 
+/**
+ * The RookMoveReviewer class is responsible for review a rook's move.
+ * <p>
+ * @version 1.0
+ * @author Tobias Hahn
+ */
+
 public class RookMoveReviewer extends MoveReviewerBase{
+
+    /**
+     * Checks whether a particular move is legal on the chessboard.
+     *
+     * @param move The move to be checked.
+     * @param chessboard The chessboard on which the move is made.
+     * @return {@code true}, if the move was legal, else {@code false}.
+     */
     @Override
     boolean isSpecificLegalMove(Move move, Board chessboard) {
         Square from = move.getFrom();
@@ -26,7 +41,7 @@ public class RookMoveReviewer extends MoveReviewerBase{
                     }
                 }
             } else {
-                for(int i = fromRank; i < fromRank-toRank; i--){
+                for(int i = fromRank; i > fromRank-toRank; i--){
                     if(board[fromRank-i][fromFile].getPiece() != null){
                         return false;
                     }
@@ -41,7 +56,7 @@ public class RookMoveReviewer extends MoveReviewerBase{
                     }
                 }
             } else {
-                for(int i = fromFile; i < fromFile-toFile; i--){
+                for(int i = fromFile; i > fromFile-toFile; i--){
                     if(board[fromRank][fromFile-i].getPiece() != null){
                         return false;
                     }
