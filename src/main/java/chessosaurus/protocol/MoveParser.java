@@ -16,18 +16,18 @@ public class MoveParser
      * @param moveInput part of the uci protocoll describing moves made
      * @return move object to further process
      */
-    public Move fromUCIToMove (String moveInput)
+    public Move fromUCIToMove (String moveInput, Board board)
       {
         int halfLength = moveInput.length() / 2;
         String moveFrom = moveInput.substring(0, halfLength);
         String moveTo = moveInput.substring(halfLength);
 
         Square from = new Square(moveFrom.charAt(0),moveFrom.charAt(1));
+        from.setPiece(getPieceFromSquare(from, board));
         Square to = new Square(moveTo.charAt(0),moveTo.charAt(1));
+        to.setPiece(getPieceFromSquare(to, board));
 
-        Move move = new Move(from, to);
-
-        return move;
+        return new Move(from, to);
       }
 
     /**
@@ -39,4 +39,18 @@ public class MoveParser
       {
         return "move made";
       }
+
+    public Piece getPieceFromSquare(Square square, Board board){
+      Piece piece = null;
+      Square[][] chessboard = board.getChessboard();
+      for (int i = 0; i < chessboard.length; i++) {
+        for (int j = 0; j < chessboard.length; j++) {
+          if(chessboard[i][j].getRank() == square.getRank() && chessboard[i][j].getFile() == square.getFile()){
+            piece = chessboard[i][j].getPiece();
+          }
+        }
+      }
+
+      return piece;
+    }
   }

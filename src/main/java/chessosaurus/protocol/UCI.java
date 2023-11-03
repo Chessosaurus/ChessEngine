@@ -1,5 +1,7 @@
 package chessosaurus.protocol;
 import chessosaurus.base.Board;
+import chessosaurus.base.Move;
+import chessosaurus.control.BusinessController;
 import chessosaurus.control.IController;
 
 import java.util.Scanner;
@@ -15,12 +17,12 @@ import java.util.Scanner;
 public class UCI {
 
     static String ENGINENAME = "Chessosaurus";
-    Board board = null;
     MoveParser moveParser = new MoveParser();
+    Move move = null;
 
-    private final IController controller;
+    private final BusinessController controller;
 
-    public UCI(IController controller) {
+    public UCI(BusinessController controller) {
         this.controller = controller;
     }
 
@@ -102,7 +104,7 @@ public class UCI {
      * which the engine should analyse.
      */
     private void inputUCINewGame() {
-        this.board = this.controller.initializePlayerVsPlayerGame();
+        this.controller.initializePlayerVsPlayerGame();
     }
 
     /**
@@ -120,17 +122,19 @@ public class UCI {
             if(fenString.contains("moves")) {
                 fenString = fenString.split("moves")[0].trim();
             }
-            this.board.importFen(fenString);
+            this.controller.getGame().getChessboard().importFen(fenString);
         }
         //Moves that have been made
         if (input.contains("moves")) {
             input = input.substring(input.indexOf("moves")+6);
             String[] moves = input.split(" ");
 
-        for (String move : moves)
+        for (String moveInput : moves)
             {
-                moveParser.fromUCIToMove(move);
+                this.move = moveParser.fromUCIToMove(moveInput, this.controller.getGame().getChessboard());
             }
+
+            this.controller.getGame().setChessboard(controller.executeMove(this.move));
         }
     }
 
@@ -147,6 +151,6 @@ public class UCI {
      */
     private void inputPrint() {
         //Print the field
-        board.displayBoard();
+        this.controller.getGame().getChessboard().displayBoard();
     }
 }

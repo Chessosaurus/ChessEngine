@@ -20,9 +20,13 @@ abstract class MoveReviewerBase implements IMoveReviewer{
         Square from = move.getFrom();
         Square to = move.getTo();
 
-        if(to.getPiece().getColor() != from.getPiece().getColor()){
+        if(to.getPiece() == null){
             return isSpecificLegalMove(move, chessboard);
-        }else return false;
+        } else {
+            if(to.getPiece().getColor() != from.getPiece().getColor()){
+                return isSpecificLegalMove(move, chessboard);
+            }else return false;
+        }
     }
 
 

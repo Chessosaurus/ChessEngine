@@ -29,11 +29,11 @@ public class PawnMoveReviewer extends MoveReviewerBase{
         Color color = from.getPiece().getColor();
         int fromFile = from.getFile();
         int toFile = to.getFile();
-        char fromRank = from.getRank();
-        char toRank = to.getRank();
+        int fromRank = charToInt(from.getRank());
+        int toRank = charToInt(to.getRank());
 
         //kann nich nach vorne schlagen.
-        if (board[toRank][toFile].getPiece() == null){
+        if (board[toRank-1][toFile-1].getPiece() == null){
             if (color == Color.WHITE){
                 if(fromFile == 2 && toFile ==4 && fromRank == toRank) return true;  //Checks if White Pawns first move
                 else return toFile == fromFile + 1 && fromRank == toRank;
@@ -42,5 +42,40 @@ public class PawnMoveReviewer extends MoveReviewerBase{
                 else return toFile == fromFile - 1 && fromRank == toRank;
             }
         } else return false;
+    }
+
+    private int charToInt(char input){
+
+        int intValue;
+
+        switch (input) {
+            case 'a':
+                intValue = 1;
+                break;
+            case 'b':
+                intValue = 2;
+                break;
+            case 'c':
+                intValue = 3;
+                break;
+            case 'd':
+                intValue = 4;
+                break;
+            case 'e':
+                intValue = 5;
+                break;
+            case 'f':
+                intValue = 6;
+                break;
+            case 'g':
+                intValue = 7;
+                break;
+            case 'h':
+                intValue = 8;
+                break;
+            default:
+                intValue = 0;
+        }
+        return intValue;
     }
 }

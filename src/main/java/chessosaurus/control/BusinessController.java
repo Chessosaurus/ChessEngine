@@ -50,4 +50,8 @@ public class BusinessController implements IController {
         game.executeMove(move);
         return this.game.getChessboard();
     }
+
+    public Game getGame() {
+        return game;
+    }
 }
