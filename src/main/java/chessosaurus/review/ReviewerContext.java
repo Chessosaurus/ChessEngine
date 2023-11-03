@@ -4,11 +4,24 @@ import chessosaurus.base.Board;
 import chessosaurus.base.Move;
 import chessosaurus.base.PieceType;
 
+/**
+ * The RevieweContext is to determine the correct reviewer
+ * <p>
+ * @version 1.0
+ * @author Fabian Unger
+ */
+
 public class ReviewerContext {
 
     private IMoveReviewer reviewer;
 
-    public boolean isLegalMove(Move move, Board board) {
+/**
+ * Checks depending on the piece if the move is legal
+ * @param move move being done
+ * @param board latest chessboard
+ * @return true or false depening on the move
+ */
+public boolean isLegalMove(Move move, Board board) {
         PieceType pieceType = move.getFrom().getPiece().getType();
         switch (pieceType) {
             case KING: this.reviewer = new KingMoveReviewer();
