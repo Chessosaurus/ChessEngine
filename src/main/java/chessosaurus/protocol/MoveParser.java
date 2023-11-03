@@ -30,17 +30,14 @@ public class MoveParser
         return new Move(from, to);
       }
 
-    /**
-     * Parses the given move Object back to uci protocol notation.
-     * @param move move object
-     * @return transformed move object
-     */
-    public String fromMoveToUCI(Move move)
-      {
-        return "move made";
-      }
 
-    public Piece getPieceFromSquare(Square square, Board board){
+  /**
+   * Extracts piece from given square
+   * @param square given square
+   * @param board given board
+   * @return extractes piece
+   */
+  public Piece getPieceFromSquare(Square square, Board board){
       Piece piece = null;
       Square[][] chessboard = board.getChessboard();
       for (int i = 0; i < chessboard.length; i++) {

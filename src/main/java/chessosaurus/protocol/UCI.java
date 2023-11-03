@@ -4,6 +4,8 @@ import chessosaurus.base.Move;
 import chessosaurus.control.BusinessController;
 import chessosaurus.control.IController;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -18,7 +20,7 @@ public class UCI {
 
     static String ENGINENAME = "Chessosaurus";
     MoveParser moveParser = new MoveParser();
-    Move move = null;
+    List<Move> moves      = new ArrayList<Move>();
 
     private final BusinessController controller;
 
@@ -117,24 +119,32 @@ public class UCI {
         String input = inputString.substring(9).concat(" ");
 
         //Positions of the chess pieces on the field
-        if (input.contains("fen")) {
+        if(input.contains("startpos")){
+                this.controller.getGame().getChessboard().importFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
+        }
+
+        /*if (input.contains("fen")) {
             String fenString = input.substring(4);
             if(fenString.contains("moves")) {
                 fenString = fenString.split("moves")[0].trim();
             }
             this.controller.getGame().getChessboard().importFen(fenString);
-        }
+        }*/
+
         //Moves that have been made
         if (input.contains("moves")) {
             input = input.substring(input.indexOf("moves")+6);
             String[] moves = input.split(" ");
 
-        for (String moveInput : moves)
+            for (String moveInput : moves)
             {
-                this.move = moveParser.fromUCIToMove(moveInput, this.controller.getGame().getChessboard());
+                this.moves.add(moveParser.fromUCIToMove(moveInput, this.controller.getGame().getChessboard()));
+            }
+            for (Move move: this.moves)
+            {
+                this.controller.getGame().setChessboard(controller.executeMove(move));
             }
 
-            this.controller.getGame().setChessboard(controller.executeMove(this.move));
         }
     }
 
@@ -143,7 +153,7 @@ public class UCI {
      */
     private void inputGo() {
         //@TODO durch den MINIMAX Algorithmus ersetzt werden
-        System.out.println("bestmove h7h5");
+        System.out.println("bestmove e2e4");
     }
 
     /**

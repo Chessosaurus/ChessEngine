@@ -152,40 +152,52 @@ public class Board {
         switch (piece.getType()) {
             case KING:
                 if(piece.getColor().equals(Color.WHITE)){
-                    return "♔";
+                    //return "♔";
+                    return "K";
                 }else{
-                    return "♚";
+                    //return "♚";
+                    return "k";
                 }
             case QUEEN:
                 if(piece.getColor().equals(Color.WHITE)){
-                    return "♕";
+                    //return "♕";
+                    return "Q";
                 }else{
-                    return "♛";
+                    //return "♛";
+                    return "q";
                 }
             case ROOK:
                 if(piece.getColor().equals(Color.WHITE)){
-                    return "♖";
+                    //return "♖";
+                    return "R";
                 }else{
-                    return "♜";
+                    //return "♜";
+                    return "r";
                 }
             case BISHOP:
                 if(piece.getColor().equals(Color.WHITE)){
-                    return "♗";
+                    //return "♗";
+                    return "B";
                 }else{
-                    return "♝";
+                    //return "♝";
+                    return "b";
                 }
 
             case KNIGHT:
                 if(piece.getColor().equals(Color.WHITE)){
-                    return "♘";
+                    //return "♘";
+                    return "N";
                 }else{
-                    return "♞";
+                    //return "♞";
+                    return "n";
                 }
             case PAWN:
                 if(piece.getColor().equals(Color.WHITE)){
-                    return "♙";
+                    //return "♙";
+                    return  "P";
                 }else{
-                    return "♟";
+                    //return "♟";
+                    return "P";
                 }
             default:
                 return " ";
