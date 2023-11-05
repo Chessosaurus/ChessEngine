@@ -30,24 +30,34 @@ public class MoveParser
         return new Move(from, to);
       }
 
+    /**
+     * Extract the move as a string
+     * @param move move given
+     * @return move as string
+     */
+    public String transformMoveToString(Move move){
+      String from =  move.getFrom().getRank() + String.valueOf(move.getFrom().getFile());
+      String to = move.getTo().getRank() + String.valueOf(move.getTo().getFile());
+      return from+to;
+    }
 
-  /**
-   * Extracts piece from given square
-   * @param square given square
-   * @param board given board
-   * @return extractes piece
-   */
-  public Piece getPieceFromSquare(Square square, Board board){
-      Piece piece = null;
-      Square[][] chessboard = board.getChessboard();
-      for (int i = 0; i < chessboard.length; i++) {
-        for (int j = 0; j < chessboard.length; j++) {
-          if(chessboard[i][j].getRank() == square.getRank() && chessboard[i][j].getFile() == square.getFile()){
-            piece = chessboard[i][j].getPiece();
+    /**
+     * Extracts piece from given square
+     * @param square given square
+     * @param board given board
+     * @return extractes piece
+     */
+    public Piece getPieceFromSquare(Square square, Board board){
+        Piece piece = null;
+        Square[][] chessboard = board.getChessboard();
+        for (int i = 0; i < chessboard.length; i++) {
+          for (int j = 0; j < chessboard.length; j++) {
+            if(chessboard[i][j].getRank() == square.getRank() && chessboard[i][j].getFile() == square.getFile()){
+              piece = chessboard[i][j].getPiece();
+            }
           }
         }
-      }
 
-      return piece;
-    }
+        return piece;
+      }
   }

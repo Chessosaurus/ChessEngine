@@ -3,6 +3,7 @@ import chessosaurus.base.Board;
 import chessosaurus.base.Move;
 import chessosaurus.control.BusinessController;
 import chessosaurus.control.IController;
+import chessosaurus.persistence.OpeninggameRestReader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -136,13 +137,13 @@ public class UCI {
             input = input.substring(input.indexOf("moves")+6);
             String[] moves = input.split(" ");
 
-            for (String moveInput : moves)
-            {
-                this.moves.add(moveParser.fromUCIToMove(moveInput, this.controller.getGame().getChessboard()));
-            }
-            for (Move move: this.moves)
-            {
-                this.controller.getGame().setChessboard(controller.executeMove(move));
+            if(moves.length>1) {
+                for (String moveInput : moves) {
+                    this.moves.add(moveParser.fromUCIToMove(moveInput, this.controller.getGame().getChessboard()));
+                }
+                for (Move move : this.moves) {
+                    this.controller.getGame().setChessboard(controller.executeMove(move));
+                }
             }
 
         }
@@ -152,8 +153,16 @@ public class UCI {
      * inputGo is used to tell the engine to determine the best move.
      */
     private void inputGo() {
-        //@TODO durch den MINIMAX Algorithmus ersetzt werden
-        System.out.println("bestmove e2e4");
+        //@TODO Aufruf der API muss noch nach Klassendiagramm erfolgen. Hier nur Testweise
+        OpeninggameRestReader opening = new OpeninggameRestReader();
+        if(this.moves.isEmpty()){
+            System.out.println("bestmove" + opening.getMove(null));
+        } else if (this.moves.size() == 1) {
+            System.out.println("bestmove" + opening.getMove(this.moves.get(0)));
+        } else {
+            //@TODO durch den MINIMAX Algorithmus ersetzt werden
+            System.out.println("minimax");
+        }
     }
 
     /**

@@ -123,7 +123,7 @@ public class Board {
         System.out.println(" ┏━┳━┳━┳━┳━┳━┳━┳━┓");
 
         for (int i = 7; i >= 0; i--) {
-            System.out.print((8 - i) + "┃");
+            System.out.print((i + 1) + "┃");
             for (int j = 0; j < 8; j++) {
                 if(this.chessboard[j][i].getPiece() == null){
                     pieceSymbol = " ";
@@ -133,7 +133,7 @@ public class Board {
                 }
                 System.out.print(pieceSymbol + "┃");
             }
-            System.out.println(" " + (8 - i));
+            System.out.println(" " + (i + 1));
             if (i < 7) {
                 System.out.println(" ┣━┫━┫━┫━┫━┫━┫━┫━┫");
             } else {
@@ -152,52 +152,52 @@ public class Board {
         switch (piece.getType()) {
             case KING:
                 if(piece.getColor().equals(Color.WHITE)){
-                    //return "♔";
-                    return "K";
+                    return "♔";
+                    //return "K";
                 }else{
-                    //return "♚";
-                    return "k";
+                    return "♚";
+                    //return "k";
                 }
             case QUEEN:
                 if(piece.getColor().equals(Color.WHITE)){
-                    //return "♕";
-                    return "Q";
+                    return "♕";
+                    //return "Q";
                 }else{
-                    //return "♛";
-                    return "q";
+                    return "♛";
+                    //return "q";
                 }
             case ROOK:
                 if(piece.getColor().equals(Color.WHITE)){
-                    //return "♖";
-                    return "R";
+                    return "♖";
+                    //return "R";
                 }else{
-                    //return "♜";
-                    return "r";
+                    return "♜";
+                    //return "r";
                 }
             case BISHOP:
                 if(piece.getColor().equals(Color.WHITE)){
-                    //return "♗";
-                    return "B";
+                    return "♗";
+                    //return "B";
                 }else{
-                    //return "♝";
-                    return "b";
+                    return "♝";
+                    //return "b";
                 }
 
             case KNIGHT:
                 if(piece.getColor().equals(Color.WHITE)){
-                    //return "♘";
-                    return "N";
+                    return "♘";
+                    //return "N";
                 }else{
-                    //return "♞";
-                    return "n";
+                    return "♞";
+                    //return "n";
                 }
             case PAWN:
                 if(piece.getColor().equals(Color.WHITE)){
-                    //return "♙";
-                    return  "P";
+                    return "♙";
+                    //return  "P";
                 }else{
-                    //return "♟";
-                    return "P";
+                    return "♟";
+                    //return "P";
                 }
             default:
                 return " ";
