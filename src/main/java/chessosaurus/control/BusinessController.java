@@ -28,7 +28,8 @@ public class BusinessController implements IController {
 
     @Override
     public Board initializePlayerVsBotGame() {
-        Random random = new Random();
+
+        /*Random random = new Random();
         int randomNumber = random.nextInt(2);
         IPlayer whitePlayer;
         IPlayer blackPlayer;
@@ -40,8 +41,9 @@ public class BusinessController implements IController {
             whitePlayer = new Person(Color.WHITE);
             blackPlayer = new Bot(Color.BLACK);
         }
-
         this.game = new Game(whitePlayer, blackPlayer);
+        */
+        this.game = new Game(null, null);
         return this.game.getChessboard();
     }
 

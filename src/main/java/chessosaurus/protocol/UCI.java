@@ -1,9 +1,12 @@
 package chessosaurus.protocol;
 import chessosaurus.base.Board;
+import chessosaurus.base.Color;
 import chessosaurus.base.Move;
 import chessosaurus.control.BusinessController;
 import chessosaurus.control.IController;
 import chessosaurus.persistence.OpeninggameRestReader;
+import chessosaurus.players.Bot;
+import chessosaurus.players.Person;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +24,7 @@ public class UCI {
 
     static String ENGINENAME = "Chessosaurus";
     MoveParser moveParser = new MoveParser();
-    List<Move> moves      = new ArrayList<Move>();
-
+    List<Move> moves      = new ArrayList<>();
     private final BusinessController controller;
 
     public UCI(BusinessController controller) {
@@ -107,7 +109,9 @@ public class UCI {
      * which the engine should analyse.
      */
     private void inputUCINewGame() {
+        this.moves.clear();
         this.controller.initializePlayerVsPlayerGame();
+        //this.controller.initializePlayerVsBotGame();
     }
 
     /**
@@ -136,14 +140,30 @@ public class UCI {
         if (input.contains("moves")) {
             input = input.substring(input.indexOf("moves")+6);
             String[] moves = input.split(" ");
+            ArrayList<String> movesToCheck = new ArrayList<>();
+            for (String move : moves) {
+                if (!move.isEmpty()) {
+                    movesToCheck.add(move);
+                }
+            }
 
-            if(moves.length>1) {
-                for (String moveInput : moves) {
+            /*needed for bot vs. player to decide what color the bot is
+            if(this.controller.getGame().getBlackPlayer() != null && this.controller.getGame().getWhitePlayer() != null && movesToCheck.size() %2 !=0){
+                this.controller.getGame().setWhitePlayer(new Bot(Color.WHITE));
+                this.controller.getGame().setBlackPlayer(new Person(Color.BLACK));
+            } else if(this.controller.getGame().getBlackPlayer() != null && this.controller.getGame().getWhitePlayer() != null) {
+                this.controller.getGame().setWhitePlayer(new Person(Color.WHITE));
+                this.controller.getGame().setBlackPlayer(new Bot(Color.BLACK));
+            }*/
+
+            if(movesToCheck.size()>0) {
+                for (String moveInput : movesToCheck) {
                     this.moves.add(moveParser.fromUCIToMove(moveInput, this.controller.getGame().getChessboard()));
                 }
                 for (Move move : this.moves) {
                     this.controller.getGame().setChessboard(controller.executeMove(move));
                 }
+                //@TODO für Endspiel Datenbank => wenn auf dem feld max. 7 Figuren stehen bool setzen, sodass bei go Aufruf auf die Endspieldatenbank zugegriffen werden kann.
             }
 
         }

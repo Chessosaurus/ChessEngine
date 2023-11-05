@@ -42,4 +42,20 @@ public class Game {
         }
         this.chessboard = boardAfterMove;
     }
+
+    public void setBlackPlayer(IPlayer blackPlayer) {
+        this.blackPlayer = blackPlayer;
+    }
+
+    public void setWhitePlayer(IPlayer whitePlayer) {
+        this.whitePlayer = whitePlayer;
+    }
+
+    public IPlayer getBlackPlayer() {
+        return blackPlayer;
+    }
+
+    public IPlayer getWhitePlayer() {
+        return whitePlayer;
+    }
 }

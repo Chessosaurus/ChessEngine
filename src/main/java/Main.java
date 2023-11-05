@@ -18,7 +18,7 @@ public class Main {
         uci.uciCommunication();
 
 
-        /**
+        /*
          * Testing the Engine over the Terminal
          * 1. Input: ucinewgame (This initializes a new game)
          * 2. Input: position startpos moves e2e4 (this sets the board and converts moves)

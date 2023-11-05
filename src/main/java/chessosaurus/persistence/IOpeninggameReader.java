@@ -1,6 +1,5 @@
 package chessosaurus.persistence;
 
-import chessosaurus.base.Board;
 import chessosaurus.base.Move;
 
 /**
@@ -10,10 +9,10 @@ import chessosaurus.base.Move;
  * Author: Fabian Eilber
  */
 
-public interface IRestReader {
+public interface IOpeninggameReader {
 
     /**
-     * Sends current board to get move from the api
+     * Sends first made move to get move from the api
      * @return best move
      */
     String getMove(Move currentMove);

@@ -15,7 +15,7 @@ import java.net.URL;
  * Author: Fabian Eilber
  */
 
-public class OpeninggameRestReader implements IRestReader{
+public class OpeninggameRestReader implements IOpeninggameReader {
 
     MoveParser moveParser = new MoveParser();
 

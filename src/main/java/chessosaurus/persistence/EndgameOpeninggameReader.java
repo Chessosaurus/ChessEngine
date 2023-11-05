@@ -1,6 +1,5 @@
 package chessosaurus.persistence;
 
-import chessosaurus.base.Board;
 import chessosaurus.base.Move;
 
 /**
@@ -10,14 +9,11 @@ import chessosaurus.base.Move;
  * Author: Fabian Eilber
  */
 
-public class EndgameRestReader implements IRestReader{
+public class EndgameOpeninggameReader implements IEndgameReader {
 
-    /**
-     * Sends current board to get move from the api
-     * @return best move
-     */
+
     @Override
-    public String getMove(Move currentMove) {
+    public String getMove() {
         return null;
     }
 }
