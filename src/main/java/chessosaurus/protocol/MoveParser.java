@@ -2,6 +2,8 @@ package chessosaurus.protocol;
 
 import chessosaurus.base.*;
 
+import java.util.Optional;
+
 /**
  * The class MoveParser is responsible for parsing the moves made to a processable object.
  * <p>
@@ -47,17 +49,19 @@ public class MoveParser
      * @param board given board
      * @return extractes piece
      */
-    public Piece getPieceFromSquare(Square square, Board board){
-        Piece piece = null;
-        Square[][] chessboard = board.getChessboard();
-        for (int i = 0; i < chessboard.length; i++) {
-          for (int j = 0; j < chessboard.length; j++) {
-            if(chessboard[i][j].getRank() == square.getRank() && chessboard[i][j].getFile() == square.getFile()){
-              piece = chessboard[i][j].getPiece();
-            }
-          }
-        }
-
-        return piece;
+    public Optional<Piece> getPieceFromSquare(Square square, Board board){
+//        Piece piece = null;
+//        Square[][] chessboard = board.getChessboard();
+      int rank = square.getRankVal();
+        return board.getChessboard()[rank-1][square.getFile()-1].getPiece();
+//        for (int i = 0; i < chessboard.length; i++) {
+//          for (int j = 0; j < chessboard.length; j++) {
+//            if(chessboard[i][j].getRank() == square.getRank() && chessboard[i][j].getFile() == square.getFile()){
+//              piece = chessboard[i][j].getPiece();
+//            }
+//          }
+//        }
+//
+//        return piece;
       }
   }

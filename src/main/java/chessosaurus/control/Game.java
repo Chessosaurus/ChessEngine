@@ -5,6 +5,8 @@ import chessosaurus.base.Color;
 import chessosaurus.base.Move;
 import chessosaurus.players.IPlayer;
 
+import java.util.Optional;
+
 
 /**
  * Class to manage the game by managing the main board and the players.
@@ -32,7 +34,11 @@ public class Game {
     }
 
     public void executeMove(Move move) {
-        Color color = move.getFrom().getPiece().getColor();
+        if(move.getFrom().getPiece().isEmpty()){
+            throw new IllegalArgumentException("The from field doesnt have a piece on it");
+        }
+        Color color = move.getFrom().getPiece().get().getColor();
+
 
         Board boardAfterMove;
         if (color.equals(Color.WHITE)) {

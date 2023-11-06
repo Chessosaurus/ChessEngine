@@ -20,11 +20,14 @@ abstract class MoveReviewerBase implements IMoveReviewer{
         Square from = move.getFrom();
         Square to = move.getTo();
 
-        if(to.getPiece() == null){
-            return isSpecificLegalMove(move, chessboard);
+        if(from.getPiece().isEmpty()){
+            throw new IllegalArgumentException("From square is empty");
+        }
+        if(to.getPiece().isEmpty()){
+            return isSpecificLegalMove(move,from.getPiece().get().getColor() ,chessboard);
         } else {
-            if(to.getPiece().getColor() != from.getPiece().getColor()){
-                return isSpecificLegalMove(move, chessboard);
+            if(to.getPiece().get().getColor() != from.getPiece().get().getColor()){
+                return isSpecificLegalMove(move,from.getPiece().get().getColor(),chessboard);
             }else return false;
         }
     }
@@ -32,11 +35,11 @@ abstract class MoveReviewerBase implements IMoveReviewer{
 
     /**
      * Checks whether a particular move is legal on the chessboard.
-     * Each Piece has a own class where the move gets reviewed.
+     * Each Piece has an own class where the move gets reviewed.
      *
      * @param move The move to be checked.
      * @param chessboard The chessboard on which the move is made.
      * @return {@code true}, if the move was legal, else {@code false}.
      */
-    abstract boolean isSpecificLegalMove(Move move, Board chessboard);
+    abstract boolean isSpecificLegalMove(Move move,Color color, Board chessboard);
 }

@@ -120,7 +120,7 @@ public class UCI {
      * @param inputString Positions and moves in FEN notation
      */
     private void inputPosition(String inputString) {
-
+        this.moves = new ArrayList<>();
         String input = inputString.substring(9).concat(" ");
 
         //Positions of the chess pieces on the field

@@ -119,28 +119,28 @@ public class Board {
 
         String pieceSymbol;
 
-        System.out.println("  A B C D E F G H");
-        System.out.println(" ┏━┳━┳━┳━┳━┳━┳━┳━┓");
+        System.out.println("  A  B  C  D  E  F  G  H");
+        System.out.println(" ┏━━┳━━┳━━┳━━┳━━┳━━┳━━┳━━┓");
 
         for (int i = 7; i >= 0; i--) {
             System.out.print((i + 1) + "┃");
             for (int j = 0; j < 8; j++) {
-                if(this.chessboard[j][i].getPiece() == null){
-                    pieceSymbol = " ";
+                if(this.chessboard[j][i].getPiece().isEmpty()){
+                    pieceSymbol = "  ";
                 }else{
-                    Piece piece = this.chessboard[j][i].getPiece();
+                    Piece piece = this.chessboard[j][i].getPiece().get();
                     pieceSymbol = getPieceSymbol(piece);
                 }
                 System.out.print(pieceSymbol + "┃");
             }
             System.out.println(" " + (i + 1));
-            if (i < 7) {
-                System.out.println(" ┣━┫━┫━┫━┫━┫━┫━┫━┫");
+            if (i != 0) {
+                System.out.println(" ┣━━┫━━┫━━┫━━┫━━┫━━┫━━┫━━┫");
             } else {
-                System.out.println(" ┗━┻━┻━┻━┻━┻━┻━┻━┛");
+                System.out.println(" ┗━━┻━━┻━━┻━━┻━━┻━━┻━━┻━━┛");
             }
         }
-        System.out.println("  A B C D E F G H");
+        System.out.println("  A  B  C  D  E  F  G  H");
     }
 
     /**

@@ -22,11 +22,11 @@ public class RookMoveReviewer extends MoveReviewerBase{
      * @return {@code true}, if the move was legal, else {@code false}.
      */
     @Override
-    boolean isSpecificLegalMove(Move move, Board chessboard) {
+    boolean isSpecificLegalMove(Move move,Color color, Board chessboard) {
         Square from = move.getFrom();
         Square to = move.getTo();
         Square[][] board = chessboard.getChessboard();
-        Color color = from.getPiece().getColor();
+        //Color color = from.getPiece().getColor();
         int fromFile = from.getFile();
         int toFile = to.getFile();
         int fromRank = charToInt(from.getRank());
