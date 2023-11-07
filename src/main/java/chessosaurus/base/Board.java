@@ -112,6 +112,41 @@ public class Board {
     }
 
     /**
+     * Transforms the given chessboard to fen-notation
+     * @param chessboard chessboard
+     * @return chessboard as fen-notation
+     */
+    public String transformBoardToFen(Board chessboard){
+        StringBuilder fen = new StringBuilder();
+        int emptyCount = 0;
+        Square[][] square = chessboard.getChessboard();
+
+        for (int i=0; i< square.length; i++){
+            for (int j=0; j<square.length; j++){
+                if(square[i][j].getPiece().isEmpty()){
+                    emptyCount++;
+                } else {
+                    if (emptyCount > 0) {
+                        fen.append(emptyCount);
+                        emptyCount = 0;
+                    }
+                    fen.append(getCharFromPiece(square[i][j].getPiece().get()));
+                }
+            }
+            if(emptyCount>0){
+                fen.append(emptyCount);
+                emptyCount = 0;
+            }
+            if(i<7) {
+                fen.append('/');
+            }
+        }
+
+
+        return fen.toString();
+    }
+
+    /**
      * Outputs the chessboard in the console, using the names of the chess pieces.
      * Blank fields are represented by "-".
      */
@@ -204,12 +239,63 @@ public class Board {
         }
     }
 
-
+    /**
+     * Returns the current chessboard
+     * @return current chessboard
+     */
     public Square[][] getChessboard() {
         return chessboard;
     }
 
+    /**
+     * Sets the current chessboard
+     * @param chessboard current chessboard
+     */
     public void setChessboard(Square[][] chessboard) {
         this.chessboard = chessboard;
+    }
+
+    /**
+     * Counts the pieces on the board
+     * @param currentboard current chessboard
+     * @return count of pieces on the board
+     */
+    public int getPieceCount(Board currentboard){
+        int count = 0;
+        Square[][] square = currentboard.getChessboard();
+        for (int i=0; i < square.length; i++){
+            for (int j=0; j < square.length; j++ ){
+                if(square[i][j].getPiece().isPresent()){
+                    count++;
+                }
+            }
+        }
+
+
+        return count;
+    }
+
+    public char getCharFromPiece(Piece piece){
+        char charFromPiece = ' ';
+        if(piece.getColor().equals(Color.BLACK)){
+            switch (piece.getType()){
+            case ROOK -> charFromPiece = 'r';
+            case KING -> charFromPiece = 'k';
+            case QUEEN -> charFromPiece = 'q';
+            case PAWN -> charFromPiece = 'p';
+            case BISHOP -> charFromPiece = 'b';
+            case KNIGHT -> charFromPiece = 'n';
+            }
+        } else {
+            switch (piece.getType()){
+                case ROOK -> charFromPiece = 'R';
+                case KING -> charFromPiece = 'K';
+                case QUEEN -> charFromPiece = '!';
+                case PAWN -> charFromPiece = 'P';
+                case BISHOP -> charFromPiece = 'B';
+                case KNIGHT -> charFromPiece = 'N';
+            }
+        }
+        return charFromPiece;
     }
 }
