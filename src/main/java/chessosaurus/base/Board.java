@@ -34,21 +34,19 @@ public class Board {
 
         String[] parts = fenNotation.split(" ");
         String position = parts[0];
-        int rank = 7;
+        int rank = 0;
         int file = 0;
 
         for (char c : position.toCharArray()) {
             if (c == '/') {
-                rank--;
-                file = 0;
+                rank = 0;
+                file ++;
             } else if (Character.isDigit(c)) {
                 int emptySpaces = Character.getNumericValue(c);
                 for (int i = 0; i < emptySpaces; i++) {
-                    //this.chessboard[rank][file++] ;
-                    file++;
+                    rank++;
                 }
             } else {
-
 
                 Piece piece = new Piece();
 
@@ -106,7 +104,7 @@ public class Board {
                 }
 
 
-                this.chessboard[file++][rank].setPiece(piece);
+                this.chessboard[file][rank++].setPiece(piece);
             }
         }
     }
@@ -122,7 +120,7 @@ public class Board {
         Square[][] square = chessboard.getChessboard();
 
         for (int i=0; i< square.length; i++){
-            for (int j=0; j<square.length; j++){
+            for (int j=0; j < square.length; j++){
                 if(square[i][j].getPiece().isEmpty()){
                     emptyCount++;
                 } else {
@@ -157,13 +155,13 @@ public class Board {
         System.out.println("  A  B  C  D  E  F  G  H");
         System.out.println(" ┏━━┳━━┳━━┳━━┳━━┳━━┳━━┳━━┓");
 
-        for (int i = 7; i >= 0; i--) {
+        for (int i = 0; i <=7; i++) {
             System.out.print((i + 1) + "┃");
-            for (int j = 0; j < 8; j++) {
-                if(this.chessboard[j][i].getPiece().isEmpty()){
+            for (int j = 0; j <=7; j++) {
+                if(this.chessboard[i][j].getPiece().isEmpty()){
                     pieceSymbol = "  ";
                 }else{
-                    Piece piece = this.chessboard[j][i].getPiece().get();
+                    Piece piece = this.chessboard[i][j].getPiece().get();
                     pieceSymbol = getPieceSymbol(piece);
                 }
                 System.out.print(pieceSymbol + "┃");
@@ -290,7 +288,7 @@ public class Board {
             switch (piece.getType()){
                 case ROOK -> charFromPiece = 'R';
                 case KING -> charFromPiece = 'K';
-                case QUEEN -> charFromPiece = '!';
+                case QUEEN -> charFromPiece = 'Q';
                 case PAWN -> charFromPiece = 'P';
                 case BISHOP -> charFromPiece = 'B';
                 case KNIGHT -> charFromPiece = 'N';
