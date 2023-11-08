@@ -23,6 +23,7 @@ public class BusinessController implements IController {
 
     @Override
     public Board initializeGame() {
+        /*
         Color colorOfEnemy;
 
         Random random = new Random();
@@ -33,6 +34,8 @@ public class BusinessController implements IController {
         }
 
         this.game = new Game(colorOfEnemy, this.enemyMoverContext);
+         */
+        this.game = new Game(null, this.enemyMoverContext);
         return this.game.getChessboard();
     }
 

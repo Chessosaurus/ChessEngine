@@ -56,18 +56,9 @@ public class UCIMoveParser implements IMoveParser
      * @return extractes piece
      */
     public Optional<Piece> getPieceFromSquare(Square square, Board board){
-//        Piece piece = null;
-//        Square[][] chessboard = board.getChessboard();
-      int rank = square.getRankVal();
-        return board.getChessboard()[rank-1][square.getFile()-1].getPiece();
-//        for (int i = 0; i < chessboard.length; i++) {
-//          for (int j = 0; j < chessboard.length; j++) {
-//            if(chessboard[i][j].getRank() == square.getRank() && chessboard[i][j].getFile() == square.getFile()){
-//              piece = chessboard[i][j].getPiece();
-//            }
-//          }
-//        }
-//
-//        return piece;
-      }
+
+        int rank = square.getRankVal();
+        int file = square.getFile();
+        return board.getChessboard()[8-file][rank-1].getPiece();
+    }
   }

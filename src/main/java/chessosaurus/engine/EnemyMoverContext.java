@@ -35,13 +35,14 @@ public class EnemyMoverContext implements IEnemyMoverContext {
 
         int pieceCount = currentBoard.getPieceCount(currentBoard);
 
-        if (movesCount < 16) {
+        if (movesCount < 16 && movesCount!=0) {
             Move lastMove = allMoves.get(movesCount-1);
             OpeningMoveSelector enemyMover = new OpeningMoveSelector(this.openinggameReader);
             move = enemyMover.getBestMove(currentBoard, lastMove);
         }
         if (move == null && pieceCount < 8) {
             EndMoveSelector enemyMover = new EndMoveSelector(this.endgameReader);
+            //TODO BestMove benötigt FEN-Notation von aktuellem Board, in der auch die Farbe dargestellt ist. => 4k3/6KP/8/8/8/8/7p/8_w_-_-_0_1
             move = enemyMover.getBestMove();
         }
         if (move == null) {

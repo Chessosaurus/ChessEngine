@@ -46,8 +46,8 @@ public class Game {
         ReviewerContext reviewerContext = new ReviewerContext();
 
         if (reviewerContext.isLegalMove(move, this.chessboard)) {
-            this.chessboard.getChessboard()[move.getTo().getRankVal() - 1][move.getTo().getFile() - 1].setPiece(move.getFrom().getPiece().get());
-            this.chessboard.getChessboard()[move.getFrom().getRankVal() - 1][move.getFrom().getFile() - 1].setPiece(Optional.empty());
+            this.chessboard.getChessboard()[8 - move.getTo().getFile()][move.getTo().getRankVal() - 1].setPiece(move.getFrom().getPiece().get());
+            this.chessboard.getChessboard()[8 - move.getFrom().getFile()][move.getFrom().getRankVal() - 1].setPiece(Optional.empty());
         }
         else {
             // TODO: Hier hat Spieler an Frontend verloren
@@ -62,4 +62,11 @@ public class Game {
         return new ArrayList<>(this.moves);
     }
 
+    public void setMoves(List<Move> moves) {
+        this.moves = moves;
+    }
+
+    public Enemy getEnemy() {
+        return enemy;
+    }
 }

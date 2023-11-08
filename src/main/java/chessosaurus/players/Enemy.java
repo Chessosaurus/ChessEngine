@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class Enemy {
 
-    private final Color color;
+    private Color color;
     private final IEnemyMoverContext enemyMoverContext;
 
     public Enemy(Color color, IEnemyMoverContext enemyMoverContext) {
@@ -27,6 +27,8 @@ public class Enemy {
     public Color getColor() {
         return this.color;
     }
+
+    public void setColor(Color color){this.color = color;}
 
     public Move getBestMove(List<Move> allMoves, Board currentBoard) {
         Board board = new Board(currentBoard);

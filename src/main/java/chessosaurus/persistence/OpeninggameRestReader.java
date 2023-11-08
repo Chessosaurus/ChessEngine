@@ -50,6 +50,7 @@ public class OpeninggameRestReader implements IOpeninggameReader {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode jsonNode = mapper.readTree(connection.getInputStream());
 
+            //TODO: Moves die man bekommt müssen noch geprüft werden, ob diese auf aktuellem Board durch geführt werden können.
             String bestMoveString = (jsonNode.get("moves").get(0).get("uci").toString());
             bestMove = moveParser.fromStringToMove(bestMoveString, currentBoard);
 
