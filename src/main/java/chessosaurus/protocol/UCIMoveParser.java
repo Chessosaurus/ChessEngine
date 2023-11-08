@@ -1,6 +1,8 @@
 package chessosaurus.protocol;
 
 import chessosaurus.base.*;
+import chessosaurus.control.Game;
+import chessosaurus.control.IController;
 
 import java.util.Optional;
 
@@ -10,7 +12,7 @@ import java.util.Optional;
  * Version: 1.0
  * Author: Fabian Eilber
  */
-public class MoveParser
+public class UCIMoveParser implements IMoveParser
   {
 
     /**
@@ -18,8 +20,11 @@ public class MoveParser
      * @param moveInput part of the uci protocoll describing moves made
      * @return move object to further process
      */
-    public Move fromUCIToMove (String moveInput, Board board)
+    @Override
+    public Move fromStringToMove(String moveInput, Board currentBoard)
       {
+        Board board = new Board(currentBoard);
+
         int halfLength = moveInput.length() / 2;
         String moveFrom = moveInput.substring(0, halfLength);
         String moveTo = moveInput.substring(halfLength);
@@ -37,7 +42,8 @@ public class MoveParser
      * @param move move given
      * @return move as string
      */
-    public String transformMoveToString(Move move){
+    @Override
+    public String fromMoveToString(Move move){
       String from =  move.getFrom().getRank() + String.valueOf(move.getFrom().getFile());
       String to = move.getTo().getRank() + String.valueOf(move.getTo().getFile());
       return from+to;

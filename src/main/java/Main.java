@@ -1,5 +1,9 @@
 import chessosaurus.control.BusinessController;
+import chessosaurus.engine.EnemyMoverContext;
+import chessosaurus.persistence.EndgameRestReader;
+import chessosaurus.persistence.OpeninggameRestReader;
 import chessosaurus.protocol.UCI;
+import chessosaurus.protocol.UCIMoveParser;
 
 /**
  * This class starts the chessosaurus engine
@@ -10,10 +14,17 @@ import chessosaurus.protocol.UCI;
 public class Main {
     public static void main(String[] args) {
 
-        BusinessController controller = new BusinessController();
+        UCIMoveParser moveParser = new UCIMoveParser();
+
+        OpeninggameRestReader openinggameRestReader = new OpeninggameRestReader(moveParser);
+        EndgameRestReader endgameRestReader = new EndgameRestReader(moveParser);
+
+        EnemyMoverContext enemyMoverContext = new EnemyMoverContext(openinggameRestReader, endgameRestReader);
+
+        BusinessController controller = new BusinessController(enemyMoverContext);
 
         //Instantiate object of class UCI to ensure communication
-        UCI uci = new UCI(controller);
+        UCI uci = new UCI(controller, moveParser);
         //Start the communication of the engine
         uci.uciCommunication();
 

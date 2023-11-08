@@ -1,12 +1,8 @@
 package chessosaurus.protocol;
-import chessosaurus.base.Board;
-import chessosaurus.base.Color;
 import chessosaurus.base.Move;
 import chessosaurus.control.BusinessController;
 import chessosaurus.control.IController;
 import chessosaurus.persistence.OpeninggameRestReader;
-import chessosaurus.players.Bot;
-import chessosaurus.players.Person;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,12 +19,15 @@ import java.util.Scanner;
 public class UCI {
 
     static String ENGINENAME = "Chessosaurus";
-    MoveParser moveParser = new MoveParser();
-    List<Move> moves      = new ArrayList<>();
-    private final BusinessController controller;
 
-    public UCI(BusinessController controller) {
+    List<Move> moves      = new ArrayList<>();
+    private final IController controller;
+    private final IMoveParser moveParser;
+
+    public UCI(IController controller,
+               IMoveParser moveParser) {
         this.controller = controller;
+        this.moveParser = moveParser;
     }
 
     /**
@@ -110,8 +109,7 @@ public class UCI {
      */
     private void inputUCINewGame() {
         this.moves.clear();
-        this.controller.initializePlayerVsPlayerGame();
-        //this.controller.initializePlayerVsBotGame();
+        this.controller.initializeGame();
     }
 
     /**
@@ -158,10 +156,10 @@ public class UCI {
 
             if(movesToCheck.size()>0) {
                 for (String moveInput : movesToCheck) {
-                    this.moves.add(moveParser.fromUCIToMove(moveInput, this.controller.getGame().getChessboard()));
+                    this.moves.add(moveParser.fromStringToMove(moveInput, this.controller.getGame().getChessboard()));
                 }
                 for (Move move : this.moves) {
-                    this.controller.getGame().setChessboard(controller.executeMove(move));
+                    this.controller.getGame().setChessboard(controller.reviewPlayerMove(move));
                 }
                 //@TODO für Endspiel Datenbank => wenn auf dem feld max. 7 Figuren stehen bool setzen, sodass bei go Aufruf auf die Endspieldatenbank zugegriffen werden kann.
             }
@@ -173,7 +171,10 @@ public class UCI {
      * inputGo is used to tell the engine to determine the best move.
      */
     private void inputGo() {
+        Move bestMove = this.controller.calculateBestMove();
+
         //@TODO Aufruf der API muss noch nach Klassendiagramm erfolgen. Hier nur Testweise
+        /*
         OpeninggameRestReader opening = new OpeninggameRestReader();
         if(this.moves.isEmpty()){
             System.out.println("bestmove" + opening.getMove(null));
@@ -183,6 +184,7 @@ public class UCI {
             //@TODO durch den MINIMAX Algorithmus ersetzt werden
             System.out.println("minimax");
         }
+        */
     }
 
     /**
