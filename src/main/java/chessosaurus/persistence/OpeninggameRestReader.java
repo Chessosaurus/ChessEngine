@@ -1,7 +1,9 @@
 package chessosaurus.persistence;
 
+import chessosaurus.base.Board;
 import chessosaurus.base.Move;
-import chessosaurus.protocol.MoveParser;
+import chessosaurus.protocol.IMoveParser;
+import chessosaurus.protocol.UCIMoveParser;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -17,19 +19,23 @@ import java.net.URL;
 
 public class OpeninggameRestReader implements IOpeninggameReader {
 
-    MoveParser moveParser = new MoveParser();
+    private final IMoveParser moveParser;
+
+    public OpeninggameRestReader(IMoveParser moveParser) {
+        this.moveParser = moveParser;
+    }
 
     /**
      * Sends current board to get move from the api
      * @return best move
      */
     @Override
-    public String getMove(Move currentMove) {
-        String bestMove = "";
+    public Move getMove(Board currentBoard, Move currentMove) {
+        Move bestMove = null;
         String moveMade = "";
         try {
             if(currentMove != null){
-                moveMade = moveParser.transformMoveToString(currentMove);
+                moveMade = moveParser.fromMoveToString(currentMove);
             }
 
             // API-URL for the opening database
@@ -44,7 +50,8 @@ public class OpeninggameRestReader implements IOpeninggameReader {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode jsonNode = mapper.readTree(connection.getInputStream());
 
-            bestMove = (jsonNode.get("moves").get(0).get("uci").toString());
+            String bestMoveString = (jsonNode.get("moves").get(0).get("uci").toString());
+            bestMove = moveParser.fromStringToMove(bestMoveString, currentBoard);
 
         } catch (Exception e) {
             e.printStackTrace();

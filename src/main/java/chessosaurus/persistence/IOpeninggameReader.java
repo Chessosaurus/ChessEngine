@@ -1,5 +1,6 @@
 package chessosaurus.persistence;
 
+import chessosaurus.base.Board;
 import chessosaurus.base.Move;
 
 /**
@@ -15,5 +16,5 @@ public interface IOpeninggameReader {
      * Sends first made move to get move from the api
      * @return best move
      */
-    String getMove(Move currentMove);
+    Move getMove(Board currentBoard, Move currentMove);
 }
