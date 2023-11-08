@@ -3,9 +3,7 @@ package chessosaurus.control;
 import chessosaurus.base.Board;
 import chessosaurus.base.Color;
 import chessosaurus.base.Move;
-import chessosaurus.players.Bot;
-import chessosaurus.players.IPlayer;
-import chessosaurus.players.Person;
+import chessosaurus.engine.IEnemyMoverContext;
 
 import java.util.Random;
 
@@ -17,42 +15,39 @@ import java.util.Random;
 public class BusinessController implements IController {
     private Game game;
 
-    @Override
-    public Board initializePlayerVsPlayerGame() {
-        IPlayer whitePlayer = new Person(Color.WHITE);
-        IPlayer blackPlayer = new Person(Color.BLACK);
 
-        this.game = new Game(whitePlayer, blackPlayer);
-        return this.game.getChessboard();
+    private final IEnemyMoverContext enemyMoverContext;
+    public BusinessController(IEnemyMoverContext enemyMoverContext) {
+        this.enemyMoverContext = enemyMoverContext;
     }
 
     @Override
-    public Board initializePlayerVsBotGame() {
+    public Board initializeGame() {
+        Color colorOfEnemy;
 
-        /*Random random = new Random();
-        int randomNumber = random.nextInt(2);
-        IPlayer whitePlayer;
-        IPlayer blackPlayer;
-        if (randomNumber == 0) {
-            whitePlayer = new Bot(Color.WHITE);
-            blackPlayer = new Person(Color.BLACK);
+        Random random = new Random();
+        if (random.nextInt(2) == 0) {
+            colorOfEnemy = Color.WHITE;
+        } else {
+            colorOfEnemy = Color.BLACK;
         }
-        else {
-            whitePlayer = new Person(Color.WHITE);
-            blackPlayer = new Bot(Color.BLACK);
-        }
-        this.game = new Game(whitePlayer, blackPlayer);
-        */
-        this.game = new Game(null, null);
+
+        this.game = new Game(colorOfEnemy, this.enemyMoverContext);
         return this.game.getChessboard();
     }
 
     @Override
-    public Board executeMove(Move move) {
-        game.executeMove(move);
+    public Board reviewPlayerMove(Move move) {
+        game.reviewPlayerMove(move);
         return this.game.getChessboard();
     }
 
+    @Override
+    public Move calculateBestMove() {
+        return this.game.calculateBestEnemyMove();
+    }
+
+    @Override
     public Game getGame() {
         return game;
     }

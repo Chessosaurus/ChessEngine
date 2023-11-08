@@ -1,6 +1,7 @@
 package chessosaurus.control;
 
 import chessosaurus.base.Board;
+import chessosaurus.base.Color;
 import chessosaurus.base.Move;
 
 /**
@@ -10,8 +11,8 @@ import chessosaurus.base.Move;
  */
 public interface IController {
 
-    Board initializePlayerVsPlayerGame();
-    Board initializePlayerVsBotGame();
-    Board executeMove(Move move);
-
+    Board initializeGame();
+    Board reviewPlayerMove(Move move);
+    Game getGame();
+    Move calculateBestMove();
 }

@@ -3,8 +3,13 @@ package chessosaurus.control;
 import chessosaurus.base.Board;
 import chessosaurus.base.Color;
 import chessosaurus.base.Move;
-import chessosaurus.players.IPlayer;
+import chessosaurus.engine.EnemyMoverContext;
+import chessosaurus.engine.IEnemyMoverContext;
+import chessosaurus.players.Enemy;
+import chessosaurus.review.ReviewerContext;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -16,13 +21,13 @@ import java.util.Optional;
 public class Game {
 
     private Board chessboard;
-    private IPlayer whitePlayer;
-    private IPlayer blackPlayer;
+    private final Enemy enemy;
+    private List<Move> moves;
 
-    public Game(IPlayer whitePlayer, IPlayer blackPlayer) {
+    public Game(Color enemyColor, IEnemyMoverContext enemyMoverContext) {
         this.chessboard = new Board();
-        this.whitePlayer = whitePlayer;
-        this.blackPlayer = blackPlayer;
+        this.enemy = new Enemy(enemyColor, enemyMoverContext);
+        this.moves = new ArrayList<>();
     }
 
     public Board getChessboard() {
@@ -33,35 +38,28 @@ public class Game {
         this.chessboard = chessboard;
     }
 
-    public void executeMove(Move move) {
+    public void reviewPlayerMove(Move move) {
         if(move.getFrom().getPiece().isEmpty()){
             throw new IllegalArgumentException("The from field doesnt have a piece on it");
         }
-        Color color = move.getFrom().getPiece().get().getColor();
 
+        ReviewerContext reviewerContext = new ReviewerContext();
 
-        Board boardAfterMove;
-        if (color.equals(Color.WHITE)) {
-            boardAfterMove = whitePlayer.move(move, this.chessboard);
-        } else {
-            boardAfterMove = blackPlayer.move(move, this.chessboard);
+        if (reviewerContext.isLegalMove(move, this.chessboard)) {
+            this.chessboard.getChessboard()[move.getTo().getRankVal() - 1][move.getTo().getFile() - 1].setPiece(move.getFrom().getPiece().get());
+            this.chessboard.getChessboard()[move.getFrom().getRankVal() - 1][move.getFrom().getFile() - 1].setPiece(Optional.empty());
         }
-        this.chessboard = boardAfterMove;
+        else {
+            // TODO: Hier hat Spieler an Frontend verloren
+        }
     }
 
-    public void setBlackPlayer(IPlayer blackPlayer) {
-        this.blackPlayer = blackPlayer;
+    public Move calculateBestEnemyMove() {
+        return this.enemy.getBestMove(this.moves, this.chessboard);
     }
 
-    public void setWhitePlayer(IPlayer whitePlayer) {
-        this.whitePlayer = whitePlayer;
+    public List<Move> getMoves() {
+        return new ArrayList<>(this.moves);
     }
 
-    public IPlayer getBlackPlayer() {
-        return blackPlayer;
-    }
-
-    public IPlayer getWhitePlayer() {
-        return whitePlayer;
-    }
 }
