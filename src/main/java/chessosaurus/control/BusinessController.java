@@ -21,6 +21,10 @@ public class BusinessController implements IController {
         this.enemyMoverContext = enemyMoverContext;
     }
 
+    /**
+     * Initialization of the game
+     * @return new chessboard
+     */
     @Override
     public Board initializeGame() {
         /*
@@ -39,17 +43,30 @@ public class BusinessController implements IController {
         return this.game.getChessboard();
     }
 
+    /**
+     * Checks the player's move
+     * @param move player's move
+     * @return updated chessboard
+     */
     @Override
     public Board reviewPlayerMove(Move move) {
         game.reviewPlayerMove(move);
         return this.game.getChessboard();
     }
 
+    /**
+     * Calculates the best move possible for the enemy.
+     * @return best move
+     */
     @Override
     public Move calculateBestMove() {
         return this.game.calculateBestEnemyMove();
     }
 
+    /**
+     * Returns the game with all information
+     * @return Game object
+     */
     @Override
     public Game getGame() {
         return game;

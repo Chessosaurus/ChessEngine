@@ -11,8 +11,28 @@ import chessosaurus.base.Move;
  */
 public interface IController {
 
+    /**
+     * Initialization of the game
+     * @return new chessboard
+     */
     Board initializeGame();
+
+    /**
+     * Checks the player's move
+     * @param move player's move
+     * @return updated chessboard
+     */
     Board reviewPlayerMove(Move move);
+
+    /**
+     * Returns the game with all information
+     * @return Game object
+     */
     Game getGame();
+
+    /**
+     * Calculates the best move possible for the enemy.
+     * @return best move
+     */
     Move calculateBestMove();
 }

@@ -38,6 +38,22 @@ public class Game {
         this.chessboard = chessboard;
     }
 
+    public List<Move> getMoves() {
+        return new ArrayList<>(this.moves);
+    }
+
+    public void setMoves(List<Move> moves) {
+        this.moves = moves;
+    }
+
+    public Enemy getEnemy() {
+        return enemy;
+    }
+
+    /**
+     * Checks the player's move and updates the chessboard accordingly
+     * @param move Move of the player
+     */
     public void reviewPlayerMove(Move move) {
         if(move.getFrom().getPiece().isEmpty()){
             throw new IllegalArgumentException("The from field doesnt have a piece on it");
@@ -54,19 +70,11 @@ public class Game {
         }
     }
 
+    /**
+     * Access the Enemy to get the best move possible.
+     * @return best move
+     */
     public Move calculateBestEnemyMove() {
         return this.enemy.getBestMove(this.moves, this.chessboard);
-    }
-
-    public List<Move> getMoves() {
-        return new ArrayList<>(this.moves);
-    }
-
-    public void setMoves(List<Move> moves) {
-        this.moves = moves;
-    }
-
-    public Enemy getEnemy() {
-        return enemy;
     }
 }
