@@ -3,6 +3,7 @@ import chessosaurus.base.Color;
 import chessosaurus.base.Move;
 import chessosaurus.control.BusinessController;
 import chessosaurus.control.IController;
+import chessosaurus.persistence.EndgameRestReader;
 import chessosaurus.persistence.OpeninggameRestReader;
 
 import java.util.ArrayList;
@@ -162,7 +163,6 @@ public class UCI {
                     this.controller.getGame().setChessboard(controller.reviewPlayerMove(move));
                 }
             }
-
         }
     }
 
@@ -170,9 +170,8 @@ public class UCI {
      * inputGo is used to tell the engine to determine the best move.
      */
     private void inputGo() {
-        //@TODO
-        //@TODO für Endspiel Datenbank => wenn auf dem feld max. 7 Figuren stehen bool setzen, sodass bei go Aufruf auf die Endspieldatenbank zugegriffen werden kann.
-        // //@TODO durch den MINIMAX Algorithmus ersetzt werden
+        // TODO durch den MINIMAX Algorithmus ersetzt werden.
+        // TODO Eröffnungen evaluieren
         Move bestMove = this.controller.calculateBestMove();
     }
 

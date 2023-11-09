@@ -50,8 +50,9 @@ public class EnemyMoverContext implements IEnemyMoverContext {
         }
         if (move == null && pieceCount < 8) {
             EndMoveSelector enemyMover = new EndMoveSelector(this.endgameReader);
-            //TODO BestMove benötigt FEN-Notation von aktuellem Board, in der auch die Farbe dargestellt ist. => 4k3/6KP/8/8/8/8/7p/8_w_-_-_0_1
-            move = enemyMover.getBestMove();
+            String currentBoardFen = new Board().transformBoardToFen(currentBoard);
+            // TODO FEN-Notation besitzt nur Stellung. Zugreihenfolge, Rochaderechte, Passantzug Feld, Anzahl Halbzüge, Anzahl Züge, müssen noch angesetzt werden!!!!
+            move = enemyMover.getBestMove(currentBoardFen,currentBoard);
         }
         if (move == null) {
             MiniMax enemyMover = new MiniMax();

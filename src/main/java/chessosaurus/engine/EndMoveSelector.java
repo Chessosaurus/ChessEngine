@@ -1,5 +1,6 @@
 package chessosaurus.engine;
 
+import chessosaurus.base.Board;
 import chessosaurus.base.Move;
 import chessosaurus.persistence.IEndgameReader;
 
@@ -21,7 +22,7 @@ public class EndMoveSelector {
      * Accesses the interface for finding the best move in the endgame to get it.
      * @return Best move in the endgame.
      */
-    public Move getBestMove() {
-        return this.endgameReader.getMove();
+    public Move getBestMove(String currentBoardAsFen, Board currentBoard) {
+        return this.endgameReader.getMove(currentBoardAsFen, currentBoard);
     }
 }
