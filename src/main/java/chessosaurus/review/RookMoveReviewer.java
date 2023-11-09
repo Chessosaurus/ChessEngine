@@ -32,38 +32,40 @@ public class RookMoveReviewer extends MoveReviewerBase{
         int fromRank = charToInt(from.getRank());
         int toRank = charToInt(to.getRank());
 
-
-        if(toFile == fromFile && toRank != fromRank){
-            if(toRank > fromRank){
-                for(int i = 1; i < toRank-fromRank; i++){
-                    if(board[fromRank+i][fromFile].getPiece() != null){
-                        return false;
+        if(!isCheck(move, chessboard)){
+            if(toFile == fromFile && toRank != fromRank){
+                if(toRank > fromRank){
+                    for(int i = 1; i < toRank-fromRank; i++){
+                        if(board[fromRank + i][fromFile].getPiece().isPresent()){
+                            return false;
+                        }
+                    }
+                } else {
+                    for(int i = fromRank; i > fromRank-toRank; i--){
+                        if(board[fromRank - i][fromFile].getPiece().isPresent()){
+                            return false;
+                        }
                     }
                 }
-            } else {
-                for(int i = fromRank; i > fromRank-toRank; i--){
-                    if(board[fromRank-i][fromFile].getPiece() != null){
-                        return false;
+                return true;
+            } else if (toRank == fromRank && toFile != fromFile) {
+                if(toFile > fromFile){
+                    for(int i = 1; i < toFile-fromFile; i++){
+                        if(board[fromRank][fromFile + i].getPiece().isPresent()){
+                            return false;
+                        }
+                    }
+                } else {
+                    for(int i = fromFile; i > fromFile-toFile; i--){
+                        if(board[fromRank][fromFile - i].getPiece().isPresent()){
+                            return false;
+                        }
                     }
                 }
-            }
-            return true;
-        } else if (toRank == fromRank && toFile != fromFile) {
-            if(toFile > fromFile){
-                for(int i = 1; i < toFile-fromFile; i++){
-                    if(board[fromRank][fromFile+i].getPiece() != null){
-                        return false;
-                    }
-                }
-            } else {
-                for(int i = fromFile; i > fromFile-toFile; i--){
-                    if(board[fromRank][fromFile-i].getPiece() != null){
-                        return false;
-                    }
-                }
-            }
-            return true;
-        } else return false;
+                return true;
+            } else return false;
+        }
+        return false;
     }
 
     private int charToInt(char input){

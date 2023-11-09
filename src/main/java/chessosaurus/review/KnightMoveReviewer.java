@@ -31,9 +31,11 @@ public class KnightMoveReviewer extends MoveReviewerBase{
         int fromRank = charToInt(from.getRank());
         int toRank = charToInt(to.getRank());
 
-        if((toFile == fromFile+2 || toFile == fromFile-2) && (toRank == fromRank+1 || toRank == fromRank-1)) return true;
-        else if ((toFile == fromFile+1 || toFile == fromFile-1) && (toRank == fromRank+2 || toRank == fromRank-2)) return true;
-        else return false;
+        if(!isCheck(move, chessboard)){
+            if((toFile == fromFile+2 || toFile == fromFile-2) && (toRank == fromRank+1 || toRank == fromRank-1)) return true;
+            else return (toFile == fromFile + 1 || toFile == fromFile - 1) && (toRank == fromRank + 2 || toRank == fromRank - 2);
+        }
+        return false;
     }
     private int charToInt(char input){
 

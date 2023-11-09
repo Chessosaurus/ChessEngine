@@ -32,42 +32,45 @@ public class BishopMoveReviewer extends MoveReviewerBase{
         int fromRank = charToInt(from.getRank());
         int toRank = charToInt(to.getRank());
 
-        for(int i = 1; i<=8; i++){
-            if(toFile == fromFile+i || toFile == fromFile-i){
-                if(toRank == fromRank+i || toRank == fromRank-i){
-                    if(toRank > fromRank){
-                        if(toFile > fromFile){
-                            for(int j = 1; j < toRank-fromRank; j++){
-                                if(board[fromRank+j][fromFile+j].getPiece() != null){
-                                    return false;
+        if(!isCheck(move, chessboard)){
+            for(int i = 1; i<=8; i++){
+                if(toFile == fromFile+i || toFile == fromFile-i){
+                    if(toRank == fromRank+i || toRank == fromRank-i){
+                        if(toRank > fromRank){
+                            if(toFile > fromFile){
+                                for(int j = 1; j < toRank-fromRank; j++){
+                                    if(board[fromRank + j][fromFile + j].getPiece().isPresent()){
+                                        return false;
+                                    }
                                 }
-                            }
-                        }else {
-                            for(int j = 1; j < toRank-fromRank; j++){
-                                if(board[fromRank+j][fromFile-j].getPiece() != null){
-                                    return false;
-                                }
-                            }
-                        }
-                    } else {
-                        if(toFile > fromFile){
-                            for(int j = fromRank; j > fromRank-toRank; j--){
-                                if(board[fromRank-j][fromFile+j].getPiece() != null){
-                                    return false;
+                            }else {
+                                for(int j = 1; j < toRank-fromRank; j++){
+                                    if(board[fromRank + j][fromFile - j].getPiece().isPresent()){
+                                        return false;
+                                    }
                                 }
                             }
                         } else {
-                            for(int j = fromRank; j > fromRank-toRank; j--){
-                                if(board[fromRank-j][fromFile-j].getPiece() != null){
-                                    return false;
+                            if(toFile > fromFile){
+                                for(int j = fromRank; j > fromRank-toRank; j--){
+                                    if(board[fromRank - j][fromFile + j].getPiece().isPresent()){
+                                        return false;
+                                    }
+                                }
+                            } else {
+                                for(int j = fromRank; j > fromRank-toRank; j--){
+                                    if(board[fromRank - j][fromFile - j].getPiece().isPresent()){
+                                        return false;
+                                    }
                                 }
                             }
                         }
+                        return true;
                     }
-                    return true;
                 }
             }
         }
+
         return false;
     }
 
