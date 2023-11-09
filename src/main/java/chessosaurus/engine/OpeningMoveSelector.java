@@ -18,6 +18,12 @@ public class OpeningMoveSelector {
         this.openinggameReader = openinggameReader;
     }
 
+    /**
+     * Accesses the interface for finding the best move in the opening game to get it.
+     * @param currentBoard The current chessboard
+     * @param lastMove The last move which was made.
+     * @return best move
+     */
     public Move getBestMove(Board currentBoard, Move lastMove) {
         return this.openinggameReader.getMove(currentBoard, lastMove);
     }

@@ -30,6 +30,12 @@ public class Enemy {
 
     public void setColor(Color color){this.color = color;}
 
+    /**
+     * Accesses the IEnemyMoverContext interface to find out the best possible move.
+     * @param allMoves All moves which were made.
+     * @param currentBoard The current chessboard.
+     * @return best possible move
+     */
     public Move getBestMove(List<Move> allMoves, Board currentBoard) {
         Board board = new Board(currentBoard);
         List<Move> moves = new ArrayList<>(allMoves);

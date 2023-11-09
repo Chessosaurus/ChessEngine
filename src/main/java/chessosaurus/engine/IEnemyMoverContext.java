@@ -14,6 +14,13 @@ import java.util.List;
  */
 public interface IEnemyMoverContext {
 
+    /**
+     * Method to provide the best current move.
+     * @param allMoves All previous moves
+     * @param currentBoard The current chessboard
+     * @param currentColor The color of the enemy
+     * @return Best move
+     */
     Move getBestMove(List<Move> allMoves, Board currentBoard, Color currentColor);
 
 }

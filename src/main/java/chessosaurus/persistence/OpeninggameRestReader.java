@@ -27,6 +27,8 @@ public class OpeninggameRestReader implements IOpeninggameReader {
 
     /**
      * Sends current board to get move from the api
+     * @param currentBoard The current chessboard
+     * @param currentMove The last move which was made
      * @return best move
      */
     @Override

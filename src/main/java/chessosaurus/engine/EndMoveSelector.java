@@ -17,6 +17,10 @@ public class EndMoveSelector {
         this.endgameReader = endgameReader;
     }
 
+    /**
+     * Accesses the interface for finding the best move in the endgame to get it.
+     * @return Best move in the endgame.
+     */
     public Move getBestMove() {
         return this.endgameReader.getMove();
     }

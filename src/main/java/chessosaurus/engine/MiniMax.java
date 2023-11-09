@@ -10,6 +10,10 @@ import chessosaurus.base.Move;
  */
 public class MiniMax {
 
+    /**
+     * Returns the best move calculated using the Minimax algorithm.
+     * @return best move
+     */
     public Move getBestMove() {
         return null;
     }

@@ -27,6 +27,14 @@ public class EnemyMoverContext implements IEnemyMoverContext {
         this.endgameReader = endgameReader;
     }
 
+    /**
+     * Depending on the current game situation, different classes are accessed in order to find the best possible move.
+     * @param allMoves All previous moves
+     * @param currentBoard The current chessboard
+     * @param currentColor The color of the enemy
+     * @return Best move
+     */
+    @Override
     public Move getBestMove(List<Move> allMoves, Board currentBoard, Color currentColor) {
 
         Move move = null;
