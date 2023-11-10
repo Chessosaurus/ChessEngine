@@ -28,8 +28,8 @@ public class KingMoveReviewer extends MoveReviewerBase {
         //Color color = from.getPiece().getColor();
         int fromFile = from.getFile();
         int toFile = to.getFile();
-        int fromRank = charToInt(from.getRank());
-        int toRank = charToInt(to.getRank());
+        int fromRank = from.getRankVal()-1;
+        int toRank = to.getRankVal()-1;
 
         if(toFile == fromFile+1 || toFile == fromFile-1){
             if(toRank == fromRank+1 || toRank == fromRank-1){
@@ -42,40 +42,5 @@ public class KingMoveReviewer extends MoveReviewerBase {
         } else return false;
 
         return false;
-    }
-
-    private int charToInt(char input){
-
-        int intValue;
-
-        switch (input) {
-        case 'a':
-            intValue = 1;
-            break;
-        case 'b':
-            intValue = 2;
-            break;
-        case 'c':
-            intValue = 3;
-            break;
-        case 'd':
-            intValue = 4;
-            break;
-        case 'e':
-            intValue = 5;
-            break;
-        case 'f':
-            intValue = 6;
-            break;
-        case 'g':
-            intValue = 7;
-            break;
-        case 'h':
-            intValue = 8;
-            break;
-        default:
-            intValue = 0;
-        }
-        return intValue;
     }
 }
