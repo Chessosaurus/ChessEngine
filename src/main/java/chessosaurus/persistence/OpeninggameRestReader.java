@@ -4,11 +4,14 @@ import chessosaurus.base.Board;
 import chessosaurus.base.Move;
 import chessosaurus.protocol.IMoveParser;
 import chessosaurus.protocol.UCIMoveParser;
+import chessosaurus.review.ReviewerContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * OpeninggameRestReader calls opening database via Rest to get move.
@@ -35,6 +38,8 @@ public class OpeninggameRestReader implements IOpeninggameReader {
     public Move getMove(Board currentBoard, Move currentMove) {
         Move bestMove = null;
         String moveMade = "";
+        List<Move> bestMovesAsMove = new ArrayList<>();
+        ReviewerContext reviewerContext = new ReviewerContext();
         try {
             if(currentMove != null){
                 moveMade = moveParser.fromMoveToString(currentMove);
@@ -50,12 +55,22 @@ public class OpeninggameRestReader implements IOpeninggameReader {
 
             // Read the JSON recieved
             ObjectMapper mapper = new ObjectMapper();
-            JsonNode jsonNode = mapper.readTree(connection.getInputStream());
+            JsonNode rootNode = mapper.readTree(connection.getInputStream());
 
-            //TODO: Moves die man bekommt müssen noch geprüft werden, ob diese auf aktuellem Board durch geführt werden können.
-            String bestMoveString = (jsonNode.get("moves").get(0).get("uci").toString());
-            bestMove = moveParser.fromStringToMove(bestMoveString, currentBoard);
+            //Extract moves
+            JsonNode movesNode = rootNode.path("moves");
 
+            //Extract UCI moves
+            for (JsonNode moveNode: movesNode) {
+                bestMovesAsMove.add(moveParser.fromStringToMove(moveNode.path("uci").asText(),currentBoard));
+            }
+
+            for (Move moveToCheck: bestMovesAsMove) {
+                if(reviewerContext.isLegalMove(moveToCheck,currentBoard)){
+                    bestMove = moveToCheck;
+                    break;
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -171,8 +171,7 @@ public class UCI {
      */
     private void inputGo() {
         // TODO durch den MINIMAX Algorithmus ersetzt werden.
-        // TODO Eröffnungen evaluieren
-        Move bestMove = this.controller.calculateBestMove();
+        System.out.println("bestmove " + moveParser.fromMoveToString(this.controller.calculateBestMove()));
     }
 
     /**
