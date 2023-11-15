@@ -36,6 +36,7 @@ public class EnemyMoverContext implements IEnemyMoverContext {
      */
     @Override
     public Move getBestMove(List<Move> allMoves, Board currentBoard, Color currentColor) {
+        String Fen = "";
 
         Move move = null;
 
@@ -51,8 +52,13 @@ public class EnemyMoverContext implements IEnemyMoverContext {
         if (move == null && pieceCount < 8) {
             EndMoveSelector enemyMover = new EndMoveSelector(this.endgameReader);
             String currentBoardFen = new Board().transformBoardToFen(currentBoard);
-            // TODO FEN-Notation besitzt nur Stellung. Zugreihenfolge, Rochaderechte, Passantzug Feld, Anzahl Halbzüge, Anzahl Züge, müssen noch angesetzt werden!!!!
-            move = enemyMover.getBestMove(currentBoardFen,currentBoard);
+            // TODO: checken ob Parameter nach Board gebraucht werden oder so belassen werden können(siehe _-_-_0_1).
+            if(currentBoard.equals(Color.WHITE)){
+                Fen = currentBoardFen+"_w_-_-_0_1";
+            } else {
+                Fen = currentBoardFen+"_b_-_-_0_1";
+            }
+            move = enemyMover.getBestMove(Fen,currentBoard);
         }
         if (move == null) {
             MiniMax enemyMover = new MiniMax();

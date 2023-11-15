@@ -3,11 +3,14 @@ package chessosaurus.persistence;
 import chessosaurus.base.Board;
 import chessosaurus.base.Move;
 import chessosaurus.protocol.IMoveParser;
+import chessosaurus.review.ReviewerContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * EndgameRestReader calls closing database via Rest to get move.
@@ -27,6 +30,8 @@ public class EndgameRestReader implements IEndgameReader {
     @Override
     public Move getMove(String currentBoardAsFen, Board currentBoard) {
         Move bestMove = null;
+        List<Move>      bestMovesAsMove = new ArrayList<>();
+        ReviewerContext reviewerContext = new ReviewerContext();
 
         try {
 
@@ -44,12 +49,22 @@ public class EndgameRestReader implements IEndgameReader {
 
             // Read the JSON recieved
             ObjectMapper mapper = new ObjectMapper();
-            JsonNode jsonNode = mapper.readTree(connection.getInputStream());
+            JsonNode rootNode = mapper.readTree(connection.getInputStream());
 
-            // Selects the best rated move
-            String bestMoveString = (jsonNode.get("moves").get(0).get("uci").toString());
-            bestMove = moveParser.fromStringToMove(bestMoveString, currentBoard);
+            //Extract moves
+            JsonNode movesNode = rootNode.path("moves");
 
+            //Extract UCI moves
+            for (JsonNode moveNode: movesNode) {
+            bestMovesAsMove.add(moveParser.fromStringToMove(moveNode.path("uci").asText(),currentBoard));
+            }
+
+            for (Move moveToCheck: bestMovesAsMove) {
+                if(reviewerContext.isLegalMove(moveToCheck,currentBoard)){
+                    bestMove = moveToCheck;
+                    break;
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
