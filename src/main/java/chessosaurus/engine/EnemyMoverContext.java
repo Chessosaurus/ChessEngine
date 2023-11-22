@@ -45,9 +45,8 @@ public class EnemyMoverContext implements IEnemyMoverContext {
         int pieceCount = currentBoard.getPieceCount(currentBoard);
 
         if (movesCount < 16 && movesCount!=0) {
-            Move lastMove = allMoves.get(movesCount-1);
             OpeningMoveSelector enemyMover = new OpeningMoveSelector(this.openinggameReader);
-            move = enemyMover.getBestMove(currentBoard, lastMove);
+            move = enemyMover.getBestMove(currentBoard, allMoves);
         }
         if (move == null && pieceCount < 8) {
             EndMoveSelector enemyMover = new EndMoveSelector(this.endgameReader);

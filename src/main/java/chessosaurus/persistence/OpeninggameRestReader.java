@@ -31,11 +31,14 @@ public class OpeninggameRestReader implements IOpeninggameReader {
     /**
      * Sends current board to get move from the api
      * @param currentBoard The current chessboard
-     * @param currentMove The last move which was made
+     * @param allMoves all moves to pick last one
      * @return best move
      */
     @Override
-    public Move getMove(Board currentBoard, Move currentMove) {
+    public Move getMove(Board currentBoard, List<Move> allMoves) {
+
+        int movesCount = allMoves.size();
+        Move currentMove = allMoves.get(movesCount-1);
         Move bestMove = null;
         String moveMade = "";
         List<Move> bestMovesAsMove = new ArrayList<>();
@@ -66,9 +69,12 @@ public class OpeninggameRestReader implements IOpeninggameReader {
             }
 
             for (Move moveToCheck: bestMovesAsMove) {
-                if(reviewerContext.isLegalMove(moveToCheck,currentBoard)){
-                    bestMove = moveToCheck;
-                    break;
+                if(!checkMoveInList(moveToCheck, allMoves)) {
+                    if (reviewerContext.isLegalMove(moveToCheck, currentBoard)) {
+                        bestMove = moveToCheck;
+                        break;
+
+                    }
                 }
             }
         } catch (Exception e) {
@@ -76,5 +82,14 @@ public class OpeninggameRestReader implements IOpeninggameReader {
         }
 
         return bestMove;
+    }
+
+    private boolean checkMoveInList(Move move, List<Move> allMoves){
+        for (Move moveToCheck : allMoves) {
+            if(moveToCheck.getFrom().getFile() == move.getFrom().getFile() && moveToCheck.getFrom().getRankVal() == move.getFrom().getRankVal()){
+                return true;
+            }
+        }
+        return false;
     }
 }
