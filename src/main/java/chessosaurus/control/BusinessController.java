@@ -21,6 +21,11 @@ public class BusinessController implements IController {
         this.enemyMoverContext = enemyMoverContext;
     }
 
+    public BusinessController(IEnemyMoverContext enemyMoverContext, Game game) {
+        this.enemyMoverContext = enemyMoverContext;
+        this.game = game;
+    }
+
     /**
      * Initialization of the game
      * @return new chessboard
