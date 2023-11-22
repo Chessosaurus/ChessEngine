@@ -48,8 +48,21 @@ public class OpeninggameRestReader implements IOpeninggameReader {
                 moveMade = moveParser.fromMoveToString(currentMove);
             }
 
+            StringBuilder movesStringBuilder = new StringBuilder();
+
+            for (Move moveToParse : allMoves) {
+                movesStringBuilder.append(moveParser.fromMoveToString(moveToParse));
+                if (allMoves.indexOf(moveToParse) != allMoves.size() - 1) {
+                    movesStringBuilder.append(",");
+                }
+            }
+            String movesMade = movesStringBuilder.toString();
+
+            //If someone is to capture a figure x is inserted, but the API can´t resolve this
+            movesMade.replace("x","");
+
             // API-URL for the opening database
-            String apiUrl = "https://explorer.lichess.ovh/master?play=" + moveMade;
+            String apiUrl = "https://explorer.lichess.ovh/masters?play=" + movesMade;
 
             // Create connection
             URL url = new URL(apiUrl);
@@ -73,7 +86,6 @@ public class OpeninggameRestReader implements IOpeninggameReader {
                     if (reviewerContext.isLegalMove(moveToCheck, currentBoard)) {
                         bestMove = moveToCheck;
                         break;
-
                     }
                 }
             }

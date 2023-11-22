@@ -29,9 +29,9 @@ public class UCIMoveParser implements IMoveParser
         String moveFrom = moveInput.substring(0, halfLength);
         String moveTo = moveInput.substring(halfLength);
 
-        Square from = new Square(moveFrom.charAt(0),moveFrom.charAt(1));
+        Square from = new Square(moveFrom.charAt(1), moveFrom.charAt(0));
         from.setPiece(getPieceFromSquare(from, board));
-        Square to = new Square(moveTo.charAt(0),moveTo.charAt(1));
+        Square to = new Square(moveTo.charAt(1),moveTo.charAt(0));
         to.setPiece(getPieceFromSquare(to, board));
 
         return new Move(from, to);

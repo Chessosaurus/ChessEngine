@@ -102,9 +102,8 @@ public class Board {
                     default:
                         throw new IllegalArgumentException("No permissible figure type");
                 }
-
-
-                this.chessboard[file][rank++].setPiece(piece);
+                this.chessboard[file][rank].setPiece(piece);
+                rank++;
             }
         }
     }

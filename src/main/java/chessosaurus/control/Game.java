@@ -61,9 +61,17 @@ public class Game {
 
         ReviewerContext reviewerContext = new ReviewerContext();
 
+        int fromFile = this.chessboard.getChessboard().length-move.getFrom().getFile();
+        int fromRank = move.getFrom().getRankVal()-1;
+
+        int toFile = this.chessboard.getChessboard().length-move.getTo().getFile();
+        int toRank = move.getTo().getRankVal()-1;
+
+
+
         if (reviewerContext.isLegalMove(move, this.chessboard)) {
-            this.chessboard.getChessboard()[8 - move.getTo().getFile()][move.getTo().getRankVal() - 1].setPiece(move.getFrom().getPiece().get());
-            this.chessboard.getChessboard()[8 - move.getFrom().getFile()][move.getFrom().getRankVal() - 1].setPiece(Optional.empty());
+            this.chessboard.getChessboard()[toFile][toRank].setPiece(move.getFrom().getPiece().get());
+            this.chessboard.getChessboard()[fromFile][fromRank].setPiece(Optional.empty());
         }
         else {
             // TODO: Hier hat Spieler an Frontend verloren

@@ -8,13 +8,13 @@ public class Square {
     private char rank;
     private Optional<Piece> piece;
 
-    public Square(int rank, int file) {
+    public Square(int file, int rank) {
         this.file = file;
         this.rank = transformToLiteral(rank);
         this.piece = Optional.empty();
     }
 
-    public Square(char rank, char file) {
+    public Square(char file, char rank) {
         this.rank = rank;
         this.file = Character.getNumericValue(file);
         this.piece = Optional.empty();

@@ -170,12 +170,12 @@ public class UCI {
 
             if(movesToCheck.size()>0) {
                 for (String moveInput : movesToCheck) {
-                    this.moves.add(moveParser.fromStringToMove(moveInput, this.controller.getGame().getChessboard()));
+                    Move move = moveParser.fromStringToMove(moveInput, this.controller.getGame().getChessboard());
+                    this.controller.getGame().setChessboard(controller.reviewPlayerMove(move));
+                    this.moves.add(move);
                 }
                 this.controller.getGame().setMoves(this.moves);
-                for (Move move : this.moves) {
-                    this.controller.getGame().setChessboard(controller.reviewPlayerMove(move));
-                }
+
             }
         }
     }
@@ -186,6 +186,7 @@ public class UCI {
     private void inputGo() {
         // TODO durch den MINIMAX Algorithmus ersetzt werden.
         System.out.println("bestmove " + moveParser.fromMoveToString(this.controller.calculateBestMove()));
+        goThread.interrupt();
     }
 
     /**

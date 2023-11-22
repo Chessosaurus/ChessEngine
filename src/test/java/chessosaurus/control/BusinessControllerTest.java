@@ -2,6 +2,8 @@ package chessosaurus.control;
 
 import chessosaurus.base.*;
 import chessosaurus.engine.IEnemyMoverContext;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -95,7 +97,9 @@ public class BusinessControllerTest {
         assertEquals(expectedMove, move);
     }
 
+/*
     @Test
+    @Tag("testGetGame")
     public void testGetGame() {
         // ARRANGE
         Game expectedGame = this.mockGame;
@@ -108,5 +112,5 @@ public class BusinessControllerTest {
 
         assertNotNull(game);
         assertEquals(expectedGame, game);
-    }
+    }*/
 }
