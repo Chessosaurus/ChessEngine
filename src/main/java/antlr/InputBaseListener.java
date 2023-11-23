@@ -293,6 +293,18 @@ public class InputBaseListener implements InputListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterQueen(InputParser.QueenContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitQueen(InputParser.QueenContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterQueen_white(InputParser.Queen_whiteContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -312,6 +324,18 @@ public class InputBaseListener implements InputListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitQueen_black(InputParser.Queen_blackContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterRook(InputParser.RookContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitRook(InputParser.RookContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -341,6 +365,18 @@ public class InputBaseListener implements InputListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterKnight(InputParser.KnightContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitKnight(InputParser.KnightContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterKnight_white(InputParser.Knight_whiteContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -360,6 +396,18 @@ public class InputBaseListener implements InputListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitKnight_black(InputParser.Knight_blackContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBishop(InputParser.BishopContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBishop(InputParser.BishopContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

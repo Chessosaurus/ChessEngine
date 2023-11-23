@@ -29,10 +29,28 @@ public class Converter implements InputVisitor {
     @Override
     public Board visitMoves(InputParser.MovesContext ctx) {
         Board b = new Board();
+        b.importFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
         //@TODO implement moves Syntax
         //List all moves, then execute them all in order
         List<Move> moves = visitWhitemove(ctx.whitemove());
-        return null;
+        for (Move m : moves) {
+            Piece p = b.getChessboard()
+                    [m.getFrom().getRank()]
+                    [m.getFrom().getFile()]
+                    .getPiece().get();
+            if(m.getPromoted().isPresent()){
+                p.setType(m.getPromoted().get());
+            }
+            b.getChessboard()
+                    [m.getFrom().getRank()]
+                    [m.getFrom().getFile()]
+                    .setPiece(Optional.empty());
+            b.getChessboard()
+                    [m.getTo().getRank()]
+                    [m.getTo().getFile()]
+                    .setPiece(p);
+        }
+        return b;
     }
 
     @Override
@@ -59,12 +77,23 @@ public class Converter implements InputVisitor {
 
     @Override
     public Move visitMove(InputParser.MoveContext ctx) {
-        return null;
+
+        Square from = new Square(Integer.parseInt(ctx.RANK(0).getText()),
+                ctx.FILE(0).getText().charAt(0));
+        Square to = new Square(Integer.parseInt(ctx.RANK(1).getText()),
+                ctx.FILE(1).getText().charAt(0));
+        return ctx.promotable().isEmpty() ?
+                new Move(from, to)
+                : new Move(from, to, visitPromotable(ctx.promotable()));
     }
 
     @Override
-    public Object visitPromotable(InputParser.PromotableContext ctx) {
-        return null;
+    public PieceType visitPromotable(InputParser.PromotableContext ctx) {
+        if (!ctx.queen().isEmpty()) return PieceType.QUEEN;
+        if (!ctx.rook().isEmpty()) return PieceType.ROOK;
+        if (!ctx.knight().isEmpty()) return PieceType.KNIGHT;
+        /*if (!ctx.bishop().isEmpty())*/
+        return PieceType.BISHOP;
     }
 
     @Override
@@ -183,6 +212,11 @@ public class Converter implements InputVisitor {
         return null;
     }
 
+    @Override
+    public Object visitQueen(InputParser.QueenContext ctx) {
+        return null;
+    }
+
 
     @Override
     public Object visitQueen_white(InputParser.Queen_whiteContext ctx) {
@@ -191,6 +225,11 @@ public class Converter implements InputVisitor {
 
     @Override
     public Object visitQueen_black(InputParser.Queen_blackContext ctx) {
+        return null;
+    }
+
+    @Override
+    public Object visitRook(InputParser.RookContext ctx) {
         return null;
     }
 
@@ -205,6 +244,11 @@ public class Converter implements InputVisitor {
         return null;
     }
 
+    @Override
+    public Object visitKnight(InputParser.KnightContext ctx) {
+        return null;
+    }
+
 
     @Override
     public Object visitKnight_white(InputParser.Knight_whiteContext ctx) {
@@ -213,6 +257,11 @@ public class Converter implements InputVisitor {
 
     @Override
     public Object visitKnight_black(InputParser.Knight_blackContext ctx) {
+        return null;
+    }
+
+    @Override
+    public Object visitBishop(InputParser.BishopContext ctx) {
         return null;
     }
 

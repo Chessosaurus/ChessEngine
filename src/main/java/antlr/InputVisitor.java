@@ -149,6 +149,12 @@ public interface InputVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitKing_black(InputParser.King_blackContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link InputParser#queen}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitQueen(InputParser.QueenContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link InputParser#queen_white}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -160,6 +166,12 @@ public interface InputVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitQueen_black(InputParser.Queen_blackContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link InputParser#rook}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRook(InputParser.RookContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link InputParser#rook_white}.
 	 * @param ctx the parse tree
@@ -173,6 +185,12 @@ public interface InputVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitRook_black(InputParser.Rook_blackContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link InputParser#knight}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitKnight(InputParser.KnightContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link InputParser#knight_white}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -184,6 +202,12 @@ public interface InputVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitKnight_black(InputParser.Knight_blackContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link InputParser#bishop}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBishop(InputParser.BishopContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link InputParser#bishop_white}.
 	 * @param ctx the parse tree

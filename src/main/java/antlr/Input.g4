@@ -47,7 +47,7 @@ blackmove: move
 move : RANK FILE RANK FILE
         | RANK FILE RANK FILE promotable;
 
-promotable : queen_black | rook_black | knight_black | bishop_black;
+promotable : queen | rook | knight | bishop;
 
 rows
 @init{rowCount = 0;} : (row SLASH)+ row {lineCount == 8}?;
@@ -92,30 +92,24 @@ piece_black :
     | knight_black
     | bishop_black
     | pawn_black; 
-/*piece_all : king
-        | queen
-        | rook
-        | knight
-        | bishop
-        | pawn;
-*/
+
 //king : king_white |king_black;
 king_white : KING_WHITE;
 king_black : KING_BLACK;
 
-//queen : queen_white | queen_black;
+queen : queen_white | queen_black;
 queen_white : QUEEN_WHITE;
 queen_black : QUEEN_BLACK;
 
-//rook : rook_white | rook_black;
+rook : rook_white | rook_black;
 rook_white : ROOK_WHITE;
 rook_black : ROOK_BLACK;
 
-//knight : knight_white | knight_black;
+knight : knight_white | knight_black;
 knight_white: KNIGHT_WHITE;
 knight_black: KNIGHT_BLACK;
 
-//bishop : bishop_white | bishop_black;
+bishop : bishop_white | bishop_black;
 bishop_white : BISHOP_WHITE;
 bishop_black : BISHOP_BLACK;
 
