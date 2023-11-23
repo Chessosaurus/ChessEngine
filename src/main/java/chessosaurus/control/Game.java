@@ -66,8 +66,8 @@ public class Game {
         }
 
         if (isLegal) {
-            this.chessboard.getChessboard()[8 - move.getTo().getFile()][move.getTo().getRankVal() - 1].setPiece(move.getFrom().getPiece().get());
-            this.chessboard.getChessboard()[8 - move.getFrom().getFile()][move.getFrom().getRankVal() - 1].setPiece(Optional.empty());
+            this.chessboard.getChessboard()[this.chessboard.getChessboard().length - move.getTo().getRank()][move.getTo().getFileVal() - 1].setPiece(move.getFrom().getPiece().get());
+            this.chessboard.getChessboard()[this.chessboard.getChessboard().length - move.getFrom().getRank()][move.getFrom().getFileVal() - 1].setPiece(Optional.empty());
         }
         else {
             // TODO: Hier hat Spieler an Frontend verloren
