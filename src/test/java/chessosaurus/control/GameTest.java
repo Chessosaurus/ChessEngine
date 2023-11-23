@@ -116,7 +116,7 @@ public class GameTest {
         this.game.setChessboard(cleanBoard);
 
         Piece pieceFrom = new Piece();
-        pieceFrom.setColor(Color.BLACK);
+        pieceFrom.setColor(Color.WHITE);
         pieceFrom.setType(PieceType.PAWN);
         Square testFrom = new Square(1,2);
         testFrom.setPiece(pieceFrom);
