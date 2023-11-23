@@ -10,6 +10,11 @@ int rowCount = 0;
 }
 WS : [ \t\n\r]+ -> skip;
 FILE : [1-8];
+STARTPOS : 'startpos';
+POSITION : 'position';
+MOVES : 'moves';
+FEN : 'fen';
+SLASH : '/';
 WHITE : 'w';
 //BLACK : 'b'; creates Problems with the black bishop
 KING_WHITE : 'K';
@@ -24,11 +29,6 @@ BISHOP_WHITE : 'B' ;
 BISHOP_BLACK : 'b';
 PAWN_WHITE : 'P';
 PAWN_BLACK : 'p';
-FEN : 'fen';
-POSITION : 'position';
-STARTPOS : 'startpos';
-MOVES : 'moves';
-SLASH : '/';
 RANK : [a-h];
 NUMBER : [0-9]+;
 
