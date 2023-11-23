@@ -37,18 +37,24 @@ public class Converter implements InputVisitor {
 
     @Override
     public List<Move> visitWhitemove(InputParser.WhitemoveContext ctx) {
-        Move m = visitMove(ctx.move());
+        List<Move> moves = new ArrayList<>();
+        moves.add(visitMove(ctx.move()));
         if (ctx.blackmove().isEmpty()) {
-            List<Move> moves= new ArrayList<>();
-            moves.add(m);
             return moves;
         }
-        return visitBlackmove(ctx.blackmove()).add(m);
+        moves.addAll(visitBlackmove(ctx.blackmove()));
+        return moves;
     }
 
     @Override
     public List<Move> visitBlackmove(InputParser.BlackmoveContext ctx) {
-        return null;
+        List<Move> moves = new ArrayList<>();
+        moves.add(visitMove(ctx.move()));
+        if (ctx.whitemove().isEmpty()) {
+            return moves;
+        }
+        moves.addAll(visitWhitemove(ctx.whitemove()));
+        return moves;
     }
 
     @Override
