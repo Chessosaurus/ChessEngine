@@ -98,6 +98,16 @@ public interface InputListener extends ParseTreeListener {
 	 */
 	void exitSingle_row(InputParser.Single_rowContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link InputParser#slot}.
+	 * @param ctx the parse tree
+	 */
+	void enterSlot(InputParser.SlotContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link InputParser#slot}.
+	 * @param ctx the parse tree
+	 */
+	void exitSlot(InputParser.SlotContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link InputParser#piece}.
 	 * @param ctx the parse tree
 	 */
@@ -188,15 +198,25 @@ public interface InputListener extends ParseTreeListener {
 	 */
 	void exitPiece_all(InputParser.Piece_allContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link InputParser#king}.
+	 * Enter a parse tree produced by {@link InputParser#piece_white}.
 	 * @param ctx the parse tree
 	 */
-	void enterKing(InputParser.KingContext ctx);
+	void enterPiece_white(InputParser.Piece_whiteContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link InputParser#king}.
+	 * Exit a parse tree produced by {@link InputParser#piece_white}.
 	 * @param ctx the parse tree
 	 */
-	void exitKing(InputParser.KingContext ctx);
+	void exitPiece_white(InputParser.Piece_whiteContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link InputParser#piece_black}.
+	 * @param ctx the parse tree
+	 */
+	void enterPiece_black(InputParser.Piece_blackContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link InputParser#piece_black}.
+	 * @param ctx the parse tree
+	 */
+	void exitPiece_black(InputParser.Piece_blackContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link InputParser#king_white}.
 	 * @param ctx the parse tree
@@ -218,16 +238,6 @@ public interface InputListener extends ParseTreeListener {
 	 */
 	void exitKing_black(InputParser.King_blackContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link InputParser#queen}.
-	 * @param ctx the parse tree
-	 */
-	void enterQueen(InputParser.QueenContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link InputParser#queen}.
-	 * @param ctx the parse tree
-	 */
-	void exitQueen(InputParser.QueenContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link InputParser#queen_white}.
 	 * @param ctx the parse tree
 	 */
@@ -247,16 +257,6 @@ public interface InputListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitQueen_black(InputParser.Queen_blackContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link InputParser#rook}.
-	 * @param ctx the parse tree
-	 */
-	void enterRook(InputParser.RookContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link InputParser#rook}.
-	 * @param ctx the parse tree
-	 */
-	void exitRook(InputParser.RookContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link InputParser#rook_white}.
 	 * @param ctx the parse tree
@@ -278,16 +278,6 @@ public interface InputListener extends ParseTreeListener {
 	 */
 	void exitRook_black(InputParser.Rook_blackContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link InputParser#knight}.
-	 * @param ctx the parse tree
-	 */
-	void enterKnight(InputParser.KnightContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link InputParser#knight}.
-	 * @param ctx the parse tree
-	 */
-	void exitKnight(InputParser.KnightContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link InputParser#knight_white}.
 	 * @param ctx the parse tree
 	 */
@@ -308,16 +298,6 @@ public interface InputListener extends ParseTreeListener {
 	 */
 	void exitKnight_black(InputParser.Knight_blackContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link InputParser#bishop}.
-	 * @param ctx the parse tree
-	 */
-	void enterBishop(InputParser.BishopContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link InputParser#bishop}.
-	 * @param ctx the parse tree
-	 */
-	void exitBishop(InputParser.BishopContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link InputParser#bishop_white}.
 	 * @param ctx the parse tree
 	 */
@@ -337,16 +317,6 @@ public interface InputListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitBishop_black(InputParser.Bishop_blackContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link InputParser#pawn}.
-	 * @param ctx the parse tree
-	 */
-	void enterPawn(InputParser.PawnContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link InputParser#pawn}.
-	 * @param ctx the parse tree
-	 */
-	void exitPawn(InputParser.PawnContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link InputParser#pawn_white}.
 	 * @param ctx the parse tree

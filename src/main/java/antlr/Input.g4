@@ -55,7 +55,9 @@ rows
 row : single_row {lineCount++;};
 
 single_row
-@init{rowCount = 0;} : (piece |num)+ {rowCount == 8}?;
+@init{rowCount = 0;} : (slot)+ {rowCount == 8}?;
+
+slot : piece | num;
 
 piece : piece_all{rowCount++;};
 
@@ -73,33 +75,50 @@ half : NUMBER;
 
 full : NUMBER;
 
-piece_all : king
+piece_all: piece_white | piece_black;
+
+piece_white :
+    king_white
+    | queen_white
+    | rook_white
+    | knight_white
+    | bishop_white
+    | pawn_white;
+             
+piece_black :
+    king_black
+    | queen_black
+    | rook_black
+    | knight_black
+    | bishop_black
+    | pawn_black; 
+/*piece_all : king
         | queen
         | rook
         | knight
         | bishop
         | pawn;
-
-king : king_white |king_black;
+*/
+//king : king_white |king_black;
 king_white : KING_WHITE;
 king_black : KING_BLACK;
 
-queen : queen_white | queen_black;
+//queen : queen_white | queen_black;
 queen_white : QUEEN_WHITE;
 queen_black : QUEEN_BLACK;
 
-rook : rook_white | rook_black;
+//rook : rook_white | rook_black;
 rook_white : ROOK_WHITE;
 rook_black : ROOK_BLACK;
 
-knight : knight_white | knight_black;
+//knight : knight_white | knight_black;
 knight_white: KNIGHT_WHITE;
 knight_black: KNIGHT_BLACK;
 
-bishop : bishop_white | bishop_black;
+//bishop : bishop_white | bishop_black;
 bishop_white : BISHOP_WHITE;
 bishop_black : BISHOP_BLACK;
 
-pawn : pawn_white | pawn_black;
+//pawn : pawn_white | pawn_black;
 pawn_white: PAWN_WHITE;
 pawn_black : PAWN_BLACK;

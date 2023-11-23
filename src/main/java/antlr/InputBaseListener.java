@@ -125,6 +125,18 @@ public class InputBaseListener implements InputListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterSlot(InputParser.SlotContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSlot(InputParser.SlotContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterPiece(InputParser.PieceContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -233,13 +245,25 @@ public class InputBaseListener implements InputListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterKing(InputParser.KingContext ctx) { }
+	@Override public void enterPiece_white(InputParser.Piece_whiteContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitKing(InputParser.KingContext ctx) { }
+	@Override public void exitPiece_white(InputParser.Piece_whiteContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPiece_black(InputParser.Piece_blackContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPiece_black(InputParser.Piece_blackContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -269,18 +293,6 @@ public class InputBaseListener implements InputListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterQueen(InputParser.QueenContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitQueen(InputParser.QueenContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterQueen_white(InputParser.Queen_whiteContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -300,18 +312,6 @@ public class InputBaseListener implements InputListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitQueen_black(InputParser.Queen_blackContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterRook(InputParser.RookContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitRook(InputParser.RookContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -341,18 +341,6 @@ public class InputBaseListener implements InputListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterKnight(InputParser.KnightContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitKnight(InputParser.KnightContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterKnight_white(InputParser.Knight_whiteContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -377,18 +365,6 @@ public class InputBaseListener implements InputListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBishop(InputParser.BishopContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitBishop(InputParser.BishopContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterBishop_white(InputParser.Bishop_whiteContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -408,18 +384,6 @@ public class InputBaseListener implements InputListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitBishop_black(InputParser.Bishop_blackContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterPawn(InputParser.PawnContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitPawn(InputParser.PawnContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

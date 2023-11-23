@@ -1,11 +1,14 @@
 package chessosaurus.base;
 
+import java.util.Optional;
+
 /**
  * The Board class is responsible for the representation and transformation of the chessboard.
  * <p>
- * @version 1.0
+ *
  * @author Fabian Eilber
  * @author Fabian Unger
+ * @version 1.0
  */
 
 public class Board {
@@ -14,9 +17,9 @@ public class Board {
     public Board() {
         this.chessboard = new Square[8][8];
 
-        for(int i=0; i<8;i++){
-            for(int j=0; j<8;j++){
-                this.chessboard[i][j] = new Square(i+1,j+1);
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                this.chessboard[i][j] = new Square(i + 1, j + 1);
             }
         }
     }
@@ -26,11 +29,18 @@ public class Board {
         this.chessboard = board.getChessboard();
     }
 
+    public void setRank(int rank, Optional<Piece>[] pieces) {
+        for (int i = 0; i < 8; i++) {
+            chessboard[rank][i].setPiece(pieces[i]);
+        }
+    }
+
     /**
      * Transforms the fen-Notation into a processable 2d array
+     *
      * @param fenNotation String given by the UI
      */
-    public void importFen(String fenNotation){
+    public void importFen(String fenNotation) {
 
         String[] parts = fenNotation.split(" ");
         String position = parts[0];
@@ -40,7 +50,7 @@ public class Board {
         for (char c : position.toCharArray()) {
             if (c == '/') {
                 rank = 0;
-                file ++;
+                file++;
             } else if (Character.isDigit(c)) {
                 int emptySpaces = Character.getNumericValue(c);
                 for (int i = 0; i < emptySpaces; i++) {
@@ -111,17 +121,18 @@ public class Board {
 
     /**
      * Transforms the given chessboard to fen-notation
+     *
      * @param chessboard chessboard
      * @return chessboard as fen-notation
      */
-    public String transformBoardToFen(Board chessboard){
+    public String transformBoardToFen(Board chessboard) {
         StringBuilder fen = new StringBuilder();
         int emptyCount = 0;
         Square[][] square = chessboard.getChessboard();
 
-        for (int i=0; i< square.length; i++){
-            for (int j=0; j < square.length; j++){
-                if(square[i][j].getPiece().isEmpty()){
+        for (int i = 0; i < square.length; i++) {
+            for (int j = 0; j < square.length; j++) {
+                if (square[i][j].getPiece().isEmpty()) {
                     emptyCount++;
                 } else {
                     if (emptyCount > 0) {
@@ -131,11 +142,11 @@ public class Board {
                     fen.append(getCharFromPiece(square[i][j].getPiece().get()));
                 }
             }
-            if(emptyCount>0){
+            if (emptyCount > 0) {
                 fen.append(emptyCount);
                 emptyCount = 0;
             }
-            if(i<7) {
+            if (i < 7) {
                 fen.append('/');
             }
         }
@@ -155,18 +166,18 @@ public class Board {
         System.out.println("  A  B  C  D  E  F  G  H");
         System.out.println(" ┏━━┳━━┳━━┳━━┳━━┳━━┳━━┳━━┓");
 
-        for (int i = 0; i <=7; i++) {
-            System.out.print((8-i) + "┃");
-            for (int j = 0; j <=7; j++) {
-                if(this.chessboard[i][j].getPiece().isEmpty()){
+        for (int i = 0; i <= 7; i++) {
+            System.out.print((8 - i) + "┃");
+            for (int j = 0; j <= 7; j++) {
+                if (this.chessboard[i][j].getPiece().isEmpty()) {
                     pieceSymbol = "  ";
-                }else{
+                } else {
                     Piece piece = this.chessboard[i][j].getPiece().get();
                     pieceSymbol = getPieceSymbol(piece);
                 }
                 System.out.print(pieceSymbol + "┃");
             }
-            System.out.println(" " + (8-i));
+            System.out.println(" " + (8 - i));
             if (i != 0) {
                 System.out.println(" ┣━━┫━━┫━━┫━━┫━━┫━━┫━━┫━━┫");
             } else {
@@ -178,57 +189,58 @@ public class Board {
 
     /**
      * Returns the unicode symbol for the piece
+     *
      * @param piece char which describes the piece
      * @return String to display unicode symbol
      */
     private String getPieceSymbol(Piece piece) {
         switch (piece.getType()) {
             case KING:
-                if(piece.getColor().equals(Color.WHITE)){
+                if (piece.getColor().equals(Color.WHITE)) {
                     return "♔";
                     //return "K";
-                }else{
+                } else {
                     return "♚";
                     //return "k";
                 }
             case QUEEN:
-                if(piece.getColor().equals(Color.WHITE)){
+                if (piece.getColor().equals(Color.WHITE)) {
                     return "♕";
                     //return "Q";
-                }else{
+                } else {
                     return "♛";
                     //return "q";
                 }
             case ROOK:
-                if(piece.getColor().equals(Color.WHITE)){
+                if (piece.getColor().equals(Color.WHITE)) {
                     return "♖";
                     //return "R";
-                }else{
+                } else {
                     return "♜";
                     //return "r";
                 }
             case BISHOP:
-                if(piece.getColor().equals(Color.WHITE)){
+                if (piece.getColor().equals(Color.WHITE)) {
                     return "♗";
                     //return "B";
-                }else{
+                } else {
                     return "♝";
                     //return "b";
                 }
 
             case KNIGHT:
-                if(piece.getColor().equals(Color.WHITE)){
+                if (piece.getColor().equals(Color.WHITE)) {
                     return "♘";
                     //return "N";
-                }else{
+                } else {
                     return "♞";
                     //return "n";
                 }
             case PAWN:
-                if(piece.getColor().equals(Color.WHITE)){
+                if (piece.getColor().equals(Color.WHITE)) {
                     return "♙";
                     //return  "P";
-                }else{
+                } else {
                     return "♟";
                     //return "P";
                 }
@@ -239,6 +251,7 @@ public class Board {
 
     /**
      * Returns the current chessboard
+     *
      * @return current chessboard
      */
     public Square[][] getChessboard() {
@@ -247,6 +260,7 @@ public class Board {
 
     /**
      * Sets the current chessboard
+     *
      * @param chessboard current chessboard
      */
     public void setChessboard(Square[][] chessboard) {
@@ -255,15 +269,16 @@ public class Board {
 
     /**
      * Counts the pieces on the board
+     *
      * @param currentboard current chessboard
      * @return count of pieces on the board
      */
-    public int getPieceCount(Board currentboard){
+    public int getPieceCount(Board currentboard) {
         int count = 0;
         Square[][] square = currentboard.getChessboard();
-        for (int i=0; i < square.length; i++){
-            for (int j=0; j < square.length; j++ ){
-                if(square[i][j].getPiece().isPresent()){
+        for (int i = 0; i < square.length; i++) {
+            for (int j = 0; j < square.length; j++) {
+                if (square[i][j].getPiece().isPresent()) {
                     count++;
                 }
             }
@@ -273,19 +288,19 @@ public class Board {
         return count;
     }
 
-    public char getCharFromPiece(Piece piece){
+    public char getCharFromPiece(Piece piece) {
         char charFromPiece = ' ';
-        if(piece.getColor().equals(Color.BLACK)){
-            switch (piece.getType()){
-            case ROOK -> charFromPiece = 'r';
-            case KING -> charFromPiece = 'k';
-            case QUEEN -> charFromPiece = 'q';
-            case PAWN -> charFromPiece = 'p';
-            case BISHOP -> charFromPiece = 'b';
-            case KNIGHT -> charFromPiece = 'n';
+        if (piece.getColor().equals(Color.BLACK)) {
+            switch (piece.getType()) {
+                case ROOK -> charFromPiece = 'r';
+                case KING -> charFromPiece = 'k';
+                case QUEEN -> charFromPiece = 'q';
+                case PAWN -> charFromPiece = 'p';
+                case BISHOP -> charFromPiece = 'b';
+                case KNIGHT -> charFromPiece = 'n';
             }
         } else {
-            switch (piece.getType()){
+            switch (piece.getType()) {
                 case ROOK -> charFromPiece = 'R';
                 case KING -> charFromPiece = 'K';
                 case QUEEN -> charFromPiece = 'Q';
