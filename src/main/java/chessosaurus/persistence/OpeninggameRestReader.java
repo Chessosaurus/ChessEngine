@@ -3,7 +3,6 @@ package chessosaurus.persistence;
 import chessosaurus.base.Board;
 import chessosaurus.base.Move;
 import chessosaurus.protocol.IMoveParser;
-import chessosaurus.protocol.UCIMoveParser;
 import chessosaurus.review.ReviewerContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -98,7 +97,7 @@ public class OpeninggameRestReader implements IOpeninggameReader {
 
     private boolean checkMoveInList(Move move, List<Move> allMoves){
         for (Move moveToCheck : allMoves) {
-            if(moveToCheck.getFrom().getFile() == move.getFrom().getFile() && moveToCheck.getFrom().getRankVal() == move.getFrom().getRankVal()){
+            if(moveToCheck.getFrom().getRank() == move.getFrom().getRank() && moveToCheck.getFrom().getFileVal() == move.getFrom().getFileVal()){
                 return true;
             }
         }

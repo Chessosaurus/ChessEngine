@@ -3,7 +3,6 @@ package chessosaurus.control;
 import chessosaurus.base.Board;
 import chessosaurus.base.Color;
 import chessosaurus.base.Move;
-import chessosaurus.engine.EnemyMoverContext;
 import chessosaurus.engine.IEnemyMoverContext;
 import chessosaurus.players.Enemy;
 import chessosaurus.review.ReviewerContext;
@@ -61,17 +60,17 @@ public class Game {
 
         ReviewerContext reviewerContext = new ReviewerContext();
 
-        int fromFile = this.chessboard.getChessboard().length-move.getFrom().getFile();
-        int fromRank = move.getFrom().getRankVal()-1;
+        int fromRank = this.chessboard.getChessboard().length-move.getFrom().getRank();
+        int fromFile = move.getFrom().getFileVal()-1;
 
-        int toFile = this.chessboard.getChessboard().length-move.getTo().getFile();
-        int toRank = move.getTo().getRankVal()-1;
+        int toRank = this.chessboard.getChessboard().length-move.getTo().getRank();
+        int toFile = move.getTo().getFileVal()-1;
 
 
 
         if (reviewerContext.isLegalMove(move, this.chessboard)) {
-            this.chessboard.getChessboard()[toFile][toRank].setPiece(move.getFrom().getPiece().get());
-            this.chessboard.getChessboard()[fromFile][fromRank].setPiece(Optional.empty());
+            this.chessboard.getChessboard()[toRank][toFile].setPiece(move.getFrom().getPiece().get());
+            this.chessboard.getChessboard()[fromRank][fromFile].setPiece(Optional.empty());
         }
         else {
             // TODO: Hier hat Spieler an Frontend verloren

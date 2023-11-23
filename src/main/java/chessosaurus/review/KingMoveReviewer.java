@@ -26,21 +26,21 @@ public class KingMoveReviewer extends MoveReviewerBase {
         Square from = move.getFrom();
         Square to = move.getTo();
         //Color color = from.getPiece().getColor();
-        int fromFile = from.getFile();
-        int fromRank = from.getRankVal()-1;
+        int fromRank = from.getRank();
+        int fromFile = from.getFileVal()-1;
 
-        int toFile = to.getFile();
-        int toRank = to.getRankVal()-1;
+        int toRank = to.getRank();
+        int toFile = to.getFileVal()-1;
 
-        if(toFile == fromFile+1 || toFile == fromFile-1){
-            if(toRank == fromRank+1 || toRank == fromRank-1){
+        if(toRank == fromRank+1 || toRank == fromRank-1){
+            if(toFile == fromFile+1 || toFile == fromFile-1){
                 return true;
             }
         }
-        if(toFile == fromFile && (toRank == fromRank+1 || toRank == fromRank-1)){
+        if(toRank == fromRank && (toFile == fromFile+1 || toFile == fromFile-1)){
             return true;
         }
-        if (toRank == fromRank && (toFile == fromFile+1 || toFile == fromFile-1)){
+        if (toFile == fromFile && (toRank == fromRank+1 || toRank == fromRank-1)){
             return true;
         }
 

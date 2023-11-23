@@ -39,12 +39,15 @@ public class Board {
 
         for (char c : position.toCharArray()) {
             if (c == '/') {
-                rank = 0;
-                file ++;
+                //rank = 0;
+                //file ++;
+                file = 0;
+                rank++;
             } else if (Character.isDigit(c)) {
                 int emptySpaces = Character.getNumericValue(c);
                 for (int i = 0; i < emptySpaces; i++) {
-                    rank++;
+                    //rank++;
+                    file++;
                 }
             } else {
 
@@ -102,8 +105,9 @@ public class Board {
                     default:
                         throw new IllegalArgumentException("No permissible figure type");
                 }
-                this.chessboard[file][rank].setPiece(piece);
-                rank++;
+                this.chessboard[rank][file].setPiece(piece);
+                //rank++;
+                file++;
             }
         }
     }
