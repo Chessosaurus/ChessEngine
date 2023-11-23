@@ -55,13 +55,17 @@ public class Game {
      * @param move Move of the player
      */
     public void reviewPlayerMove(Move move) {
+        ReviewerContext reviewerContext = new ReviewerContext();
+        boolean isLegal;
+
         if(move.getFrom().getPiece().isEmpty()){
-            throw new IllegalArgumentException("The from field doesnt have a piece on it");
+            isLegal = false;
+        }
+        else {
+            isLegal = reviewerContext.isLegalMove(move, this.chessboard);
         }
 
-        ReviewerContext reviewerContext = new ReviewerContext();
-
-        if (reviewerContext.isLegalMove(move, this.chessboard)) {
+        if (isLegal) {
             this.chessboard.getChessboard()[8 - move.getTo().getFile()][move.getTo().getRankVal() - 1].setPiece(move.getFrom().getPiece().get());
             this.chessboard.getChessboard()[8 - move.getFrom().getFile()][move.getFrom().getRankVal() - 1].setPiece(Optional.empty());
         }
