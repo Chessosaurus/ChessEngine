@@ -35,7 +35,9 @@ public class PawnMoveReviewer extends MoveReviewerBase{
         int toFileForSearch = chessboard.getChessboard().length - to.getFile();
         int toRank = to.getRankVal() -1;
 
-        //if(!isCheck(move, chessboard)){
+        boolean check = isCheck(move,chessboard);
+
+        if(!isCheck(move, chessboard)){
             if (board[toFileForSearch][toRank].getPiece().isEmpty()){
                 if (color == Color.WHITE){
                     if(fromFile == 2 && toFile ==4 && fromRank == toRank) return true;  //Checks if White Pawns first move
@@ -55,7 +57,7 @@ public class PawnMoveReviewer extends MoveReviewerBase{
                     else return false;
                 }
             }else return false;
-        //}
-        //return false;
+        }
+        return false;
     }
 }

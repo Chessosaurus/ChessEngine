@@ -55,7 +55,7 @@ abstract class MoveReviewerBase implements IMoveReviewer{
         for(int file = 0; file<8; file++){
             for(int rank = 0; rank<8; rank++){
                 if(board[file][rank].getPiece().isPresent()){
-                    if(board[file][rank].getPiece().get().getColor() != color && board[file][rank].getPiece().get().getType() == PieceType.KING){
+                    if(board[file][rank].getPiece().get().getColor() == color && board[file][rank].getPiece().get().getType() == PieceType.KING){
                         kingFile = file;
                         kingRank = rank;
                     }
