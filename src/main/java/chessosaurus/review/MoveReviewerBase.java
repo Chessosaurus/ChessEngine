@@ -63,11 +63,6 @@ abstract class MoveReviewerBase implements IMoveReviewer{
             }
         }
 
-
-        if(color.equals(Color.WHITE)){
-            return false;
-        }
-
         for(int i = 1; i<=8; i++){
 
             //Ermittelt ob König diagonal angegriffen wird
