@@ -23,6 +23,7 @@ public class BusinessControllerTest {
 
     @Test
     public void testInitializeGame() {
+
         // ACT
 
         Board board = this.businessController.initializeGame();
@@ -37,6 +38,7 @@ public class BusinessControllerTest {
 
     @Test
     public void testReviewPlayerMove() {
+
         // ARRANGE
 
         when(this.mockGame.getChessboard()).thenReturn(this.expectedBoard);
@@ -47,11 +49,7 @@ public class BusinessControllerTest {
         Square testFrom = new Square(1,2);
         testFrom.setPiece(pieceFrom);
 
-        Piece pieceTo = new Piece();
-        pieceTo.setColor(Color.BLACK);
-        pieceTo.setType(PieceType.PAWN);
         Square testTo = new Square(1,3);
-        testTo.setPiece(pieceTo);
 
         Move testMove = new Move (testFrom, testTo);
 
@@ -69,6 +67,7 @@ public class BusinessControllerTest {
 
     @Test
     public void testCalculateBestMove() {
+
         // ARRANGE
 
         Piece pieceFrom = new Piece();
@@ -77,11 +76,7 @@ public class BusinessControllerTest {
         Square testFrom = new Square(1,2);
         testFrom.setPiece(pieceFrom);
 
-        Piece pieceTo = new Piece();
-        pieceTo.setColor(Color.BLACK);
-        pieceTo.setType(PieceType.PAWN);
         Square testTo = new Square(1,3);
-        testTo.setPiece(pieceTo);
 
         Move expectedMove = new Move (testFrom, testTo);
 
