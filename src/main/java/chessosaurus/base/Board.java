@@ -12,6 +12,8 @@ import java.util.Optional;
 
 public class Board {
     private Square[][] chessboard;
+    static private boolean whiteCastlingPossible = true;
+    static private boolean blackCastlingPossible = true;
 
     private int moveCounter;
 
@@ -78,56 +80,55 @@ public class Board {
                 Piece piece = new Piece();
 
                 switch (c) {
-                    case 'k':
+                    case 'k' -> {
                         piece.setType(PieceType.KING);
                         piece.setColor(Color.BLACK);
-                        break;
-                    case 'K':
+                    }
+                    case 'K' -> {
                         piece.setType(PieceType.KING);
                         piece.setColor(Color.WHITE);
-                        break;
-                    case 'q':
+                    }
+                    case 'q' -> {
                         piece.setType(PieceType.QUEEN);
                         piece.setColor(Color.BLACK);
-                        break;
-                    case 'Q':
+                    }
+                    case 'Q' -> {
                         piece.setType(PieceType.QUEEN);
                         piece.setColor(Color.WHITE);
-                        break;
-                    case 'r':
+                    }
+                    case 'r' -> {
                         piece.setType(PieceType.ROOK);
                         piece.setColor(Color.BLACK);
-                        break;
-                    case 'R':
+                    }
+                    case 'R' -> {
                         piece.setType(PieceType.ROOK);
                         piece.setColor(Color.WHITE);
-                        break;
-                    case 'b':
+                    }
+                    case 'b' -> {
                         piece.setType(PieceType.BISHOP);
                         piece.setColor(Color.BLACK);
-                        break;
-                    case 'B':
+                    }
+                    case 'B' -> {
                         piece.setType(PieceType.BISHOP);
                         piece.setColor(Color.WHITE);
-                        break;
-                    case 'n':
+                    }
+                    case 'n' -> {
                         piece.setType(PieceType.KNIGHT);
                         piece.setColor(Color.BLACK);
-                        break;
-                    case 'N':
+                    }
+                    case 'N' -> {
                         piece.setType(PieceType.KNIGHT);
                         piece.setColor(Color.WHITE);
-                        break;
-                    case 'p':
+                    }
+                    case 'p' -> {
                         piece.setType(PieceType.PAWN);
                         piece.setColor(Color.BLACK);
-                        break;
-                    case 'P':
+                    }
+                    case 'P' -> {
                         piece.setType(PieceType.PAWN);
                         piece.setColor(Color.WHITE);
-                        break;
-                    default:
-                        throw new IllegalArgumentException("No permissible figure type");
+                    }
+                    default -> throw new IllegalArgumentException("No permissible figure type");
                 }
                 this.chessboard[rank][file].setPiece(piece);
                 //rank++;
@@ -288,9 +289,9 @@ public class Board {
     public int getPieceCount(Board currentboard){
         int count = 0;
         Square[][] square = currentboard.getChessboard();
-        for (int i=0; i < square.length; i++){
-            for (int j=0; j < square.length; j++ ){
-                if(square[i][j].getPiece().isPresent()){
+        for (Square[] squares : square) {
+            for (int j = 0; j < square.length; j++) {
+                if (squares[j].getPiece().isPresent()) {
                     count++;
                 }
             }
@@ -323,6 +324,17 @@ public class Board {
         }
         return charFromPiece;
     }
+
+    public void setCastlingImpossible(Color color){
+        if(color.equals(Color.WHITE)) whiteCastlingPossible = false;
+        else blackCastlingPossible = false;
+    }
+
+    public boolean isCastlingPossible(Color color){
+        if(color.equals(Color.WHITE)) return whiteCastlingPossible;
+        else return blackCastlingPossible;
+    }
+
 
     public void setMoveCounter(int moveCounter) {
         this.moveCounter = moveCounter;

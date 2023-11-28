@@ -71,7 +71,7 @@ abstract class MoveReviewerBase implements IMoveReviewer{
                     if (board[kingRank + i][kingFile + i].getPiece().get().getColor() != color) {
                         switch (board[kingRank + i][kingFile + i].getPiece().get().getType()) {
                             case PAWN:
-                                if (i == 1 && color == Color.WHITE) return true;
+                                if (i == 1 && color.equals(Color.WHITE)) return true;
                                 break;
                             case BISHOP:
                             case QUEEN:
@@ -87,7 +87,7 @@ abstract class MoveReviewerBase implements IMoveReviewer{
                     if (board[kingRank + i][kingFile - i].getPiece().get().getColor() != color) {
                         switch (board[kingRank + i][kingFile - i].getPiece().get().getType()) {
                             case PAWN:
-                                if (i == 1 && color == Color.WHITE) return true;
+                                if (i == 1 && color.equals(Color.WHITE)) return true;
                                 break;
                             case BISHOP:
                             case QUEEN:
@@ -209,7 +209,7 @@ abstract class MoveReviewerBase implements IMoveReviewer{
         if(isValidPosition(kingRank-1, kingFile-2)) {
             if (board[kingRank - 1][kingFile - 2].getPiece().isPresent()) {
                 if (board[kingRank - 1][kingFile - 2].getPiece().get().getColor() != color) {
-                    if (board[kingRank - 1][kingFile - 2].getPiece().get().getType() == PieceType.KNIGHT) return true;
+                    return board[kingRank - 1][kingFile - 2].getPiece().get().getType() == PieceType.KNIGHT;
                 }
             }
         }
