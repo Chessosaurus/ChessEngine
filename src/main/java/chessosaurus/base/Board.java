@@ -1,5 +1,7 @@
 package chessosaurus.base;
 
+import java.util.Optional;
+
 /**
  * The Board class is responsible for the representation and transformation of the chessboard.
  * <p>
@@ -10,6 +12,8 @@ package chessosaurus.base;
 
 public class Board {
     private Square[][] chessboard;
+
+    private int moveCounter;
 
     public Board() {
         this.chessboard = new Square[8][8];
@@ -318,5 +322,22 @@ public class Board {
             }
         }
         return charFromPiece;
+    }
+
+    public void setMoveCounter(int moveCounter) {
+        this.moveCounter = moveCounter;
+    }
+
+   public Board makeMove (Move move, Board currentBoard) {
+        int toRank = move.getTo().getRank();
+        int toFile = move.getTo().getFile();
+
+        int fromRank = move.getFrom().getRank();
+        int fromFile = move.getFrom().getFile();
+
+        currentBoard.getChessboard()[toRank][toFile].setPiece(move.getFrom().getPiece().get());
+        currentBoard.getChessboard()[fromRank][fromFile].setPiece(Optional.empty());
+
+        return currentBoard;
     }
 }

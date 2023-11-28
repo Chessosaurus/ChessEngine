@@ -3,6 +3,7 @@ package chessosaurus.control;
 import chessosaurus.base.Board;
 import chessosaurus.base.Color;
 import chessosaurus.base.Move;
+import chessosaurus.base.Square;
 import chessosaurus.engine.EnemyMoverContext;
 import chessosaurus.engine.IEnemyMoverContext;
 import chessosaurus.players.Enemy;
@@ -88,5 +89,25 @@ public class Game {
      */
     public Move calculateBestEnemyMove() {
         return this.enemy.getBestMove(this.moves, this.chessboard);
+    }
+
+
+    public Board deepCloneBoard(){
+        Board copiedBoard = new Board();
+
+        final Square[][] result = new Square[8][8];
+
+        for (int i = 0; i < this.chessboard.getChessboard().length; i++){
+            for (int j = 0; j < this.chessboard.getChessboard().length; j++) {
+                result[i][j] = this.chessboard.getChessboard()[i][j] == null? null : new Square(i,j);
+                result[i][j].setPiece(this.chessboard.getChessboard()[i][j].getPiece().get());
+            }
+        }
+
+        copiedBoard.setChessboard(result);
+        copiedBoard.setMoveCounter(moves.size());
+
+        return copiedBoard;
+
     }
 }
