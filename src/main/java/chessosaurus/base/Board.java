@@ -28,7 +28,6 @@ public class Board {
 
     /**
      * Returns square from a board by rank and file
-     * @param board Given chessboard
      * @param rank Given row
      * @param file Given column
      * @return square
