@@ -6,6 +6,7 @@ import chessosaurus.base.Move;
 import chessosaurus.engine.EnemyMoverContext;
 import chessosaurus.engine.IEnemyMoverContext;
 import chessosaurus.players.Enemy;
+import chessosaurus.review.IReviewerContext;
 import chessosaurus.review.ReviewerContext;
 
 import java.util.ArrayList;
@@ -24,7 +25,10 @@ public class Game {
     private final Enemy enemy;
     private List<Move> moves;
 
-    public Game(Color enemyColor, IEnemyMoverContext enemyMoverContext) {
+    private final IReviewerContext reviewerContext;
+
+    public Game(Color enemyColor, IEnemyMoverContext enemyMoverContext, IReviewerContext reviewerContext) {
+        this.reviewerContext = reviewerContext;
         this.chessboard = new Board();
         this.enemy = new Enemy(enemyColor, enemyMoverContext);
         this.moves = new ArrayList<>();
@@ -55,7 +59,6 @@ public class Game {
      * @param move Move of the player
      */
     public void reviewPlayerMove(Move move) {
-        ReviewerContext reviewerContext = new ReviewerContext();
         boolean isLegal;
 
         int fromRank = this.chessboard.getChessboard().length - move.getFrom().getRank();
@@ -67,7 +70,7 @@ public class Game {
             isLegal = false;
         }
         else {
-            isLegal = reviewerContext.isLegalMove(move, this.chessboard);
+            isLegal = this.reviewerContext.isLegalMove(move, this.chessboard);
         }
 
         if (isLegal) {

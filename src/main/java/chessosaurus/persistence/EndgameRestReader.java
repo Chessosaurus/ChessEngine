@@ -3,6 +3,7 @@ package chessosaurus.persistence;
 import chessosaurus.base.Board;
 import chessosaurus.base.Move;
 import chessosaurus.protocol.IMoveParser;
+import chessosaurus.review.IReviewerContext;
 import chessosaurus.review.ReviewerContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,16 +23,17 @@ import java.util.List;
 public class EndgameRestReader implements IEndgameReader {
 
     private final IMoveParser moveParser;
+    private final IReviewerContext reviewerContext;
 
-    public EndgameRestReader(IMoveParser moveParser) {
+    public EndgameRestReader(IMoveParser moveParser, IReviewerContext reviewerContext) {
         this.moveParser = moveParser;
+        this.reviewerContext = reviewerContext;
     }
 
     @Override
     public Move getMove(String currentBoardAsFen, Board currentBoard) {
         Move bestMove = null;
         List<Move>      bestMovesAsMove = new ArrayList<>();
-        ReviewerContext reviewerContext = new ReviewerContext();
 
         try {
 
@@ -60,7 +62,7 @@ public class EndgameRestReader implements IEndgameReader {
             }
 
             for (Move moveToCheck: bestMovesAsMove) {
-                if(reviewerContext.isLegalMove(moveToCheck,currentBoard)){
+                if(this.reviewerContext.isLegalMove(moveToCheck,currentBoard)){
                     bestMove = moveToCheck;
                     break;
                 }

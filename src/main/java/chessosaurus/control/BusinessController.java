@@ -1,11 +1,9 @@
 package chessosaurus.control;
 
 import chessosaurus.base.Board;
-import chessosaurus.base.Color;
 import chessosaurus.base.Move;
 import chessosaurus.engine.IEnemyMoverContext;
-
-import java.util.Random;
+import chessosaurus.review.IReviewerContext;
 
 /**
  * Main class of the engine to receive the moves and actions from UCI class and forward them to specific classes.
@@ -17,13 +15,16 @@ public class BusinessController implements IController {
 
 
     private final IEnemyMoverContext enemyMoverContext;
-    public BusinessController(IEnemyMoverContext enemyMoverContext) {
+    private final IReviewerContext reviewerContext;
+    public BusinessController(IEnemyMoverContext enemyMoverContext, IReviewerContext reviewerContext) {
         this.enemyMoverContext = enemyMoverContext;
+        this.reviewerContext = reviewerContext;
     }
 
-    public BusinessController(IEnemyMoverContext enemyMoverContext, Game game) {
+    public BusinessController(IEnemyMoverContext enemyMoverContext, Game game, IReviewerContext reviewerContext) {
         this.enemyMoverContext = enemyMoverContext;
         this.game = game;
+        this.reviewerContext = reviewerContext;
     }
 
     /**
@@ -44,7 +45,7 @@ public class BusinessController implements IController {
 
         this.game = new Game(colorOfEnemy, this.enemyMoverContext);
          */
-        this.game = new Game(null, this.enemyMoverContext);
+        this.game = new Game(null, this.enemyMoverContext, this.reviewerContext);
         return this.game.getChessboard();
     }
 

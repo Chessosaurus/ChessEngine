@@ -2,6 +2,7 @@ package chessosaurus.control;
 
 import chessosaurus.base.*;
 import chessosaurus.engine.IEnemyMoverContext;
+import chessosaurus.review.IReviewerContext;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -30,12 +31,15 @@ public class GameTest {
         Square testFrom = new Square(1,2);
         testFrom.setPiece(pieceFrom);
 
+        IReviewerContext mockReviewerContext = mock(IReviewerContext.class);
+        when(mockReviewerContext.isLegalMove(any(), any())).thenReturn(true);
+
         Square testTo = new Square(1,3);
 
         this.expectedBestMove = new Move (testFrom, testTo);
         when(mockEnemyMoverContext.getBestMove(anyList(), any(), any())).thenReturn(this.expectedBestMove);
 
-        this.game = new Game(Color.BLACK, mockEnemyMoverContext);
+        this.game = new Game(Color.BLACK, mockEnemyMoverContext, mockReviewerContext);
     }
 
 
