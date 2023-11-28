@@ -27,6 +27,27 @@ public class Board {
     }
 
     /**
+     * Returns square from a board by rank and file
+     * @param board Given chessboard
+     * @param rank Given row
+     * @param file Given column
+     * @return square
+     */
+    public Square getSquare(int rank, char file) {
+        Square[][] squares = this.chessboard;
+
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (squares[i][j].getRank() == rank && squares[i][j].getFile() == file) {
+                    return squares[i][j];
+                }
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Transforms the fen-Notation into a processable 2d array
      * @param fenNotation String given by the UI
      */

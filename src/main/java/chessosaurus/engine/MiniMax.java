@@ -10,6 +10,13 @@ import chessosaurus.base.Move;
  */
 public class MiniMax {
 
+    private final IMoveFinder moveFinder;
+
+    public MiniMax(IMoveFinder moveFinder) {
+        this.moveFinder = moveFinder;
+    }
+
+
     /**
      * Returns the best move calculated using the Minimax algorithm.
      * @return best move

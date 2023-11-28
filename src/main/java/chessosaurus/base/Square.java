@@ -4,8 +4,8 @@ import java.util.Optional;
 
 public class Square {
 
-    private char file;
-    private int rank;
+    private char file; // Spalten
+    private int rank; // Zeilen
     private Optional<Piece> piece;
 
     public Square(int file, int rank) {

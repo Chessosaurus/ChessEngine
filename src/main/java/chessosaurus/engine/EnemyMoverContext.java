@@ -3,7 +3,6 @@ package chessosaurus.engine;
 import chessosaurus.base.Board;
 import chessosaurus.base.Color;
 import chessosaurus.base.Move;
-import chessosaurus.control.Game;
 import chessosaurus.persistence.IEndgameReader;
 import chessosaurus.persistence.IOpeninggameReader;
 
@@ -19,12 +18,14 @@ public class EnemyMoverContext implements IEnemyMoverContext {
 
     private final IOpeninggameReader openinggameReader;
     private final IEndgameReader endgameReader;
+    private final IMoveFinder moveFinder;
 
 
     public EnemyMoverContext(IOpeninggameReader openinggameReader,
-                             IEndgameReader endgameReader) {
+                             IEndgameReader endgameReader, IMoveFinder moveFinder) {
         this.openinggameReader = openinggameReader;
         this.endgameReader = endgameReader;
+        this.moveFinder = moveFinder;
     }
 
     /**
@@ -60,7 +61,7 @@ public class EnemyMoverContext implements IEnemyMoverContext {
             move = enemyMover.getBestMove(Fen,currentBoard);
         }
         if (move == null) {
-            MiniMax enemyMover = new MiniMax();
+            MiniMax enemyMover = new MiniMax(this.moveFinder);
             move = enemyMover.getBestMove();
         }
 
