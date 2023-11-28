@@ -6,6 +6,7 @@ import chessosaurus.base.Move;
 import chessosaurus.control.Game;
 import chessosaurus.review.ReviewerContext;
 import chessosaurus.engine.IMoveFinder;
+import chessosaurus.engine.IEvaluation;
 
 
 import java.util.List;
@@ -26,9 +27,15 @@ public class MiniMaxAlgorithm {
     protected ReviewerContext reviewerContext;
 
     private final IMoveFinder moveFinder;
+    protected static IEvaluation evaluation;
 
     public MiniMaxAlgorithm(IMoveFinder moveFinder) {
         this.moveFinder = moveFinder;
+    }
+
+
+    public void setEvaluation (IEvaluation evaluation) {
+        this.evaluation = evaluation;
     }
 
 
@@ -40,7 +47,7 @@ public class MiniMaxAlgorithm {
     public Move getBestMove(List<Move> allMoves, Board currentBoard, Color currentColor, Game currentGame) {
         //TODO alle möglichen Spielzüge
 
-        int bestValue = Integer.MIN_VALUE;
+        int bestValue = Evaluation.badestValue;
         Move bestMove = null;
 
         List<Move> legalMoves = this.moveFinder.getLegalMoves(currentBoard, currentColor);
@@ -76,16 +83,16 @@ public class MiniMaxAlgorithm {
     protected int evaluate(Board currentBoard, Color currentcolor, Game currentGame, int currentDepth) {
 
         if (currentDepth == depth) {
-            return 0;
+            return evaluation.evaluateMove(currentBoard, currentcolor);
         } else {
             List<Move> legalMoves = this.moveFinder.getLegalMoves(currentBoard, currentcolor);
             if (legalMoves.isEmpty()) {
-
-                //TODO PATT und SCHACH überprüfen
+                //TODO PATT und MATT überprüfen
+                return Evaluation.balancedValue;
 
             } else {
                 if (currentDepth % 2 == 0) {
-                    int max = Integer.MIN_VALUE;
+                    int max = Evaluation.badestValue;
                     for (Move move : legalMoves) {
                         Board newBoard = currentGame.deepCloneBoard();
                         newBoard.makeMove(move, newBoard);
@@ -96,7 +103,7 @@ public class MiniMaxAlgorithm {
                     }
                     return max;
                 } else {
-                    int min = Integer.MAX_VALUE;
+                    int min = Evaluation.bestValue;
                     for (Move move : legalMoves) {
                         Board newBoard = currentGame.deepCloneBoard();
                         newBoard.makeMove(move, newBoard);
