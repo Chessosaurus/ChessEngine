@@ -7,7 +7,7 @@ public interface IEvaluation {
 
     int bestValue = Integer.MAX_VALUE;
 
-    int badestValue = Integer.MIN_VALUE;
+    int worstValue = Integer.MIN_VALUE;
 
     int balancedValue = 0;
 

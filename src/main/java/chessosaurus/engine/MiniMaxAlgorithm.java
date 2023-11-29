@@ -45,9 +45,8 @@ public class MiniMaxAlgorithm {
      * @return best move
      */
     public Move getBestMove(List<Move> allMoves, Board currentBoard, Color currentColor, Game currentGame) {
-        //TODO alle möglichen Spielzüge
 
-        int bestValue = Evaluation.badestValue;
+        int bestValue = Evaluation.worstValue;
         Move bestMove = null;
 
         List<Move> legalMoves = this.moveFinder.getLegalMoves(currentBoard, currentColor);
@@ -55,7 +54,7 @@ public class MiniMaxAlgorithm {
         for (Move move : legalMoves) {
 
             Board newBoard = currentGame.deepCloneBoard();
-            newBoard.makeMove(move, newBoard);
+            newBoard.makeMove(move);
             int value = evaluate(newBoard, currentColor, currentGame);
 
             if (value > bestValue) {
@@ -92,10 +91,10 @@ public class MiniMaxAlgorithm {
 
             } else {
                 if (currentDepth % 2 == 0) {
-                    int max = Evaluation.badestValue;
+                    int max = Evaluation.worstValue;
                     for (Move move : legalMoves) {
                         Board newBoard = currentGame.deepCloneBoard();
-                        newBoard.makeMove(move, newBoard);
+                        newBoard.makeMove(move);
                         int value = evaluate(newBoard, currentcolor, currentGame, currentDepth + 1);
                         if (value > max) {
                             max = value;
@@ -106,7 +105,7 @@ public class MiniMaxAlgorithm {
                     int min = Evaluation.bestValue;
                     for (Move move : legalMoves) {
                         Board newBoard = currentGame.deepCloneBoard();
-                        newBoard.makeMove(move, newBoard);
+                        newBoard.makeMove(move);
                         int value = evaluate(newBoard, currentcolor, currentGame, currentDepth + 1);
 
                         if (value < min) {

@@ -14,6 +14,7 @@ public class Board {
     private Square[][] chessboard;
     static private boolean whiteCastlingPossible = true;
     static private boolean blackCastlingPossible = true;
+    private Board board;
 
     private int moveCounter;
 
@@ -25,6 +26,7 @@ public class Board {
                 this.chessboard[i][j] = new Square(i+1,j+1);
             }
         }
+        this.board.setChessboard(this.chessboard);
     }
 
     // Copy-Konstruktor
@@ -283,12 +285,11 @@ public class Board {
 
     /**
      * Counts the pieces on the board
-     * @param currentboard current chessboard
      * @return count of pieces on the board
      */
-    public int getPieceCount(Board currentboard){
+    public int getPieceCount(){
         int count = 0;
-        Square[][] square = currentboard.getChessboard();
+        Square[][] square = this.board.getChessboard();
         for (Square[] squares : square) {
             for (int j = 0; j < square.length; j++) {
                 if (squares[j].getPiece().isPresent()) {
@@ -340,16 +341,16 @@ public class Board {
         this.moveCounter = moveCounter;
     }
 
-   public Board makeMove (Move move, Board currentBoard) {
+   public Board makeMove (Move move) {
         int toRank = move.getTo().getRank();
         int toFile = move.getTo().getFile();
 
         int fromRank = move.getFrom().getRank();
         int fromFile = move.getFrom().getFile();
 
-        currentBoard.getChessboard()[toRank][toFile].setPiece(move.getFrom().getPiece().get());
-        currentBoard.getChessboard()[fromRank][fromFile].setPiece(Optional.empty());
+        this.board.getChessboard()[toRank][toFile].setPiece(move.getFrom().getPiece().get());
+        this.board.getChessboard()[fromRank][fromFile].setPiece(Optional.empty());
 
-        return currentBoard;
+        return this.board;
     }
 }

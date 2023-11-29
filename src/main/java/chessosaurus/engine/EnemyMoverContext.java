@@ -43,7 +43,7 @@ public class EnemyMoverContext implements IEnemyMoverContext {
 
         int movesCount = allMoves.size();
 
-        int pieceCount = currentBoard.getPieceCount(currentBoard);
+        int pieceCount = currentBoard.getPieceCount();
 
         if (movesCount < 16 && movesCount!=0) {
             OpeningMoveSelector enemyMover = new OpeningMoveSelector(this.openinggameReader);
