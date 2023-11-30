@@ -204,7 +204,7 @@ public class MoveFinder implements IMoveFinder {
         char newFile = currentFile;
 
         while (this.isValidSquare(newRank + 1, (char) (newFile + 1))) {
-            possibleMoves.add(new Move(square, board.getSquare(currentRank + 1, (char) (currentFile + 1))));
+            possibleMoves.add(new Move(square, board.getSquare(newRank + 1, (char) (newFile + 1))));
             newRank++;
             newFile++;
         }
@@ -213,21 +213,27 @@ public class MoveFinder implements IMoveFinder {
         newFile = currentFile;
 
         while (this.isValidSquare(newRank + 1, (char) (newFile - 1))) {
-            possibleMoves.add(new Move(square, board.getSquare(currentRank + 1, (char) (currentFile - 1))));
+            possibleMoves.add(new Move(square, board.getSquare(newRank + 1, (char) (newFile - 1))));
+            newRank++;
+            newFile++;
         }
 
         newRank = currentRank;
         newFile = currentFile;
 
         while (this.isValidSquare(newRank - 1, (char) (newFile + 1))) {
-            possibleMoves.add(new Move(square, board.getSquare(currentRank - 1, (char) (currentFile + 1))));
+            possibleMoves.add(new Move(square, board.getSquare(newRank - 1, (char) (newFile + 1))));
+            newRank++;
+            newFile++;
         }
 
         newRank = currentRank;
         newFile = currentFile;
 
         while (this.isValidSquare(newRank - 1, (char) (newFile - 1))) {
-            possibleMoves.add(new Move(square, board.getSquare(currentRank - 1, (char) (currentFile - 1))));
+            possibleMoves.add(new Move(square, board.getSquare(newRank - 1, (char) (newFile - 1))));
+            newRank++;
+            newFile++;
         }
 
         return possibleMoves;
@@ -251,7 +257,7 @@ public class MoveFinder implements IMoveFinder {
         char newFile = currentFile;
 
         while (this.isValidSquare(newRank + 1, (char) (newFile + 1))) {
-            possibleMoves.add(new Move(square, board.getSquare(currentRank + 1, (char) (currentFile + 1))));
+            possibleMoves.add(new Move(square, board.getSquare(newRank + 1, (char) (newFile + 1))));
             newRank++;
             newFile++;
         }
@@ -260,21 +266,27 @@ public class MoveFinder implements IMoveFinder {
         newFile = currentFile;
 
         while (this.isValidSquare(newRank + 1, (char) (newFile - 1))) {
-            possibleMoves.add(new Move(square, board.getSquare(currentRank + 1, (char) (currentFile - 1))));
+            possibleMoves.add(new Move(square, board.getSquare(newRank + 1, (char) (newFile - 1))));
+            newRank++;
+            newFile++;
         }
 
         newRank = currentRank;
         newFile = currentFile;
 
         while (this.isValidSquare(newRank - 1, (char) (newFile + 1))) {
-            possibleMoves.add(new Move(square, board.getSquare(currentRank - 1, (char) (currentFile + 1))));
+            possibleMoves.add(new Move(square, board.getSquare(newRank - 1, (char) (newFile + 1))));
+            newRank++;
+            newFile++;
         }
 
         newRank = currentRank;
         newFile = currentFile;
 
         while (this.isValidSquare(newRank - 1, (char) (newFile - 1))) {
-            possibleMoves.add(new Move(square, board.getSquare(currentRank - 1, (char) (currentFile - 1))));
+            possibleMoves.add(new Move(square, board.getSquare(newRank - 1, (char) (newFile - 1))));
+            newRank++;
+            newFile++;
         }
 
         // Horizontal
