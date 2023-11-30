@@ -1,9 +1,6 @@
 package chessosaurus.control;
 
-import chessosaurus.base.Board;
-import chessosaurus.base.Color;
-import chessosaurus.base.Move;
-import chessosaurus.base.Square;
+import chessosaurus.base.*;
 import chessosaurus.engine.EnemyMoverContext;
 import chessosaurus.engine.IEnemyMoverContext;
 import chessosaurus.players.Enemy;
@@ -88,23 +85,29 @@ public class Game {
      * @return best move
      */
     public Move calculateBestEnemyMove() {
-        return this.enemy.getBestMove(this.moves, this.chessboard);
+        return this.enemy.getBestMove(this.moves, this.chessboard, this);
     }
 
 
     public Board deepCloneBoard(){
         Board copiedBoard = new Board();
 
-        final Square[][] result = new Square[8][8];
+        final Square[][] result = copiedBoard.getChessboard();
 
-        for (int i = 0; i < this.chessboard.getChessboard().length; i++){
-            for (int j = 0; j < this.chessboard.getChessboard().length; j++) {
-                result[i][j] = this.chessboard.getChessboard()[i][j] == null? null : new Square(i,j);
-                result[i][j].setPiece(this.chessboard.getChessboard()[i][j].getPiece().get());
+        for (int i = 0; i < 8; i++){
+            for (int j = 0; j < 8; j++) {
+                if (this.chessboard.getChessboard()[i][j].getPiece().isPresent()){
+                    result[i][j].setPiece(new Piece(this.chessboard.getChessboard()[i][j].getPiece().get().getType(), this.chessboard.getChessboard()[i][j].getPiece().get().getColor()));
+                }else {
+                    result[i][j].setPiece(Optional.empty());
+                }
+
+                //result[i][j] = this.chessboard.getChessboard()[i][j] == null? null : new Square(i,j);
+                //result[i][j].setPiece(this.chessboard.getChessboard()[i][j].getPiece().isEmpty()?null : this.chessboard.getChessboard()[i][j].getPiece());
             }
         }
 
-        copiedBoard.setChessboard(result);
+        //copiedBoard.setChessboard(result);
         copiedBoard.setMoveCounter(moves.size());
 
         return copiedBoard;

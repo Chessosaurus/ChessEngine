@@ -3,6 +3,7 @@ package chessosaurus.engine;
 import chessosaurus.base.Board;
 import chessosaurus.base.Color;
 import chessosaurus.base.Move;
+import chessosaurus.control.Game;
 
 import java.util.List;
 
@@ -21,6 +22,6 @@ public interface IEnemyMoverContext {
      * @param currentColor The color of the enemy
      * @return Best move
      */
-    Move getBestMove(List<Move> allMoves, Board currentBoard, Color currentColor);
+    Move getBestMove(List<Move> allMoves, Board currentBoard, Color currentColor, Game currentGame);
 
 }

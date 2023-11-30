@@ -10,7 +10,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 //import io.reactive.rxjava3.subjects.ReplaySubject;
 
-public class MinimaxThreading implements IEnemyMoverContext{
+public class MinimaxThreading{
 
     private ExecutorService excutorService;
     //private ReplaySubject<EvaluatedMove> searchresults;
@@ -20,7 +20,6 @@ public class MinimaxThreading implements IEnemyMoverContext{
         excutorService = Executors.newFixedThreadPool(cores);
     }*/
 
-    @Override
     public Move getBestMove(List<Move> allMoves, Board currentBoard, Color currentColor) {
         return null;
     }

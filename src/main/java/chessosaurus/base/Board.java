@@ -24,9 +24,10 @@ public class Board {
         for(int i=0; i<8;i++){
             for(int j=0; j<8;j++){
                 this.chessboard[i][j] = new Square(i+1,j+1);
+                this.chessboard[i][j].setPiece(Optional.empty());
             }
         }
-        this.board.setChessboard(this.chessboard);
+        //this.board.setChessboard(this.chessboard);
     }
 
     // Copy-Konstruktor
@@ -62,7 +63,7 @@ public class Board {
 
         String[] parts = fenNotation.split(" ");
         String position = parts[0];
-        int rank = 0;
+        int rank = 7;
         int file = 0;
 
         for (char c : position.toCharArray()) {
@@ -70,7 +71,7 @@ public class Board {
                 //rank = 0;
                 //file ++;
                 file = 0;
-                rank++;
+                rank--;
             } else if (Character.isDigit(c)) {
                 int emptySpaces = Character.getNumericValue(c);
                 for (int i = 0; i < emptySpaces; i++) {
@@ -289,7 +290,7 @@ public class Board {
      */
     public int getPieceCount(){
         int count = 0;
-        Square[][] square = this.board.getChessboard();
+        Square[][] square = this.chessboard;
         for (Square[] squares : square) {
             for (int j = 0; j < square.length; j++) {
                 if (squares[j].getPiece().isPresent()) {
@@ -342,15 +343,14 @@ public class Board {
     }
 
    public Board makeMove (Move move) {
-        int toRank = move.getTo().getRank();
-        int toFile = move.getTo().getFile();
+        int toRank = move.getTo().getRank()-1;
+        int toFile = move.getTo().getFileVal()-1;
 
-        int fromRank = move.getFrom().getRank();
-        int fromFile = move.getFrom().getFile();
+        int fromRank = move.getFrom().getRank()-1;
+        int fromFile = move.getFrom().getFileVal()-1;
+        this.getChessboard()[toRank][toFile].setPiece(move.getFrom().getPiece().isEmpty()?null : move.getFrom().getPiece());
+        this.getChessboard()[fromRank][fromFile].setPiece(Optional.empty());
 
-        this.board.getChessboard()[toRank][toFile].setPiece(move.getFrom().getPiece().get());
-        this.board.getChessboard()[fromRank][fromFile].setPiece(Optional.empty());
-
-        return this.board;
+        return this;
     }
 }

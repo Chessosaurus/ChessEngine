@@ -3,12 +3,14 @@ package chessosaurus.engine;
 import chessosaurus.base.Board;
 import chessosaurus.base.Color;
 import chessosaurus.base.Move;
+import chessosaurus.base.Square;
 import chessosaurus.control.Game;
 import chessosaurus.review.ReviewerContext;
 import chessosaurus.engine.IMoveFinder;
 import chessosaurus.engine.IEvaluation;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,17 +22,18 @@ import java.util.List;
  */
 public class MiniMaxAlgorithm {
 
-    private int depth;
+    private int depth = 1;
 
     private List<Move> possibleMoves;
 
     protected ReviewerContext reviewerContext;
 
     private final IMoveFinder moveFinder;
-    protected static IEvaluation evaluation;
+    protected static IEvaluation evaluation = new Evaluation();
 
     public MiniMaxAlgorithm(IMoveFinder moveFinder) {
         this.moveFinder = moveFinder;
+
     }
 
 
@@ -50,12 +53,17 @@ public class MiniMaxAlgorithm {
         Move bestMove = null;
 
         List<Move> legalMoves = this.moveFinder.getLegalMoves(currentBoard, currentColor);
+        //Move testMove = new Move(new Square(3,6), new Square(3,4));
+
+        //List<Move> legalMoves = new ArrayList<>();
+        //legalMoves.add(testMove);
 
         for (Move move : legalMoves) {
 
+            int value = evaluate(currentBoard, currentColor, currentGame);
             Board newBoard = currentGame.deepCloneBoard();
             newBoard.makeMove(move);
-            int value = evaluate(newBoard, currentColor, currentGame);
+
 
             if (value > bestValue) {
                 bestValue = value;

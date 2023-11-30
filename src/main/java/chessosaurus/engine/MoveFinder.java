@@ -35,13 +35,15 @@ public class MoveFinder implements IMoveFinder {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 Square square = squares[i][j];
-                Piece piece = square.getPiece().get();
-                if (piece != null && piece.getColor() == currentColor) {
-                    List<Move> possibleMoves = generateMovesForPiece(square, board);
+                if(square.getPiece().isPresent()) {
+                    Piece piece = square.getPiece().get();
+                    if (piece.getColor() == currentColor) {
+                        List<Move> possibleMoves = generateMovesForPiece(square, board);
 
-                    for (Move move : possibleMoves) {
-                        if (reviewerContext.isLegalMove(move, board)) {
-                            legalMoves.add(move);
+                        for (Move move : possibleMoves) {
+                            if (reviewerContext.isLegalMove(move, board)) {
+                                legalMoves.add(move);
+                            }
                         }
                     }
                 }

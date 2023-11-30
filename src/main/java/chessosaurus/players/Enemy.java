@@ -3,6 +3,7 @@ package chessosaurus.players;
 import chessosaurus.base.Board;
 import chessosaurus.base.Color;
 import chessosaurus.base.Move;
+import chessosaurus.control.Game;
 import chessosaurus.engine.EnemyMoverContext;
 import chessosaurus.engine.IEnemyMoverContext;
 
@@ -36,11 +37,11 @@ public class Enemy {
      * @param currentBoard The current chessboard.
      * @return best possible move
      */
-    public Move getBestMove(List<Move> allMoves, Board currentBoard) {
+    public Move getBestMove(List<Move> allMoves, Board currentBoard, Game currentGame) {
         Board board = new Board(currentBoard);
         List<Move> moves = new ArrayList<>(allMoves);
 
-        Move bestMove = this.enemyMoverContext.getBestMove(moves, board, this.color);
+        Move bestMove = this.enemyMoverContext.getBestMove(moves, board, this.color, currentGame);
 
         return bestMove;
     }

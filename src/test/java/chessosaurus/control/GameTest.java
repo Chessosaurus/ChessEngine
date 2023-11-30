@@ -1,12 +1,17 @@
 package chessosaurus.control;
 
 import chessosaurus.base.*;
+import chessosaurus.engine.EnemyMoverContext;
 import chessosaurus.engine.IEnemyMoverContext;
+import chessosaurus.engine.MiniMaxAlgorithm;
+import chessosaurus.engine.MoveFinder;
 import chessosaurus.review.IReviewerContext;
+import chessosaurus.review.ReviewerContext;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -37,7 +42,7 @@ public class GameTest {
         Square testTo = new Square(1,3);
 
         this.expectedBestMove = new Move (testFrom, testTo);
-        when(mockEnemyMoverContext.getBestMove(anyList(), any(), any())).thenReturn(this.expectedBestMove);
+        when(mockEnemyMoverContext.getBestMove(anyList(), any(), any(), any())).thenReturn(this.expectedBestMove);
 
         this.game = new Game(Color.BLACK, mockEnemyMoverContext, mockReviewerContext);
     }
@@ -162,6 +167,18 @@ public class GameTest {
 
         assertNotNull(move);
         assertEquals(this.expectedBestMove, move);
+    }
+
+    @Test
+    void testPawnMoves() throws ExecutionException, InterruptedException {
+
+        Board board = new Board();
+        board.importFen("8/4k3/8/2p1P3/3Q4/8/2K5/8 w - - 0 1");
+        ReviewerContext reviewerContext = new ReviewerContext();
+        MoveFinder finder = new MoveFinder(reviewerContext);
+        MiniMaxAlgorithm minimax = new MiniMaxAlgorithm(finder);
+        Move move = minimax.getBestMove(null, board, Color.BLACK, game);
+        assertFalse(move == null);
     }
 
 }
