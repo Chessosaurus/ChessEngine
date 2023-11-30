@@ -26,7 +26,15 @@ abstract class MoveReviewerBase implements IMoveReviewer{
             throw new IllegalArgumentException("From square is empty");
         }
         if(to.getPiece().isEmpty()){
-            return isSpecificLegalMove(move,from.getPiece().get().getColor() ,chessboard);
+            if(isSpecificLegalMove(move,from.getPiece().get().getColor() ,chessboard)){
+                for(int x = 0; x < 8; x++){
+                    for(int y = 0; y < 8; y++){
+                        chessboard.getChessboard()[x][y].setEnPassantPossible(false);
+                    }
+                }
+                return true;
+            } else return false;
+
         } else {
             if(to.getPiece().get().getColor() != from.getPiece().get().getColor()){
                 return isSpecificLegalMove(move,from.getPiece().get().getColor(),chessboard);
@@ -71,7 +79,7 @@ abstract class MoveReviewerBase implements IMoveReviewer{
                     if (board[kingRank + i][kingFile + i].getPiece().get().getColor() != color) {
                         switch (board[kingRank + i][kingFile + i].getPiece().get().getType()) {
                             case PAWN:
-                                if (i == 1 && color == Color.WHITE) return true;
+                                if (i == 1 && color.equals(Color.WHITE)) return true;
                                 break;
                             case BISHOP:
                             case QUEEN:
@@ -87,7 +95,7 @@ abstract class MoveReviewerBase implements IMoveReviewer{
                     if (board[kingRank + i][kingFile - i].getPiece().get().getColor() != color) {
                         switch (board[kingRank + i][kingFile - i].getPiece().get().getType()) {
                             case PAWN:
-                                if (i == 1 && color == Color.WHITE) return true;
+                                if (i == 1 && color.equals(Color.WHITE)) return true;
                                 break;
                             case BISHOP:
                             case QUEEN:
@@ -209,7 +217,7 @@ abstract class MoveReviewerBase implements IMoveReviewer{
         if(isValidPosition(kingRank-1, kingFile-2)) {
             if (board[kingRank - 1][kingFile - 2].getPiece().isPresent()) {
                 if (board[kingRank - 1][kingFile - 2].getPiece().get().getColor() != color) {
-                    if (board[kingRank - 1][kingFile - 2].getPiece().get().getType() == PieceType.KNIGHT) return true;
+                    return board[kingRank - 1][kingFile - 2].getPiece().get().getType() == PieceType.KNIGHT;
                 }
             }
         }

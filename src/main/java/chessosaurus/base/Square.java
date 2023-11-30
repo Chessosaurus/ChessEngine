@@ -7,6 +7,7 @@ public class Square {
     private char file; // Spalten
     private int rank; // Zeilen
     private Optional<Piece> piece;
+    private boolean enPassantPossible = false;
 
     public Square(int file, int rank) {
         this.file = transformToLiteral(file);
@@ -100,5 +101,13 @@ public class Square {
                 intValue = 0;
         }
         return intValue;
+    }
+
+    public void setEnPassantPossible(boolean enPassantPossible) {
+        this.enPassantPossible = enPassantPossible;
+    }
+
+    public boolean isEnPassantPossible() {
+        return enPassantPossible;
     }
 }

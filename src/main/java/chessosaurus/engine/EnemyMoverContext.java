@@ -43,7 +43,7 @@ public class EnemyMoverContext implements IEnemyMoverContext {
 
         int movesCount = allMoves.size();
 
-        int pieceCount = currentBoard.getPieceCount(currentBoard);
+        int pieceCount = currentBoard.getPieceCount();
 
         if (movesCount < 16 && movesCount!=0) {
             OpeningMoveSelector enemyMover = new OpeningMoveSelector(this.openinggameReader);
@@ -61,8 +61,8 @@ public class EnemyMoverContext implements IEnemyMoverContext {
             move = enemyMover.getBestMove(Fen,currentBoard);
         }
         if (move == null) {
-            MiniMax enemyMover = new MiniMax(this.moveFinder);
-            move = enemyMover.getBestMove();
+            MiniMaxAlgorithm enemyMover = new MiniMaxAlgorithm(this.moveFinder);
+            //move = enemyMover.getBestMove();
         }
 
         return move;

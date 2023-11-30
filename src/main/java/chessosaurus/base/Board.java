@@ -1,5 +1,7 @@
 package chessosaurus.base;
 
+import java.util.Optional;
+
 /**
  * The Board class is responsible for the representation and transformation of the chessboard.
  * <p>
@@ -10,6 +12,11 @@ package chessosaurus.base;
 
 public class Board {
     private Square[][] chessboard;
+    static private boolean whiteCastlingPossible = true;
+    static private boolean blackCastlingPossible = true;
+    private Board board;
+
+    private int moveCounter;
 
     public Board() {
         this.chessboard = new Square[8][8];
@@ -19,6 +26,7 @@ public class Board {
                 this.chessboard[i][j] = new Square(i+1,j+1);
             }
         }
+        this.board.setChessboard(this.chessboard);
     }
 
     // Copy-Konstruktor
@@ -74,56 +82,55 @@ public class Board {
                 Piece piece = new Piece();
 
                 switch (c) {
-                    case 'k':
+                    case 'k' -> {
                         piece.setType(PieceType.KING);
                         piece.setColor(Color.BLACK);
-                        break;
-                    case 'K':
+                    }
+                    case 'K' -> {
                         piece.setType(PieceType.KING);
                         piece.setColor(Color.WHITE);
-                        break;
-                    case 'q':
+                    }
+                    case 'q' -> {
                         piece.setType(PieceType.QUEEN);
                         piece.setColor(Color.BLACK);
-                        break;
-                    case 'Q':
+                    }
+                    case 'Q' -> {
                         piece.setType(PieceType.QUEEN);
                         piece.setColor(Color.WHITE);
-                        break;
-                    case 'r':
+                    }
+                    case 'r' -> {
                         piece.setType(PieceType.ROOK);
                         piece.setColor(Color.BLACK);
-                        break;
-                    case 'R':
+                    }
+                    case 'R' -> {
                         piece.setType(PieceType.ROOK);
                         piece.setColor(Color.WHITE);
-                        break;
-                    case 'b':
+                    }
+                    case 'b' -> {
                         piece.setType(PieceType.BISHOP);
                         piece.setColor(Color.BLACK);
-                        break;
-                    case 'B':
+                    }
+                    case 'B' -> {
                         piece.setType(PieceType.BISHOP);
                         piece.setColor(Color.WHITE);
-                        break;
-                    case 'n':
+                    }
+                    case 'n' -> {
                         piece.setType(PieceType.KNIGHT);
                         piece.setColor(Color.BLACK);
-                        break;
-                    case 'N':
+                    }
+                    case 'N' -> {
                         piece.setType(PieceType.KNIGHT);
                         piece.setColor(Color.WHITE);
-                        break;
-                    case 'p':
+                    }
+                    case 'p' -> {
                         piece.setType(PieceType.PAWN);
                         piece.setColor(Color.BLACK);
-                        break;
-                    case 'P':
+                    }
+                    case 'P' -> {
                         piece.setType(PieceType.PAWN);
                         piece.setColor(Color.WHITE);
-                        break;
-                    default:
-                        throw new IllegalArgumentException("No permissible figure type");
+                    }
+                    default -> throw new IllegalArgumentException("No permissible figure type");
                 }
                 this.chessboard[rank][file].setPiece(piece);
                 //rank++;
@@ -278,15 +285,14 @@ public class Board {
 
     /**
      * Counts the pieces on the board
-     * @param currentboard current chessboard
      * @return count of pieces on the board
      */
-    public int getPieceCount(Board currentboard){
+    public int getPieceCount(){
         int count = 0;
-        Square[][] square = currentboard.getChessboard();
-        for (int i=0; i < square.length; i++){
-            for (int j=0; j < square.length; j++ ){
-                if(square[i][j].getPiece().isPresent()){
+        Square[][] square = this.board.getChessboard();
+        for (Square[] squares : square) {
+            for (int j = 0; j < square.length; j++) {
+                if (squares[j].getPiece().isPresent()) {
                     count++;
                 }
             }
@@ -318,5 +324,33 @@ public class Board {
             }
         }
         return charFromPiece;
+    }
+
+    public void setCastlingImpossible(Color color){
+        if(color.equals(Color.WHITE)) whiteCastlingPossible = false;
+        else blackCastlingPossible = false;
+    }
+
+    public boolean isCastlingPossible(Color color){
+        if(color.equals(Color.WHITE)) return whiteCastlingPossible;
+        else return blackCastlingPossible;
+    }
+
+
+    public void setMoveCounter(int moveCounter) {
+        this.moveCounter = moveCounter;
+    }
+
+   public Board makeMove (Move move) {
+        int toRank = move.getTo().getRank();
+        int toFile = move.getTo().getFile();
+
+        int fromRank = move.getFrom().getRank();
+        int fromFile = move.getFrom().getFile();
+
+        this.board.getChessboard()[toRank][toFile].setPiece(move.getFrom().getPiece().get());
+        this.board.getChessboard()[fromRank][fromFile].setPiece(Optional.empty());
+
+        return this.board;
     }
 }
