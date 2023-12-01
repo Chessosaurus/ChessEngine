@@ -139,8 +139,8 @@ public class UCI {
 
         //Positions of the chess pieces on the field
         if(input.contains("startpos")){
-                //this.controller.getGame().getChessboard().importFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
-                this.controller.getGame().getChessboard().importFen("8/4k3/8/2p1P3/3Q4/8/2K5/8 w - - 0 1");
+                this.controller.getGame().getChessboard().importFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
+                //this.controller.getGame().getChessboard().importFen("8/4k3/8/2p1P3/3Q4/8/2K5/8 w - - 0 1");
         }
 
         /*if (input.contains("fen")) {
