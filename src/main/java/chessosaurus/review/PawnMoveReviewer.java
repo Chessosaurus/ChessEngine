@@ -40,7 +40,7 @@ public class PawnMoveReviewer extends MoveReviewerBase{
         if(!isCheck(move, chessboard)){
             if (board[toRank][toFile].getPiece().isEmpty()){
                 if (color == Color.WHITE){
-                    if(fromRank == 2 && toRank ==4 && fromFile == toFile){ //Checks if White Pawns first move
+                    if(fromRank == 1 && toRank == 3 && fromFile == toFile){ //Checks if White Pawns first move
                         board[toRank][toFile].setEnPassantPossible(true);
                         return true;
                     } else //Überprüfung auf En Passant
@@ -48,7 +48,7 @@ public class PawnMoveReviewer extends MoveReviewerBase{
                         return true;
                     } else return board[toRank - 1][toFile].isEnPassantPossible();
                 }else{
-                    if(fromRank == 7 && toRank ==5 && fromFile == toFile){ //Checks if Black Pawns first move
+                    if(fromRank == 6 && toRank ==4 && fromFile == toFile){ //Checks if Black Pawns first move
                         board[toRank][toFile].setEnPassantPossible(true);
                         return true;
                     } else
