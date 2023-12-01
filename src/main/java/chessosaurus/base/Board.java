@@ -17,6 +17,8 @@ public class Board {
     static private boolean blackCastlingPossible = true;
     private Board board;
 
+    private Color nextTurn;
+
     private int moveCounter;
 
     public Board() {
@@ -357,5 +359,13 @@ public class Board {
     }
     public Square getCorrespondingSquare(Square sq){
         return chessboard[sq.getRank()-1][sq.getFileVal()-1];
+    }
+
+    public void setNextTurn(Color nextTurn) {
+        this.nextTurn = nextTurn;
+    }
+
+    public Color getNextTurn() {
+        return nextTurn;
     }
 }

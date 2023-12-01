@@ -1,10 +1,16 @@
 package chessosaurus.protocol;
+import antlr.InputLexer;
+import antlr.InputParser;
+import chessosaurus.base.Board;
 import chessosaurus.base.Color;
 import chessosaurus.base.Move;
 import chessosaurus.control.BusinessController;
 import chessosaurus.control.IController;
+import chessosaurus.parser.Converter;
 import chessosaurus.persistence.EndgameRestReader;
 import chessosaurus.persistence.OpeninggameRestReader;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -134,51 +140,60 @@ public class UCI {
      * @param inputString Positions and moves in FEN notation
      */
     private void inputPosition(String inputString) {
-        this.moves = new ArrayList<>();
-        String input = inputString.substring(9).concat(" ");
-
-        //Positions of the chess pieces on the field
-        if(input.contains("startpos")){
-                this.controller.getGame().getChessboard().importFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
-                //this.controller.getGame().getChessboard().importFen("8/4k3/8/2p1P3/3Q4/8/2K5/8 w - - 0 1");
-        }
-
-        /*if (input.contains("fen")) {
-            String fenString = input.substring(4);
-            if(fenString.contains("moves")) {
-                fenString = fenString.split("moves")[0].trim();
-            }
-            this.controller.getGame().getChessboard().importFen(fenString);
-        }*/
-
-        //Moves that have been made
-        if (input.contains("moves")) {
-            input = input.substring(input.indexOf("moves")+6);
-            String[] moves = input.split(" ");
-            ArrayList<String> movesToCheck = new ArrayList<>();
-            for (String move : moves) {
-                if (!move.isEmpty()) {
-                    movesToCheck.add(move);
-                }
-            }
-
-
-            if(this.controller.getGame().getEnemy().getColor() == null && movesToCheck.size() %2 !=0){
-                this.controller.getGame().getEnemy().setColor(Color.BLACK);
-            } else if(this.controller.getGame().getEnemy().getColor() == null) {
-                this.controller.getGame().getEnemy().setColor(Color.WHITE);
-            }
-
-            if(movesToCheck.size()>0) {
-                for (String moveInput : movesToCheck) {
-                    Move move = moveParser.fromStringToMove(moveInput, this.controller.getGame().getChessboard());
-                    this.controller.getGame().setChessboard(controller.reviewPlayerMove(move));
-                    this.moves.add(move);
-                }
-                this.controller.getGame().setMoves(this.moves);
-
-            }
-        }
+        InputLexer lexer = new InputLexer(CharStreams.fromString(inputString));
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        InputParser parser = new InputParser(tokens);
+        InputParser.StartContext stc = parser.start();
+        Board board = new Converter().visitStart(stc);
+        this.controller.getGame().setChessboard(board);
+        this.controller.getGame().getEnemy().setColor(Color.BLACK);
+        board.displayBoard();
+        return;
+//        this.moves = new ArrayList<>();
+//        String input = inputString.substring(9).concat(" ");
+//
+//        //Positions of the chess pieces on the field
+//        if(input.contains("startpos")){
+//                this.controller.getGame().getChessboard().importFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
+//                //this.controller.getGame().getChessboard().importFen("8/4k3/8/2p1P3/3Q4/8/2K5/8 w - - 0 1");
+//        }
+//
+//        /*if (input.contains("fen")) {
+//            String fenString = input.substring(4);
+//            if(fenString.contains("moves")) {
+//                fenString = fenString.split("moves")[0].trim();
+//            }
+//            this.controller.getGame().getChessboard().importFen(fenString);
+//        }*/
+//
+//        //Moves that have been made
+//        if (input.contains("moves")) {
+//            input = input.substring(input.indexOf("moves")+6);
+//            String[] moves = input.split(" ");
+//            ArrayList<String> movesToCheck = new ArrayList<>();
+//            for (String move : moves) {
+//                if (!move.isEmpty()) {
+//                    movesToCheck.add(move);
+//                }
+//            }
+//
+//
+//            if(this.controller.getGame().getEnemy().getColor() == null && movesToCheck.size() %2 !=0){
+//                this.controller.getGame().getEnemy().setColor(Color.BLACK);
+//            } else if(this.controller.getGame().getEnemy().getColor() == null) {
+//                this.controller.getGame().getEnemy().setColor(Color.WHITE);
+//            }
+//
+//            if(movesToCheck.size()>0) {
+//                for (String moveInput : movesToCheck) {
+//                    Move move = moveParser.fromStringToMove(moveInput, this.controller.getGame().getChessboard());
+//                    this.controller.getGame().setChessboard(controller.reviewPlayerMove(move));
+//                    this.moves.add(move);
+//                }
+//                this.controller.getGame().setMoves(this.moves);
+//
+//            }
+//        }
     }
 
     /**

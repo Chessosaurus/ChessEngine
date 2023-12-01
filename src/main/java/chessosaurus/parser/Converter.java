@@ -30,6 +30,11 @@ public class Converter implements InputVisitor {
         if (ctx.FEN() != null) {
             Board b = visitRows(ctx.rows());
             //info not yet used in board, would have to be implemented here
+            Info info = visitInfo(ctx.info());
+            b.setNextTurn(info.getNextTurn());
+            if(info.getEnpassant().isPresent()){
+                b.getCorrespondingSquare(info.getEnpassant().get()).setEnPassantPossible(true);
+            }
             return b;
         }
         //arithmetic notation
@@ -75,6 +80,18 @@ public class Converter implements InputVisitor {
             //Promote
             if (move.getPromoted().isPresent()) {
                 board.getCorrespondingSquare(move.getTo()).getPiece().get().setType(move.getPromoted().get());
+            }
+        }
+        board.setNextTurn(moves.size() % 2 == 0 ? Color.WHITE : Color.BLACK);
+        Move lastmove = moves.get(moves.size()-1);
+        if(board.getCorrespondingSquare(lastmove.getTo()).getPiece().get().getType() == PieceType.PAWN){
+            if(board.getNextTurn() == Color.WHITE && lastmove.getFrom().getRank()-2 == lastmove.getTo().getRank()){
+                //Last turn of black enables en passant
+                board.getChessboard()[lastmove.getFrom().getRank()-2][lastmove.getFrom().getFileVal()-1].setEnPassantPossible(true);
+            }
+            else if(board.getNextTurn() == Color.BLACK && lastmove.getFrom().getRank()+2 == lastmove.getTo().getRank()){
+                //Last turn of white enables en passant
+                board.getChessboard()[lastmove.getFrom().getRank()][lastmove.getFrom().getFileVal()-1].setEnPassantPossible(true);
             }
         }
         return board;
@@ -230,13 +247,16 @@ public class Converter implements InputVisitor {
     }
 
     @Override
-    public Object visitInfo(InputParser.InfoContext ctx) {
-        return null;
+    public Info visitInfo(InputParser.InfoContext ctx) {
+        return new Info(visitColor(ctx.color()), visitSquare(ctx.square()));
     }
 
     @Override
-    public Object visitColor(InputParser.ColorContext ctx) {
-        return null;
+    public Color visitColor(InputParser.ColorContext ctx) {
+        if (ctx.WHITE() == null) {
+            return Color.BLACK;
+        }
+        return Color.WHITE;
     }
 
     @Override
@@ -245,8 +265,11 @@ public class Converter implements InputVisitor {
     }
 
     @Override
-    public Object visitSquare(InputParser.SquareContext ctx) {
-        return null;
+    public Optional<Square> visitSquare(InputParser.SquareContext ctx) {
+        if (ctx.FILE() == null) return Optional.empty();
+        return Optional.of(new Square(
+                ctx.FILE().getText().charAt(0),
+                Integer.parseInt(ctx.NUMBER().getText())));
     }
 
     @Override
