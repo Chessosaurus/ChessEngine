@@ -9,6 +9,7 @@ import chessosaurus.persistence.OpeninggameRestReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.Future;
 
 /**
  * The class UCI is responsible for the implementation of the UCI protocol.
@@ -21,7 +22,8 @@ import java.util.Scanner;
 public class UCI {
 
     static String ENGINENAME = "Chessosaurus";
-
+    Scanner inputScanner = new Scanner(System.in);
+    private Thread goThread = null;
     List<Move> moves      = new ArrayList<>();
     private final IController controller;
     private final IMoveParser moveParser;
@@ -39,7 +41,6 @@ public class UCI {
      */
     public void uciCommunication() {
 
-    Scanner inputScanner = new Scanner(System.in);
         while (true) {
 
             String inputString = inputScanner.nextLine();
@@ -66,7 +67,20 @@ public class UCI {
             }
             else if (inputString.startsWith("go"))
             {
-                inputGo();
+                if (goThread == null || !goThread.isAlive()) {
+                    goThread = new Thread(this::inputGo);
+                    goThread.start();
+                } else {
+                    System.out.println("Ein 'go'-Thread läuft bereits.");
+                }
+                //inputGo();
+            }
+            else if (inputString.startsWith("stop"))
+            {
+                if (goThread != null && goThread.isAlive()) {
+                    goThread.interrupt();
+                }
+                System.out.println("bestmove none");
             }
             else if ("print".equals(inputString))
             {
@@ -156,12 +170,12 @@ public class UCI {
 
             if(movesToCheck.size()>0) {
                 for (String moveInput : movesToCheck) {
-                    this.moves.add(moveParser.fromStringToMove(moveInput, this.controller.getGame().getChessboard()));
+                    Move move = moveParser.fromStringToMove(moveInput, this.controller.getGame().getChessboard());
+                    this.controller.getGame().setChessboard(controller.reviewPlayerMove(move));
+                    this.moves.add(move);
                 }
                 this.controller.getGame().setMoves(this.moves);
-                for (Move move : this.moves) {
-                    this.controller.getGame().setChessboard(controller.reviewPlayerMove(move));
-                }
+
             }
         }
     }
@@ -171,8 +185,8 @@ public class UCI {
      */
     private void inputGo() {
         // TODO durch den MINIMAX Algorithmus ersetzt werden.
-        // TODO Eröffnungen evaluieren
-        Move bestMove = this.controller.calculateBestMove();
+        System.out.println("bestmove " + moveParser.fromMoveToString(this.controller.calculateBestMove()));
+        goThread.interrupt();
     }
 
     /**

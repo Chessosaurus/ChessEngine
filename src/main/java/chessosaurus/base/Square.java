@@ -4,19 +4,20 @@ import java.util.Optional;
 
 public class Square {
 
-    private int file;
-    private char rank;
+    private char file; // Spalten
+    private int rank; // Zeilen
     private Optional<Piece> piece;
+    private boolean enPassantPossible = false;
 
-    public Square(int rank, int file) {
-        this.file = file;
-        this.rank = transformToLiteral(rank);
+    public Square(int file, int rank) {
+        this.file = transformToLiteral(file);
+        this.rank = rank;
         this.piece = Optional.empty();
     }
 
-    public Square(char rank, char file) {
-        this.rank = rank;
-        this.file = Character.getNumericValue(file);
+    public Square(char file, char rank) {
+        this.file = file;
+        this.rank = Character.getNumericValue(rank);
         this.piece = Optional.empty();
     }
 
@@ -45,12 +46,12 @@ public class Square {
         };
     }
 
-    public char getRank()
+    public int getRank()
     {
         return rank;
     }
 
-    public int getFile()
+    public char getFile()
     {
         return file;
     }
@@ -67,11 +68,11 @@ public class Square {
             return false;
         }
     }
-    public int getRankVal(){
+    public int getFileVal(){
 
         int intValue;
 
-        switch (rank) {
+        switch (file) {
             case 'a':
                 intValue = 1;
                 break;
@@ -100,5 +101,13 @@ public class Square {
                 intValue = 0;
         }
         return intValue;
+    }
+
+    public void setEnPassantPossible(boolean enPassantPossible) {
+        this.enPassantPossible = enPassantPossible;
+    }
+
+    public boolean isEnPassantPossible() {
+        return enPassantPossible;
     }
 }

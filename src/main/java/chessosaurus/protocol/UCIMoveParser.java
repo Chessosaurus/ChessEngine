@@ -1,8 +1,6 @@
 package chessosaurus.protocol;
 
 import chessosaurus.base.*;
-import chessosaurus.control.Game;
-import chessosaurus.control.IController;
 
 import java.util.Optional;
 
@@ -44,8 +42,8 @@ public class UCIMoveParser implements IMoveParser
      */
     @Override
     public String fromMoveToString(Move move){
-      String from =  move.getFrom().getRank() + String.valueOf(move.getFrom().getFile());
-      String to = move.getTo().getRank() + String.valueOf(move.getTo().getFile());
+      String from =  move.getFrom().getFile() + String.valueOf(move.getFrom().getRank());
+      String to = move.getTo().getFile() + String.valueOf(move.getTo().getRank());
       return from+to;
     }
 
@@ -57,8 +55,8 @@ public class UCIMoveParser implements IMoveParser
      */
     public Optional<Piece> getPieceFromSquare(Square square, Board board){
 
-        int rank = square.getRankVal();
-        int file = square.getFile();
-        return board.getChessboard()[8-file][rank-1].getPiece();
+        int file = square.getFileVal();
+        int rank = square.getRank();
+        return board.getChessboard()[8-rank][file-1].getPiece();
     }
   }

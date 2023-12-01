@@ -27,39 +27,42 @@ public class QueenMoveReviewer extends MoveReviewerBase{
         Square to = move.getTo();
         Square[][] board = chessboard.getChessboard();
         //Color color = from.getPiece().getColor();
-        int fromFile = from.getFile();
-        int toFile = to.getFile();
-        int fromRank = from.getRankVal()-1;
-        int toRank = to.getRankVal()-1;
+        int fromRank = from.getRank();
+        int fromRankForSearch = chessboard.getChessboard().length - from.getRank();
+        int fromFile = from.getFileVal()-1;
+
+        int toRank = to.getRank();
+        int toRankForSearch = chessboard.getChessboard().length - to.getRank();
+        int toFile = to.getFileVal()-1;
 
         if(!isCheck(move, chessboard)){
-            for(int i = 1; i<=8; i++){
-                if(toFile == fromFile+i || toFile == fromFile-i){
-                    if(toRank == fromRank+i || toRank == fromRank-i){
-                        if(toRank > fromRank){
-                            if(toFile > fromFile){
-                                for(int j = 1; j < toRank-fromRank; j++){
-                                    if(board[fromFile + j][fromRank + j].getPiece().isPresent()){
+            for(int i = 1; i<=7; i++){
+                if(toRank == fromRank+i || toRank == fromRank-i){
+                    if(toFile == fromFile+i || toFile == fromFile-i){
+                        if(toFile > fromFile){
+                            if(toRank > fromRank){
+                                for(int j = 1; j <= toFile-fromFile; j++){
+                                    if(board[fromRankForSearch - j][fromFile + j].getPiece().isPresent()){
                                         return false;
                                     }
                                 }
                             }else {
-                                for(int j = 1; j < toRank-fromRank; j++){
-                                    if(board[fromFile - j][fromRank + j].getPiece().isPresent()){
+                                for(int j = 1; j <= toFile-fromFile; j++){
+                                    if(board[fromRankForSearch + j][fromFile + j].getPiece().isPresent()){
                                         return false;
                                     }
                                 }
                             }
                         } else {
-                            if(toFile > fromFile){
-                                for(int j = fromRank; j > fromRank-toRank; j--){
-                                    if(board[fromFile + j][fromRank - j].getPiece().isPresent()){
+                            if(toRank > fromRank){
+                                for(int j = 1; j <= fromFile-toFile; j++){
+                                    if(board[fromRankForSearch - j][fromFile - j].getPiece().isPresent()){
                                         return false;
                                     }
                                 }
                             } else {
-                                for(int j = fromRank; j > fromRank-toRank; j--){
-                                    if(board[fromFile - j][fromRank - j].getPiece().isPresent()){
+                                for(int j = 1; j <= fromFile-toFile; j++){
+                                    if(board[fromRankForSearch + j][fromFile - j].getPiece().isPresent()){
                                         return false;
                                     }
                                 }
@@ -70,31 +73,31 @@ public class QueenMoveReviewer extends MoveReviewerBase{
                 }
             }
 
-            if(toFile == fromFile && toRank != fromRank){
-                if(toRank > fromRank){
-                    for(int i = 1; i < toRank-fromRank; i++){
-                        if(board[fromFile][fromRank + i].getPiece().isPresent()){
+            if(toRank == fromRank && toFile != fromFile){
+                if(toFile > fromFile){
+                    for(int i = 1; i <= toFile-fromFile; i++){
+                        if(board[fromRankForSearch][fromFile + i].getPiece().isPresent()){
                             return false;
                         }
                     }
                 } else {
-                    for(int i = fromRank; i > fromRank-toRank; i--){
-                        if(board[fromFile][fromRank - i].getPiece().isPresent()){
+                    for(int i = 1; i <= fromFile-toFile; i++){
+                        if(board[fromRankForSearch][fromFile - i].getPiece().isPresent()){
                             return false;
                         }
                     }
                 }
                 return true;
-            } else if (toRank == fromRank && toFile != fromFile) {
-                if(toFile > fromFile){
-                    for(int i = 1; i < toFile-fromFile; i++){
-                        if(board[fromFile + i][fromRank].getPiece().isPresent()){
+            } else if (toFile == fromFile && toRank != fromRank) {
+                if(toRank > fromRank){
+                    for(int i = 1; i <= toRank-fromRank; i++){
+                        if(board[fromRankForSearch - i][fromFile].getPiece().isPresent()){
                             return false;
                         }
                     }
                 } else {
-                    for(int i = fromFile; i > fromFile-toFile; i--){
-                        if(board[fromFile - i][fromRank].getPiece().isPresent()){
+                    for(int i = 1; i <= fromRank-toRank; i++){
+                        if(board[fromRankForSearch + i][fromFile].getPiece().isPresent()){
                             return false;
                         }
                     }

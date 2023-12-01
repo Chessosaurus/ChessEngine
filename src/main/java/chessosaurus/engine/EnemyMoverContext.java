@@ -19,12 +19,14 @@ public class EnemyMoverContext implements IEnemyMoverContext {
 
     private final IOpeninggameReader openinggameReader;
     private final IEndgameReader endgameReader;
+    private final IMoveFinder moveFinder;
 
 
     public EnemyMoverContext(IOpeninggameReader openinggameReader,
-                             IEndgameReader endgameReader) {
+                             IEndgameReader endgameReader, IMoveFinder moveFinder) {
         this.openinggameReader = openinggameReader;
         this.endgameReader = endgameReader;
+        this.moveFinder = moveFinder;
     }
 
     /**
@@ -35,28 +37,33 @@ public class EnemyMoverContext implements IEnemyMoverContext {
      * @return Best move
      */
     @Override
-    public Move getBestMove(List<Move> allMoves, Board currentBoard, Color currentColor) {
+    public Move getBestMove(List<Move> allMoves, Board currentBoard, Color currentColor, Game currentGame) {
+        String Fen = "";
 
         Move move = null;
 
         int movesCount = allMoves.size();
 
-        int pieceCount = currentBoard.getPieceCount(currentBoard);
+        int pieceCount = currentBoard.getPieceCount();
 
         if (movesCount < 16 && movesCount!=0) {
-            Move lastMove = allMoves.get(movesCount-1);
             OpeningMoveSelector enemyMover = new OpeningMoveSelector(this.openinggameReader);
-            move = enemyMover.getBestMove(currentBoard, lastMove);
+            move = enemyMover.getBestMove(currentBoard, allMoves);
         }
         if (move == null && pieceCount < 8) {
             EndMoveSelector enemyMover = new EndMoveSelector(this.endgameReader);
             String currentBoardFen = new Board().transformBoardToFen(currentBoard);
-            // TODO FEN-Notation besitzt nur Stellung. Zugreihenfolge, Rochaderechte, Passantzug Feld, Anzahl Halbzüge, Anzahl Züge, müssen noch angesetzt werden!!!!
-            move = enemyMover.getBestMove(currentBoardFen,currentBoard);
+            // TODO: checken ob Parameter nach Board gebraucht werden oder so belassen werden können(siehe _-_-_0_1).
+            if(currentBoard.equals(Color.WHITE)){
+                Fen = currentBoardFen+"_w_-_-_0_1";
+            } else {
+                Fen = currentBoardFen+"_b_-_-_0_1";
+            }
+            move = enemyMover.getBestMove(Fen,currentBoard);
         }
         if (move == null) {
-            MiniMax enemyMover = new MiniMax();
-            move = enemyMover.getBestMove();
+            MiniMaxAlgorithm enemyMover = new MiniMaxAlgorithm(this.moveFinder);
+            move = enemyMover.getBestMove(allMoves,currentBoard,currentColor, currentGame);
         }
 
         return move;

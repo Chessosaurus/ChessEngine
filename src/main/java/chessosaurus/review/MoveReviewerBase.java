@@ -26,7 +26,15 @@ abstract class MoveReviewerBase implements IMoveReviewer{
             throw new IllegalArgumentException("From square is empty");
         }
         if(to.getPiece().isEmpty()){
-            return isSpecificLegalMove(move,from.getPiece().get().getColor() ,chessboard);
+            if(isSpecificLegalMove(move,from.getPiece().get().getColor() ,chessboard)){
+                for(int x = 0; x < 8; x++){
+                    for(int y = 0; y < 8; y++){
+                        chessboard.getChessboard()[x][y].setEnPassantPossible(false);
+                    }
+                }
+                return true;
+            } else return false;
+
         } else {
             if(to.getPiece().get().getColor() != from.getPiece().get().getColor()){
                 return isSpecificLegalMove(move,from.getPiece().get().getColor(),chessboard);
@@ -48,35 +56,30 @@ abstract class MoveReviewerBase implements IMoveReviewer{
         Square to = move.getTo();
 
 
-        int kingFile = 0;
         int kingRank = 0;
+        int kingFile = 0;
 
         //Ermittelt die Position des Königs des aktiven Spielers
-        for(int file = 0; file<8; file++){
-            for(int rank = 0; rank<8; rank++){
-                if(board[file][rank].getPiece().isPresent()){
-                    if(board[file][rank].getPiece().get().getColor() != color && board[file][rank].getPiece().get().getType() == PieceType.KING){
-                        kingFile = file;
+        for(int rank = 0; rank<8; rank++){
+            for(int file = 0; file<8; file++){
+                if(board[rank][file].getPiece().isPresent()){
+                    if(board[rank][file].getPiece().get().getColor() == color && board[rank][file].getPiece().get().getType() == PieceType.KING){
                         kingRank = rank;
+                        kingFile = file;
                     }
                 }
             }
-        }
-
-
-        if(color.equals(Color.WHITE)){
-            return false;
         }
 
         for(int i = 1; i<=8; i++){
 
             //Ermittelt ob König diagonal angegriffen wird
-            if(isValidPosition(kingFile+i, kingRank+i)) {
-                if (board[kingFile + i][kingRank + i].getPiece().isPresent()) {
-                    if (board[kingFile + i][kingRank + i].getPiece().get().getColor() != color) {
-                        switch (board[kingFile + i][kingRank + i].getPiece().get().getType()) {
+            if(isValidPosition(kingRank+i, kingFile+i)) {
+                if (board[kingRank + i][kingFile + i].getPiece().isPresent()) {
+                    if (board[kingRank + i][kingFile + i].getPiece().get().getColor() != color) {
+                        switch (board[kingRank + i][kingFile + i].getPiece().get().getType()) {
                             case PAWN:
-                                if (i == 1 && color == Color.WHITE) return true;
+                                if (i == 1 && color.equals(Color.WHITE)) return true;
                                 break;
                             case BISHOP:
                             case QUEEN:
@@ -87,12 +90,12 @@ abstract class MoveReviewerBase implements IMoveReviewer{
                     }
                 }
             }
-            if(isValidPosition(kingFile+i, kingRank-i)) {
-                if (board[kingFile + i][kingRank - i].getPiece().isPresent()) {
-                    if (board[kingFile + i][kingRank - i].getPiece().get().getColor() != color) {
-                        switch (board[kingFile + i][kingRank - i].getPiece().get().getType()) {
+            if(isValidPosition(kingRank+i, kingFile-i)) {
+                if (board[kingRank + i][kingFile - i].getPiece().isPresent()) {
+                    if (board[kingRank + i][kingFile - i].getPiece().get().getColor() != color) {
+                        switch (board[kingRank + i][kingFile - i].getPiece().get().getType()) {
                             case PAWN:
-                                if (i == 1 && color == Color.WHITE) return true;
+                                if (i == 1 && color.equals(Color.WHITE)) return true;
                                 break;
                             case BISHOP:
                             case QUEEN:
@@ -103,10 +106,10 @@ abstract class MoveReviewerBase implements IMoveReviewer{
                     }
                 }
             }
-            if(isValidPosition(kingFile-i, kingRank+i)) {
-                if (board[kingFile - i][kingRank + i].getPiece().isPresent()) {
-                    if (board[kingFile - i][kingRank + i].getPiece().get().getColor() != color) {
-                        switch (board[kingFile - i][kingRank + i].getPiece().get().getType()) {
+            if(isValidPosition(kingRank-i, kingFile+i)) {
+                if (board[kingRank - i][kingFile + i].getPiece().isPresent()) {
+                    if (board[kingRank - i][kingFile + i].getPiece().get().getColor() != color) {
+                        switch (board[kingRank - i][kingFile + i].getPiece().get().getType()) {
                             case PAWN:
                                 if (i == 1 && color == Color.BLACK) return true;
                                 break;
@@ -119,10 +122,10 @@ abstract class MoveReviewerBase implements IMoveReviewer{
                     }
                 }
             }
-            if(isValidPosition(kingFile-i, kingRank-i)) {
-                if (board[kingFile - i][kingRank - i].getPiece().isPresent()) {
-                    if (board[kingFile - i][kingRank - i].getPiece().get().getColor() != color) {
-                        switch (board[kingFile - i][kingRank - i].getPiece().get().getType()) {
+            if(isValidPosition(kingRank-i, kingFile-i)) {
+                if (board[kingRank - i][kingFile - i].getPiece().isPresent()) {
+                    if (board[kingRank - i][kingFile - i].getPiece().get().getColor() != color) {
+                        switch (board[kingRank - i][kingFile - i].getPiece().get().getType()) {
                             case PAWN:
                                 if (i == 1 && color == Color.BLACK) return true;
                                 break;
@@ -136,10 +139,10 @@ abstract class MoveReviewerBase implements IMoveReviewer{
                 }
             }
             //Ermittelt ob König vertikal oder horizontal angegriffen wird.
-            if(isValidPosition(kingFile+i, kingRank)) {
-                if(board[kingFile+i][kingRank].getPiece().isPresent()){
-                    if(board[kingFile+i][kingRank].getPiece().get().getColor() != color){
-                        switch(board[kingFile+i][kingRank].getPiece().get().getType()){
+            if(isValidPosition(kingRank+i, kingFile)) {
+                if(board[kingRank+i][kingFile].getPiece().isPresent()){
+                    if(board[kingRank+i][kingFile].getPiece().get().getColor() != color){
+                        switch(board[kingRank+i][kingFile].getPiece().get().getType()){
                             case ROOK:
                             case QUEEN:
                                 return true;
@@ -149,10 +152,10 @@ abstract class MoveReviewerBase implements IMoveReviewer{
                     }
                 }
             }
-            if(isValidPosition(kingFile-i, kingRank)) {
-                if (board[kingFile - i][kingRank].getPiece().isPresent()) {
-                    if (board[kingFile - i][kingRank].getPiece().get().getColor() != color) {
-                        switch (board[kingFile - i][kingRank].getPiece().get().getType()) {
+            if(isValidPosition(kingRank-i, kingFile)) {
+                if (board[kingRank - i][kingFile].getPiece().isPresent()) {
+                    if (board[kingRank - i][kingFile].getPiece().get().getColor() != color) {
+                        switch (board[kingRank - i][kingFile].getPiece().get().getType()) {
                             case ROOK:
                             case QUEEN:
                                 return true;
@@ -162,10 +165,10 @@ abstract class MoveReviewerBase implements IMoveReviewer{
                     }
                 }
             }
-            if(isValidPosition(kingFile, kingRank+i)) {
-                if (board[kingFile][kingRank + i].getPiece().isPresent()) {
-                    if (board[kingFile][kingRank + i].getPiece().get().getColor() != color) {
-                        switch (board[kingFile][kingRank + i].getPiece().get().getType()) {
+            if(isValidPosition(kingRank, kingFile+i)) {
+                if (board[kingRank][kingFile + i].getPiece().isPresent()) {
+                    if (board[kingRank][kingFile + i].getPiece().get().getColor() != color) {
+                        switch (board[kingRank][kingFile + i].getPiece().get().getType()) {
                             case ROOK:
                             case QUEEN:
                                 return true;
@@ -175,10 +178,10 @@ abstract class MoveReviewerBase implements IMoveReviewer{
                     }
                 }
             }
-            if(isValidPosition(kingFile, kingRank-i)) {
-                if (board[kingFile][kingRank - i].getPiece().isPresent()) {
-                    if (board[kingFile][kingRank - i].getPiece().get().getColor() != color) {
-                        switch (board[kingFile][kingRank - i].getPiece().get().getType()) {
+            if(isValidPosition(kingRank, kingFile-i)) {
+                if (board[kingRank][kingFile - i].getPiece().isPresent()) {
+                    if (board[kingRank][kingFile - i].getPiece().get().getColor() != color) {
+                        switch (board[kingRank][kingFile - i].getPiece().get().getType()) {
                             case ROOK:
                             case QUEEN:
                                 return true;
@@ -190,31 +193,31 @@ abstract class MoveReviewerBase implements IMoveReviewer{
             }
         }
 
-        if(isValidPosition(kingFile+1, kingRank+2)) {
-            if (board[kingFile + 1][kingRank + 2].getPiece().isPresent()) {
-                if (board[kingFile + 1][kingRank + 2].getPiece().get().getColor() != color) {
-                    if (board[kingFile + 1][kingRank + 2].getPiece().get().getType() == PieceType.KNIGHT) return true;
+        if(isValidPosition(kingRank+1, kingFile+2)) {
+            if (board[kingRank + 1][kingFile + 2].getPiece().isPresent()) {
+                if (board[kingRank + 1][kingFile + 2].getPiece().get().getColor() != color) {
+                    if (board[kingRank + 1][kingFile + 2].getPiece().get().getType() == PieceType.KNIGHT) return true;
                 }
             }
         }
-        if(isValidPosition(kingFile-1, kingRank+2)) {
-            if (board[kingFile - 1][kingRank + 2].getPiece().isPresent()) {
-                if (board[kingFile - 1][kingRank + 2].getPiece().get().getColor() != color) {
-                    if (board[kingFile - 1][kingRank + 2].getPiece().get().getType() == PieceType.KNIGHT) return true;
+        if(isValidPosition(kingRank-1, kingFile+2)) {
+            if (board[kingRank - 1][kingFile + 2].getPiece().isPresent()) {
+                if (board[kingRank - 1][kingFile + 2].getPiece().get().getColor() != color) {
+                    if (board[kingRank - 1][kingFile + 2].getPiece().get().getType() == PieceType.KNIGHT) return true;
                 }
             }
         }
-        if(isValidPosition(kingFile+1, kingRank-2)) {
-            if (board[kingFile + 1][kingRank - 2].getPiece().isPresent()) {
-                if (board[kingFile + 1][kingRank - 2].getPiece().get().getColor() != color) {
-                    if (board[kingFile + 1][kingRank - 2].getPiece().get().getType() == PieceType.KNIGHT) return true;
+        if(isValidPosition(kingRank+1, kingFile-2)) {
+            if (board[kingRank + 1][kingFile - 2].getPiece().isPresent()) {
+                if (board[kingRank + 1][kingFile - 2].getPiece().get().getColor() != color) {
+                    if (board[kingRank + 1][kingFile - 2].getPiece().get().getType() == PieceType.KNIGHT) return true;
                 }
             }
         }
-        if(isValidPosition(kingFile-1, kingRank-2)) {
-            if (board[kingFile - 1][kingRank - 2].getPiece().isPresent()) {
-                if (board[kingFile - 1][kingRank - 2].getPiece().get().getColor() != color) {
-                    if (board[kingFile - 1][kingRank - 2].getPiece().get().getType() == PieceType.KNIGHT) return true;
+        if(isValidPosition(kingRank-1, kingFile-2)) {
+            if (board[kingRank - 1][kingFile - 2].getPiece().isPresent()) {
+                if (board[kingRank - 1][kingFile - 2].getPiece().get().getColor() != color) {
+                    return board[kingRank - 1][kingFile - 2].getPiece().get().getType() == PieceType.KNIGHT;
                 }
             }
         }

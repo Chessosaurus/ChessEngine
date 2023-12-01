@@ -27,37 +27,39 @@ public class RookMoveReviewer extends MoveReviewerBase{
         Square to = move.getTo();
         Square[][] board = chessboard.getChessboard();
         //Color color = from.getPiece().getColor();
-        int fromFile = from.getFile();
-        int toFile = to.getFile();
-        int fromRank = from.getRankVal()-1;
-        int toRank = to.getRankVal()-1;
+        int fromRank = from.getRank();
+        int fromRankForSearch = chessboard.getChessboard().length - from.getRank();
+        int fromFile = from.getFileVal()-1;
+
+        int toRank = to.getRank();
+        int toFile = to.getFileVal()-1;
 
         if(!isCheck(move, chessboard)){
-            if(toFile == fromFile && toRank != fromRank){
-                if(toRank > fromRank){
-                    for(int i = 1; i < toRank-fromRank; i++){
-                        if(board[fromFile][fromRank + i].getPiece().isPresent()){
+            if(toRank == fromRank && toFile != fromFile){
+                if(toFile > fromFile){
+                    for(int i = 1; i <= toFile-fromFile; i++){
+                        if(board[fromRankForSearch][fromFile + i].getPiece().isPresent()){
                             return false;
                         }
                     }
                 } else {
-                    for(int i = fromRank; i > fromRank-toRank; i--){
-                        if(board[fromFile][fromRank - i].getPiece().isPresent()){
+                    for(int i = 1; i <= fromFile-toFile; i++){
+                        if(board[fromRankForSearch][fromFile - i].getPiece().isPresent()){
                             return false;
                         }
                     }
                 }
                 return true;
-            } else if (toRank == fromRank && toFile != fromFile) {
-                if(toFile > fromFile){
-                    for(int i = 1; i < toFile-fromFile; i++){
-                        if(board[fromFile + i][fromRank].getPiece().isPresent()){
+            } else if (toFile == fromFile && toRank != fromRank) {
+                if(toRank > fromRank){
+                    for(int i = 1; i <= toRank-fromRank; i++){
+                        if(board[fromRankForSearch - i][fromFile].getPiece().isPresent()){
                             return false;
                         }
                     }
                 } else {
-                    for(int i = fromFile; i > fromFile-toFile; i--){
-                        if(board[fromFile - i][fromRank].getPiece().isPresent()){
+                    for(int i = 1; i <= fromRank-toRank; i++){
+                        if(board[fromRankForSearch + i][fromFile].getPiece().isPresent()){
                             return false;
                         }
                     }

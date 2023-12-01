@@ -27,29 +27,42 @@ public class PawnMoveReviewer extends MoveReviewerBase{
         Square to = move.getTo();
         Square[][] board = chessboard.getChessboard();
         //Color color = from.getPiece().getColor();
-        int fromFile = from.getFile();
-        int toFile = to.getFile();
-        int fromRank = from.getRankVal()-1;
-        int toRank = to.getRankVal() -1;
+        int fromRank = from.getRank();
+        int fromRankForSearch = chessboard.getChessboard().length - from.getRank();
+        int fromFile = from.getFileVal()-1;
+
+        int toRank = to.getRank();
+        int toRankForSearch = chessboard.getChessboard().length - to.getRank();
+        int toFile = to.getFileVal() -1;
+
+        boolean check = isCheck(move,chessboard);
 
         if(!isCheck(move, chessboard)){
-            if (board[toFile][toRank].getPiece().isEmpty()){
+            if (board[toRankForSearch][toFile].getPiece().isEmpty()){
                 if (color == Color.WHITE){
-                    if(fromFile == 2 && toFile ==4 && fromRank == toRank) return true;  //Checks if White Pawns first move
-                    else return toFile == fromFile + 1 && fromRank == toRank;
+                    if(fromRank == 2 && toRank ==4 && fromFile == toFile){ //Checks if White Pawns first move
+                        board[toRank][toFile].setEnPassantPossible(true);
+                        return true;
+                    } else //Überprüfung auf En Passant
+                        if(toRank == fromRank + 1 && fromFile == toFile){
+                        return true;
+                    } else return board[toRank + 1][toFile - 1].isEnPassantPossible() || board[toRank + 1][toFile + 1].isEnPassantPossible();
                 }else{
-                    if(fromFile == 7 && toFile ==5 && fromRank == toRank) return true;  //Checks if Black Pawns first move
-                    else return toFile == fromFile - 1 && fromRank == toRank;
+                    if(fromRank == 7 && toRank ==5 && fromFile == toFile){ //Checks if Black Pawns first move
+                        board[toRank][toFile].setEnPassantPossible(true);
+                        return true;
+                    } else //Überprüfung auf En Passant
+                        if (toRank == fromRank - 1 && fromFile == toFile){
+                        return true;
+                    } else return board[toRank - 1][toFile - 1].isEnPassantPossible() || board[toRank - 1][toFile + 1].isEnPassantPossible();
                 }
-            } else if(board[toFile][toRank].getPiece().isPresent()){
+            } else if(board[toRankForSearch][toFile].getPiece().isPresent()){
                 if(color == Color.WHITE){
-                    if(toFile == fromFile+1 && toRank == fromRank+1 && board[toFile][toRank].getPiece().get().getColor() == Color.BLACK)return true;
-                    else if(toFile == fromFile+1 && toRank == fromRank-1 && board[toFile][toRank].getPiece().get().getColor() == Color.BLACK) return true;
-                    else return false;
+                    if(toRank == fromRank+1 && toFile == fromFile+1 && board[toRankForSearch][toFile].getPiece().get().getColor() == Color.BLACK)return true;
+                    else return toRank == fromRank + 1 && toFile == fromFile - 1 && board[toRankForSearch][toFile].getPiece().get().getColor() == Color.BLACK;
                 }else{
-                    if(toFile == fromFile-1 && toRank == fromRank+1 && board[toFile][toRank].getPiece().get().getColor() == Color.BLACK)return true;
-                    else if(toFile == fromFile-1 && toRank == fromRank-1 && board[toFile][toRank].getPiece().get().getColor() == Color.BLACK) return true;
-                    else return false;
+                    if(toRank == fromRank-1 && toFile == fromFile+1 && board[toRankForSearch][toFile].getPiece().get().getColor() == Color.WHITE)return true;
+                    else return toRank == fromRank - 1 && toFile == fromFile - 1 && board[toRankForSearch][toFile].getPiece().get().getColor() == Color.WHITE;
                 }
             }else return false;
         }

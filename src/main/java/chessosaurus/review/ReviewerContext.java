@@ -12,7 +12,7 @@ import chessosaurus.base.PieceType;
  * @version 1.0
  */
 
-public class ReviewerContext {
+public class ReviewerContext implements IReviewerContext {
 
     private IMoveReviewer reviewer;
 

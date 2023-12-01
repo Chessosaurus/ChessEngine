@@ -26,14 +26,14 @@ public class KnightMoveReviewer extends MoveReviewerBase{
         Square from = move.getFrom();
         Square to = move.getTo();
         //Color color = from.getPiece().getColor();
-        int fromFile = from.getFile();
-        int toFile = to.getFile();
-        int fromRank = from.getRankVal()-1;
-        int toRank = to.getRankVal()-1;
+        int fromRank = from.getRank();
+        int toRank = to.getRank();
+        int fromFile = from.getFileVal()-1;
+        int toFile = to.getFileVal()-1;
 
         if(!isCheck(move, chessboard)){
-            if((toFile == fromFile+2 || toFile == fromFile-2) && (toRank == fromRank+1 || toRank == fromRank-1)) return true;
-            else return (toFile == fromFile + 1 || toFile == fromFile - 1) && (toRank == fromRank + 2 || toRank == fromRank - 2);
+            if((toRank == fromRank+2 || toRank == fromRank-2) && (toFile == fromFile+1 || toFile == fromFile-1)) return true;
+            else return (toRank == fromRank + 1 || toRank == fromRank - 1) && (toFile == fromFile + 2 || toFile == fromFile - 2);
         }
         return false;
     }
