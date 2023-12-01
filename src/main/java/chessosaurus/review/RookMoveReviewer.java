@@ -27,8 +27,8 @@ public class RookMoveReviewer extends MoveReviewerBase{
         Square to = move.getTo();
         Square[][] board = chessboard.getChessboard();
         //Color color = from.getPiece().getColor();
-        int fromRank = from.getRank();
-        int fromRankForSearch = chessboard.getChessboard().length - from.getRank();
+        int fromRank = from.getRank()-1;
+        //int fromRankForSearch = chessboard.getChessboard().length - from.getRank();
         int fromFile = from.getFileVal()-1;
 
         int toRank = to.getRank();
@@ -38,13 +38,13 @@ public class RookMoveReviewer extends MoveReviewerBase{
             if(toRank == fromRank && toFile != fromFile){
                 if(toFile > fromFile){
                     for(int i = 1; i <= toFile-fromFile; i++){
-                        if(board[fromRankForSearch][fromFile + i].getPiece().isPresent()){
+                        if(board[fromRank][fromFile + i].getPiece().isPresent()){
                             return false;
                         }
                     }
                 } else {
                     for(int i = 1; i <= fromFile-toFile; i++){
-                        if(board[fromRankForSearch][fromFile - i].getPiece().isPresent()){
+                        if(board[fromRank][fromFile - i].getPiece().isPresent()){
                             return false;
                         }
                     }
@@ -53,13 +53,13 @@ public class RookMoveReviewer extends MoveReviewerBase{
             } else if (toFile == fromFile && toRank != fromRank) {
                 if(toRank > fromRank){
                     for(int i = 1; i <= toRank-fromRank; i++){
-                        if(board[fromRankForSearch - i][fromFile].getPiece().isPresent()){
+                        if(board[fromRank - i][fromFile].getPiece().isPresent()){
                             return false;
                         }
                     }
                 } else {
                     for(int i = 1; i <= fromRank-toRank; i++){
-                        if(board[fromRankForSearch + i][fromFile].getPiece().isPresent()){
+                        if(board[fromRank + i][fromFile].getPiece().isPresent()){
                             return false;
                         }
                     }
