@@ -110,4 +110,8 @@ public class Square {
     public boolean isEnPassantPossible() {
         return enPassantPossible;
     }
+
+    public boolean isField(char file, int rank){
+        return this.file == file && this.rank == rank;
+    }
 }
