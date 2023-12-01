@@ -9,7 +9,6 @@ int lineCount = 0;
 int rowCount = 0;
 }
 WS : [ \t\n\r]+ -> skip;
-FILE : [1-8];
 STARTPOS : 'startpos';
 POSITION : 'position';
 MOVES : 'moves';
@@ -29,7 +28,7 @@ BISHOP_WHITE : 'B' ;
 BISHOP_BLACK : 'b';
 PAWN_WHITE : 'P';
 PAWN_BLACK : 'p';
-RANK : [a-h];
+FILE : [a-h];
 NUMBER : [0-9]+;
 
 
@@ -44,8 +43,8 @@ whitemove: move
 blackmove: move
             | move whitemove;
 
-move : RANK FILE RANK FILE
-        | RANK FILE RANK FILE promotable;
+move : FILE NUMBER FILE NUMBER
+        | FILE NUMBER FILE NUMBER promotable;
 
 promotable : queen | rook | knight | bishop;
 
@@ -61,7 +60,7 @@ slot : piece | num;
 
 piece : piece_all{rowCount++;};
 
-num : FILE{rowCount+=Integer.valueOf($text);};
+num : NUMBER{rowCount+=Integer.valueOf($text);};
 
 info : color castleOptions square half full;
 
@@ -69,7 +68,7 @@ color : WHITE | BISHOP_BLACK;
 
 castleOptions : '-' | (king_white?)(queen_white?)(king_black?)(queen_black?);
 
-square : '-' | RANK FILE;
+square : '-' | FILE NUMBER;
 
 half : NUMBER;
 

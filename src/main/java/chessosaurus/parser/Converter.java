@@ -1,8 +1,11 @@
 package chessosaurus.parser;
 
+import antlr.InputLexer;
 import antlr.InputParser;
 import antlr.InputVisitor;
 import chessosaurus.base.*;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.RuleNode;
@@ -13,8 +16,17 @@ import java.util.List;
 import java.util.Optional;
 
 public class Converter implements InputVisitor {
+    private Board parseStartFen(String fen) {
+        return visitStart(
+                new InputParser(
+                        new CommonTokenStream(
+                                new InputLexer(
+                                        CharStreams.fromString(fen)))).start());
+    }
+
     @Override
     public Board visitStart(InputParser.StartContext ctx) {
+        //fen notation
         if (ctx.FEN() != null) {
             Board b = visitRows(ctx.rows());
             //info not yet used in board, would have to be implemented here
@@ -26,102 +38,67 @@ public class Converter implements InputVisitor {
         }
     }
 
+
     @Override
     public Board visitMoves(InputParser.MovesContext ctx) {
-        Board board = new Board();
+        Board board;
         //Change to parse fen
-        board.importFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
-        //@TODO implement moves Syntax
+        board = parseStartFen("position fen rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w - - 0 1");
         List<Move> moves = visitWhitemove(ctx.whitemove());
         for (int i = 0; i < moves.size(); i++) {
             Move move = moves.get(i);
-            if (move.getFrom().getPiece().isEmpty()) {
+            if (board.getCorrespondingSquare(move.getFrom()).getPiece().isEmpty()) {
                 return null;
             }
             //White special turns
             if (i % 2 == 0) {
                 //White-Castle
-                castle(board,move,1);
-//                if (move.getFrom().isField('e', 1) && move.getFrom().getPiece().get().getType() == PieceType.KING) {
-//                    if (move.getTo().isField('c', 1)) {
-//                        board = castleTo(board, 'c', 1);
-//                        //@TODO diable left white castle
-//                        continue;
-//                    }
-//                    if (move.getTo().isField('g', 1)) {
-//                        board = castleTo(board, 'g', 1);
-//                        //@TODO disable right white castle
-//                        continue;
-//                    }
-//                }
+                if (castle(board, move, 1)) continue;
                 //White-En passant
-                enPass(board,move,5,6);
-//                if (move.getFrom().getFile() != move.getTo().getFile() //File is different
-//                        && move.getTo().getPiece().isEmpty()) //To Field is empty
-//                {
-//                    if (move.getFrom().getPiece().get().getType() == PieceType.PAWN //Pawn Move
-//                            && move.getFrom().getRank() == 5//Rank 5 to Rank 6
-//                            && move.getTo().getRank() == 6) {
-//                        board = enPassant(board, move, Color.WHITE);
-//                        continue;
-//                    }
-//                }
+                if (enPass(board, move, 5, 6, Color.WHITE)) continue;
             }
-            ;
+
             //Black special turns
-            if (i % 2 == 1) {
+            else {
                 //Black-Castle
-                castle(board,move,8);
-//                if (move.getFrom().isField('e', 8) && move.getFrom().getPiece().get().getType() == PieceType.KING) {
-//                    if (move.getTo().isField('c', 8)) {
-//                        board = castleTo(board, 'c', 8);
-//                        //@TODO diable left black castle
-//                        continue;
-//                    }
-//                    if (move.getTo().isField('g', 8)) {
-//                        board = castleTo(board, 'g', 8);
-//                        //@TODO disable right black castle
-//                        continue;
-//                    }
-//                }
+                if (castle(board, move, 8)) continue;
+
+
                 //Black-En passant
-                enPass(board,move,4,3);
-//                if (move.getFrom().getFile() != move.getTo().getFile() //File is different
-//                        && move.getTo().getPiece().isEmpty()) //To Field is empty
-//                {
-//                    if (move.getFrom().getPiece().get().getType() == PieceType.PAWN //Pawn Move
-//                            && move.getFrom().getRank() == 4//Rank 4 to Rank 3
-//                            && move.getTo().getRank() == 3) {
-//                        board = enPassant(board, move, Color.BLACK);
-//                        continue;
-//                    }
-//                }
+                if (enPass(board, move, 4, 3, Color.BLACK)) continue;
             }
             //Normal
-            move.getTo().setPiece(move.getFrom().getPiece());
-            move.getFrom().setPiece(Optional.empty());
+            Square corresTo = board.getCorrespondingSquare(move.getTo());
+            Square corresFrom = board.getCorrespondingSquare(move.getFrom());
+            corresTo.setPiece(corresFrom.getPiece());
+            corresFrom.setPiece(Optional.empty());
             //Promote
-            if(move.getPromoted().isPresent()){
-                move.getTo().getPiece().get().setType(move.getPromoted().get());
+            if (move.getPromoted().isPresent()) {
+                board.getCorrespondingSquare(move.getTo()).getPiece().get().setType(move.getPromoted().get());
             }
         }
         return board;
     }
-    private boolean castle(Board board, Move move,int rank){
-        if (move.getFrom().isField('e', rank) && move.getFrom().getPiece().get().getType() == PieceType.KING) {
+
+    private boolean castle(Board board, Move move, int rank) {
+        if (move.getFrom().isField('e', rank)
+                && board.getCorrespondingSquare(move.getFrom()).getPiece().get().getType() == PieceType.KING) {
             if (move.getTo().isField('c', rank)) {
                 board = castleTo(board, 'c', rank);
                 //@TODO diable left white castle
+                //@TODO disable left black castle
                 return true;
             }
             if (move.getTo().isField('g', rank)) {
                 board = castleTo(board, 'g', rank);
                 //@TODO disable right white castle
+                //@TODO disable right black castle
                 return true;
             }
         }
         return false;
     }
+
     private Board castleTo(Board board, char file, int rank) {
         int fileInt = file == 'c' ? 2 : 6;
         int rankInt = rank - 1;
@@ -136,25 +113,28 @@ public class Converter implements InputVisitor {
         return board;
     }
 
-    private boolean enPass(Board board, Move move,int rankFrom, int rankTo){
+    private boolean enPass(Board board, Move move, int rankFrom, int rankTo, Color color) {
         if (move.getFrom().getFile() != move.getTo().getFile() //File is different
-                && move.getTo().getPiece().isEmpty()) //To Field is empty
+                && board.getCorrespondingSquare(move.getTo()).getPiece().isEmpty()) //To Field is empty
         {
-            if (move.getFrom().getPiece().get().getType() == PieceType.PAWN //Pawn Move
-                    && move.getFrom().getRank() == rankFrom//Rank 4 to Rank 3
+            if (board.getCorrespondingSquare(move.getFrom()).getPiece().get().getType() == PieceType.PAWN //Pawn Move
+                    && move.getFrom().getRank() == rankFrom
                     && move.getTo().getRank() == rankTo) {
-                board = enPassant(board, move, Color.BLACK);
+                board = enPassant(board, move, color);
                 return true;
             }
         }
         return false;
     }
+
     private Board enPassant(Board board, Move move, Color color) {
         int rankInt = move.getTo().getRank() - 1;
         int fileInt = move.getTo().getFileVal() - 1;
-        move.getTo().setPiece(move.getFrom().getPiece());
-        move.getFrom().setPiece(Optional.empty());
-        board.getChessboard()[color == Color.WHITE ? rankInt - 1 : rankInt + 1][fileInt].setPiece(Optional.empty());
+        board.getCorrespondingSquare(move.getTo())
+                .setPiece(board.getCorrespondingSquare(move.getFrom()).getPiece());
+        board.getCorrespondingSquare(move.getFrom()).setPiece(Optional.empty());
+        int rankRemoveInt = color == Color.WHITE ? rankInt - 1 : rankInt + 1;
+        board.getChessboard()[rankRemoveInt][fileInt].setPiece(Optional.empty());
         return board;
     }
 
@@ -162,7 +142,7 @@ public class Converter implements InputVisitor {
     public List<Move> visitWhitemove(InputParser.WhitemoveContext ctx) {
         List<Move> moves = new ArrayList<>();
         moves.add(visitMove(ctx.move()));
-        if (ctx.blackmove().isEmpty()) {
+        if (ctx.blackmove() == null) {
             return moves;
         }
         moves.addAll(visitBlackmove(ctx.blackmove()));
@@ -173,7 +153,7 @@ public class Converter implements InputVisitor {
     public List<Move> visitBlackmove(InputParser.BlackmoveContext ctx) {
         List<Move> moves = new ArrayList<>();
         moves.add(visitMove(ctx.move()));
-        if (ctx.whitemove().isEmpty()) {
+        if (ctx.whitemove() == null) {
             return moves;
         }
         moves.addAll(visitWhitemove(ctx.whitemove()));
@@ -182,21 +162,22 @@ public class Converter implements InputVisitor {
 
     @Override
     public Move visitMove(InputParser.MoveContext ctx) {
-
-        Square from = new Square(Integer.parseInt(ctx.RANK(0).getText()),
-                ctx.FILE(0).getText().charAt(0));
-        Square to = new Square(Integer.parseInt(ctx.RANK(1).getText()),
-                ctx.FILE(1).getText().charAt(0));
-        return ctx.promotable().isEmpty() ?
+        String rank = ctx.FILE(0).getText();
+        String file = ctx.NUMBER(0).getText();
+        Square from = new Square(ctx.FILE(0).getText().charAt(0),
+                Integer.parseInt(ctx.NUMBER(0).getText()));
+        Square to = new Square(ctx.FILE(1).getText().charAt(0),
+                Integer.parseInt(ctx.NUMBER(1).getText()));
+        return ctx.promotable() == null ?
                 new Move(from, to)
                 : new Move(from, to, visitPromotable(ctx.promotable()));
     }
 
     @Override
     public PieceType visitPromotable(InputParser.PromotableContext ctx) {
-        if (!ctx.queen().isEmpty()) return PieceType.QUEEN;
-        if (!ctx.rook().isEmpty()) return PieceType.ROOK;
-        if (!ctx.knight().isEmpty()) return PieceType.KNIGHT;
+        if (ctx.queen() != null) return PieceType.QUEEN;
+        if (ctx.rook() != null) return PieceType.ROOK;
+        if (ctx.knight() != null) return PieceType.KNIGHT;
         /*if (!ctx.bishop().isEmpty())*/
         return PieceType.BISHOP;
     }
@@ -205,7 +186,7 @@ public class Converter implements InputVisitor {
     public Board visitRows(InputParser.RowsContext ctx) {
         Board b = new Board();
         for (int i = 7; i >= 0; i--) {
-            b.setRank(i, visitSingle_row(ctx.row(i).single_row()));
+            b.setRank(i, visitSingle_row(ctx.row(7 - i).single_row()));
         }
         return b;
     }
@@ -221,8 +202,8 @@ public class Converter implements InputVisitor {
         //rank[0] = Optional.of(new Piece());
         int index = 0;
         for (InputParser.SlotContext sc : ctx.slot()) {
-            if (sc.piece()==null) {
-                for (int i = 0; i < Integer.parseInt(sc.num().FILE().getText()); i++) {
+            if (sc.piece() == null) {
+                for (int i = 0; i < Integer.parseInt(sc.num().NUMBER().getText()); i++) {//Hier stand FILE NICHT NUMBER
                     rank[index++] = Optional.empty();
                 }
                 continue;
@@ -280,7 +261,7 @@ public class Converter implements InputVisitor {
 
     @Override
     public Piece visitPiece_all(InputParser.Piece_allContext ctx) {
-        if (ctx.piece_white()==null) {
+        if (ctx.piece_white() == null) {
             return visitPiece_black(ctx.piece_black());
         } else {
             return visitPiece_white(ctx.piece_white());

@@ -14,6 +14,11 @@ public class Square {
         this.rank = rank;
         this.piece = Optional.empty();
     }
+    public Square (char file, int rank){
+        this.file = file;
+        this.rank = rank;
+        this.piece = Optional.empty();
+    }
 
     public Square(char file, char rank) {
         this.file = file;
