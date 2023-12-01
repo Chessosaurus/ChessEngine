@@ -147,8 +147,7 @@ public class UCI {
         Board board = new Converter().visitStart(stc);
         this.controller.getGame().setChessboard(board);
         this.controller.getGame().getEnemy().setColor(Color.BLACK);
-        board.displayBoard();
-        return;
+
 //        this.moves = new ArrayList<>();
 //        String input = inputString.substring(9).concat(" ");
 //
