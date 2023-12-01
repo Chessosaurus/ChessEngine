@@ -23,7 +23,7 @@ public class Board {
 
         for(int i=0; i<8;i++){
             for(int j=0; j<8;j++){
-                this.chessboard[i][j] = new Square(i+1,j+1);
+                this.chessboard[i][j] = new Square(j+1,i+1);
                 this.chessboard[i][j].setPiece(Optional.empty());
             }
         }
@@ -76,7 +76,7 @@ public class Board {
                 int emptySpaces = Character.getNumericValue(c);
                 for (int i = 0; i < emptySpaces; i++) {
                     //rank++;
-                    file++;
+                    file = i;
                 }
             } else {
 
