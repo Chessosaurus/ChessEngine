@@ -35,6 +35,12 @@ public class Board {
         this.chessboard = board.getChessboard();
     }
 
+    public void setRank(int rank, Optional<Piece>[] pieces) {
+        for (int i = 0; i < 8; i++) {
+            chessboard[rank][i].setPiece(pieces[i]);
+        }
+    }
+
     /**
      * Returns square from a board by rank and file
      * @param rank Given row
@@ -191,7 +197,7 @@ public class Board {
                     Piece piece = this.chessboard[i][j].getPiece().get();
                     pieceSymbol = getPieceSymbol(piece);
                 }
-                System.out.print(pieceSymbol + "┃");
+                System.out.print(String.format("%-2c",pieceSymbol.charAt(0)) + "┃");
             }
             System.out.println(" " + (1+i));
             if (i != 0) {
@@ -212,52 +218,52 @@ public class Board {
         switch (piece.getType()) {
             case KING:
                 if(piece.getColor().equals(Color.WHITE)){
-                    return "♔";
-                    //return "K";
+                    //return "♔";
+                    return "K";
                 }else{
-                    return "♚";
-                    //return "k";
+                    //return "♚";
+                    return "k";
                 }
             case QUEEN:
                 if(piece.getColor().equals(Color.WHITE)){
-                    return "♕";
-                    //return "Q";
+                    //return "♕";
+                    return "Q";
                 }else{
-                    return "♛";
-                    //return "q";
+                    //return "♛";
+                    return "q";
                 }
             case ROOK:
                 if(piece.getColor().equals(Color.WHITE)){
-                    return "♖";
-                    //return "R";
+                    //return "♖";
+                    return "R";
                 }else{
-                    return "♜";
-                    //return "r";
+                    //return "♜";
+                    return "r";
                 }
             case BISHOP:
                 if(piece.getColor().equals(Color.WHITE)){
-                    return "♗";
-                    //return "B";
+                    //return "♗";
+                    return "B";
                 }else{
-                    return "♝";
-                    //return "b";
+                    //return "♝";
+                    return "b";
                 }
 
             case KNIGHT:
                 if(piece.getColor().equals(Color.WHITE)){
-                    return "♘";
-                    //return "N";
+                    //return "♘";
+                    return "N";
                 }else{
-                    return "♞";
-                    //return "n";
+                    //return "♞";
+                    return "n";
                 }
             case PAWN:
                 if(piece.getColor().equals(Color.WHITE)){
-                    return "♙";
-                    //return  "P";
+                    //return "♙";
+                    return  "P";
                 }else{
-                    return "♟";
-                    //return "P";
+                    //return "♟";
+                    return "p";
                 }
             default:
                 return " ";
@@ -348,5 +354,8 @@ public class Board {
         this.getChessboard()[fromRank][fromFile].setPiece(Optional.empty());
 
         return this;
+    }
+    public Square getCorrespondingSquare(Square sq){
+        return chessboard[sq.getRank()-1][sq.getFileVal()-1];
     }
 }
