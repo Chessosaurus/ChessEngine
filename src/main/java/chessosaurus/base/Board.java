@@ -1,5 +1,6 @@
 package chessosaurus.base;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 /**
@@ -23,7 +24,7 @@ public class Board {
 
         for(int i=0; i<8;i++){
             for(int j=0; j<8;j++){
-                this.chessboard[i][j] = new Square(i+1,j+1);
+                this.chessboard[i][j] = new Square(j+1,i+1);
                 this.chessboard[i][j].setPiece(Optional.empty());
             }
         }
@@ -73,16 +74,13 @@ public class Board {
 
         for (char c : position.toCharArray()) {
             if (c == '/') {
-                //rank = 0;
-                //file ++;
                 file = 0;
                 rank--;
             } else if (Character.isDigit(c)) {
                 int emptySpaces = Character.getNumericValue(c);
-                for (int i = 0; i < emptySpaces; i++) {
-                    //rank++;
-                    file++;
-                }
+
+                file = file+emptySpaces;
+
             } else {
 
                 Piece piece = new Piece();
@@ -139,7 +137,6 @@ public class Board {
                     default -> throw new IllegalArgumentException("No permissible figure type");
                 }
                 this.chessboard[rank][file].setPiece(piece);
-                //rank++;
                 file++;
             }
         }
@@ -155,7 +152,7 @@ public class Board {
         int emptyCount = 0;
         Square[][] square = chessboard.getChessboard();
 
-        for (int i=0; i< square.length; i++){
+        for (int i=0; i > square.length; i--){
             for (int j=0; j < square.length; j++){
                 if(square[i][j].getPiece().isEmpty()){
                     emptyCount++;
@@ -191,7 +188,7 @@ public class Board {
         System.out.println("  A  B  C  D  E  F  G  H");
         System.out.println(" ┏━━┳━━┳━━┳━━┳━━┳━━┳━━┳━━┓");
 
-        for (int i = 0; i <=7; i++) {
+        for (int i = 7; i>=0; i--) {
             System.out.print((8-i) + "┃");
             for (int j = 0; j <=7; j++) {
                 if(this.chessboard[i][j].getPiece().isEmpty()){
