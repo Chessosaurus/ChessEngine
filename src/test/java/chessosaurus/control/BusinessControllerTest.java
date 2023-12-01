@@ -2,6 +2,7 @@ package chessosaurus.control;
 
 import chessosaurus.base.*;
 import chessosaurus.engine.IEnemyMoverContext;
+import chessosaurus.review.IReviewerContext;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -10,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class BusinessControllerTest {
-/*
+
     private final BusinessController businessController;
     private Game mockGame;
     private final Board expectedBoard = new Board();
@@ -18,7 +19,9 @@ public class BusinessControllerTest {
     public BusinessControllerTest() {
         this.mockGame = mock(Game.class);
         IEnemyMoverContext mockEnemyMoverContext = mock(IEnemyMoverContext.class);
-        this.businessController = new BusinessController(mockEnemyMoverContext, mockGame);
+        IReviewerContext mockReviewerContext = mock(IReviewerContext.class);
+        when(mockReviewerContext.isLegalMove(any(), any())).thenReturn(true);
+        this.businessController = new BusinessController(mockEnemyMoverContext, mockGame, mockReviewerContext);
     }
 
     @Test
@@ -92,7 +95,7 @@ public class BusinessControllerTest {
         assertEquals(expectedMove, move);
     }
 
-/*
+
     @Test
     @Tag("testGetGame")
     public void testGetGame() {
@@ -107,5 +110,5 @@ public class BusinessControllerTest {
 
         assertNotNull(game);
         assertEquals(expectedGame, game);
-    }*/
+    }
 }
