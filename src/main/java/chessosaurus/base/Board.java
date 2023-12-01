@@ -183,7 +183,7 @@ public class Board {
         System.out.println(" ┏━━┳━━┳━━┳━━┳━━┳━━┳━━┳━━┓");
 
         for (int i = 7; i>=0; i--) {
-            System.out.print((8-i) + "┃");
+            System.out.print((1+i) + "┃");
             for (int j = 0; j <=7; j++) {
                 if(this.chessboard[i][j].getPiece().isEmpty()){
                     pieceSymbol = "  ";
@@ -193,7 +193,7 @@ public class Board {
                 }
                 System.out.print(pieceSymbol + "┃");
             }
-            System.out.println(" " + (8-i));
+            System.out.println(" " + (1+i));
             if (i != 0) {
                 System.out.println(" ┣━━┫━━┫━━┫━━┫━━┫━━┫━━┫━━┫");
             } else {

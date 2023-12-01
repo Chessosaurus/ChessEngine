@@ -59,10 +59,10 @@ public class Game {
     public void reviewPlayerMove(Move move) {
         boolean isLegal;
 
-        int fromRank = this.chessboard.getChessboard().length - move.getFrom().getRank();
+        int fromRank = move.getFrom().getRank()-1;
         int fromFile = move.getFrom().getFileVal() - 1;
 
-        int toRank = this.chessboard.getChessboard().length - move.getTo().getRank();
+        int toRank = move.getTo().getRank()-1;
         int toFile = move.getTo().getFileVal() - 1;
         if(move.getFrom().getPiece().isEmpty()){
             isLegal = false;

@@ -57,6 +57,6 @@ public class UCIMoveParser implements IMoveParser
 
         int file = square.getFileVal();
         int rank = square.getRank();
-        return board.getChessboard()[8-rank][file-1].getPiece();
+        return board.getChessboard()[rank-1][file-1].getPiece();
     }
   }
