@@ -32,13 +32,13 @@ public class PawnMoveReviewer extends MoveReviewerBase{
         int fromFile = from.getFileVal()-1;
 
         int toRank = to.getRank();
-        int toRankForSearch = chessboard.getChessboard().length - to.getRank();
+        //int toRankForSearch = chessboard.getChessboard().length - to.getRank();
         int toFile = to.getFileVal() -1;
 
         boolean check = isCheck(move,chessboard);
 
         if(!isCheck(move, chessboard)){
-            if (board[toRankForSearch][toFile].getPiece().isEmpty()){
+            if (board[toRank][toFile].getPiece().isEmpty()){
                 if (color == Color.WHITE){
                     if(fromRank == 2 && toRank ==4 && fromFile == toFile){ //Checks if White Pawns first move
                         board[toRank][toFile].setEnPassantPossible(true);
@@ -51,18 +51,18 @@ public class PawnMoveReviewer extends MoveReviewerBase{
                     if(fromRank == 7 && toRank ==5 && fromFile == toFile){ //Checks if Black Pawns first move
                         board[toRank][toFile].setEnPassantPossible(true);
                         return true;
-                    } else //Überprüfung auf En Passant
+                    } else
                         if (toRank == fromRank - 1 && fromFile == toFile){
                         return true;
-                    } else return board[toRank - 1][toFile - 1].isEnPassantPossible() || board[toRank - 1][toFile + 1].isEnPassantPossible();
+                    } else return board[toRank - 1][toFile - 1].isEnPassantPossible() || board[toRank - 1][toFile + 1].isEnPassantPossible(); //Überprüfung auf En Passant
                 }
-            } else if(board[toRankForSearch][toFile].getPiece().isPresent()){
+            } else if(board[toRank][toFile].getPiece().isPresent()){
                 if(color == Color.WHITE){
-                    if(toRank == fromRank+1 && toFile == fromFile+1 && board[toRankForSearch][toFile].getPiece().get().getColor() == Color.BLACK)return true;
-                    else return toRank == fromRank + 1 && toFile == fromFile - 1 && board[toRankForSearch][toFile].getPiece().get().getColor() == Color.BLACK;
+                    if(toRank == fromRank+1 && toFile == fromFile+1 && board[toRank][toFile].getPiece().get().getColor() == Color.BLACK)return true;
+                    else return toRank == fromRank + 1 && toFile == fromFile - 1 && board[toRank][toFile].getPiece().get().getColor() == Color.BLACK;
                 }else{
-                    if(toRank == fromRank-1 && toFile == fromFile+1 && board[toRankForSearch][toFile].getPiece().get().getColor() == Color.WHITE)return true;
-                    else return toRank == fromRank - 1 && toFile == fromFile - 1 && board[toRankForSearch][toFile].getPiece().get().getColor() == Color.WHITE;
+                    if(toRank == fromRank-1 && toFile == fromFile+1 && board[toRank][toFile].getPiece().get().getColor() == Color.WHITE)return true;
+                    else return toRank == fromRank - 1 && toFile == fromFile - 1 && board[toRank][toFile].getPiece().get().getColor() == Color.WHITE;
                 }
             }else return false;
         }
