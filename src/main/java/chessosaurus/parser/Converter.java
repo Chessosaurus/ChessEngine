@@ -29,10 +29,19 @@ public class Converter implements InputVisitor {
     @Override
     public Board visitMoves(InputParser.MovesContext ctx) {
         Board b = new Board();
+        //Change to parse fen
         b.importFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
         //@TODO implement moves Syntax
-        //List all moves, then execute them all in order
         List<Move> moves = visitWhitemove(ctx.whitemove());
+        for(int i = 0; i< moves.size();i++){
+            Move move = moves.get(i);
+            //Rochade
+            if(i % 2 == 0 && move.getFrom())
+            //En passant
+
+            //Normal
+
+        }
         for (Move m : moves) {
             Piece p = b.getChessboard()
                     [m.getFrom().getRank()]
