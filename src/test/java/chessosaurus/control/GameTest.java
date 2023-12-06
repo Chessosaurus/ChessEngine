@@ -1,10 +1,7 @@
 package chessosaurus.control;
 
 import chessosaurus.base.*;
-import chessosaurus.engine.EnemyMoverContext;
-import chessosaurus.engine.IEnemyMoverContext;
-import chessosaurus.engine.MiniMaxAlgorithm;
-import chessosaurus.engine.MoveFinder;
+import chessosaurus.engine.*;
 import chessosaurus.review.IReviewerContext;
 import chessosaurus.review.ReviewerContext;
 import org.junit.jupiter.api.Test;
@@ -173,11 +170,14 @@ public class GameTest {
     void testPawnMoves() throws ExecutionException, InterruptedException {
 
         Board board = new Board();
-        board.importFen("8/4k3/8/2p1P3/3Q4/8/2K5/8 w - - 0 1");
+        board.importFen("8/4k3/8/2p1P3/3R4/8/2K5/8 b - - 0 1");
         ReviewerContext reviewerContext = new ReviewerContext();
         MoveFinder finder = new MoveFinder(reviewerContext);
         MiniMaxAlgorithm minimax = new MiniMaxAlgorithm(finder);
-        Move move = minimax.getBestMove(null, board, Color.BLACK, game);
+        MinimaxThreading threading = new MinimaxThreading(finder);
+        this.game.setChessboard(board);
+        Move move = minimax.getBestMove(board, Color.BLACK, game);
+        //Move move = threading.getBestMove(board, Color.BLACK, game);
         assertFalse(move == null);
     }
 

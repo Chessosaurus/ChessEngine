@@ -63,7 +63,7 @@ public class EnemyMoverContext implements IEnemyMoverContext {
         }
         if (move == null) {
             MiniMaxAlgorithm enemyMover = new MiniMaxAlgorithm(this.moveFinder);
-            move = enemyMover.getBestMove(allMoves,currentBoard,currentColor, currentGame);
+            move = enemyMover.getBestMove(currentBoard,currentColor, currentGame);
         }
 
         return move;

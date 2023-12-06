@@ -3,24 +3,62 @@ package chessosaurus.engine;
 import chessosaurus.base.Board;
 import chessosaurus.base.Color;
 import chessosaurus.base.Move;
+import chessosaurus.control.Game;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 //import io.reactive.rxjava3.subjects.ReplaySubject;
 
-public class MinimaxThreading{
+public class MinimaxThreading {
+
+    private final MiniMaxAlgorithm miniMaxAlgorithm;
+
 
     private ExecutorService excutorService;
     //private ReplaySubject<EvaluatedMove> searchresults;
 
-    /*public MinimaxThreading(){
+    public MinimaxThreading(IMoveFinder moveFinder){
+        this.miniMaxAlgorithm = new MiniMaxAlgorithm(moveFinder);
+
+    }
+
+    public Move getBestMove(Board currentBoard, Color currentColor, Game currentGame) {
+        int bestValue = Evaluation.worstValue;
+        Move bestMove = null;
+
+        List<Move> legalMoves = miniMaxAlgorithm.getMoveFinder().getLegalMoves(currentBoard, currentColor);
+
         int cores = Runtime.getRuntime().availableProcessors();
         excutorService = Executors.newFixedThreadPool(cores);
-    }*/
+        ExecutorService executor = Executors.newFixedThreadPool(cores);
+        List<Future<Integer>> futures = new ArrayList<>();
 
-    public Move getBestMove(List<Move> allMoves, Board currentBoard, Color currentColor) {
-        return null;
+        for (Move move : legalMoves) {
+            futures.add(executor.submit(() -> {
+                Board newBoard = currentGame.deepCloneBoard();
+                newBoard.makeMove(move);
+                return miniMaxAlgorithm.evaluate(newBoard, currentColor, currentGame);
+            }));
+        }
+
+        executor.shutdown();
+
+        try {
+            executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+
+            for (int i = 0; i < futures.size(); i++) {
+                int value = futures.get(i).get();
+                if (value > bestValue) {
+                    bestValue = value;
+                    bestMove = legalMoves.get(i);
+                }
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return bestMove;
     }
 }
+
