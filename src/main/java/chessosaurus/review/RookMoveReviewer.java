@@ -31,7 +31,7 @@ public class RookMoveReviewer extends MoveReviewerBase{
         //int fromRankForSearch = chessboard.getChessboard().length - from.getRank();
         int fromFile = from.getFileVal()-1;
 
-        int toRank = to.getRank();
+        int toRank = to.getRank()-1;
         int toFile = to.getFileVal()-1;
 
         if(!isCheck(color, chessboard)){
@@ -53,13 +53,13 @@ public class RookMoveReviewer extends MoveReviewerBase{
             } else if (toFile == fromFile && toRank != fromRank) {
                 if(toRank > fromRank){
                     for(int i = 1; i <= toRank-fromRank-1; i++){
-                        if(board[fromRank - i][fromFile].getPiece().isPresent()){
+                        if(board[fromRank + i][fromFile].getPiece().isPresent()){
                             return false;
                         }
                     }
                 } else {
                     for(int i = 1; i <= fromRank-toRank-1; i++){
-                        if(board[fromRank + i][fromFile].getPiece().isPresent()){
+                        if(board[fromRank - i][fromFile].getPiece().isPresent()){
                             return false;
                         }
                     }

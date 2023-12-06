@@ -170,7 +170,7 @@ public class GameTest {
     void testPawnMoves() throws ExecutionException, InterruptedException {
 
         Board board = new Board();
-        board.importFen("8/4k3/8/2p1P3/3R4/8/2K5/8 b - - 0 1");
+        board.importFen("8/4k3/8/2p1P3/3Q4/8/2K5/8 b - - 0 1");
         ReviewerContext reviewerContext = new ReviewerContext();
         MoveFinder finder = new MoveFinder(reviewerContext);
         MiniMaxAlgorithm minimax = new MiniMaxAlgorithm(finder);
