@@ -41,28 +41,28 @@ public class QueenMoveReviewer extends MoveReviewerBase{
                     if(toFile == fromFile+i || toFile == fromFile-i){
                         if(toFile > fromFile){
                             if(toRank > fromRank){
-                                for(int j = 1; j <= toFile-fromFile; j++){
-                                    if(board[fromRank - j][fromFile + j].getPiece().isPresent()){
+                                for(int j = 1; j <= toFile-fromFile-1; j++){
+                                    if(board[fromRank + j][fromFile + j].getPiece().isPresent()){
                                         return false;
                                     }
                                 }
                             }else {
-                                for(int j = 1; j <= toFile-fromFile; j++){
-                                    if(board[fromRank + j][fromFile + j].getPiece().isPresent()){
+                                for(int j = 1; j <= toFile-fromFile-1; j++){
+                                    if(board[fromRank - j][fromFile + j].getPiece().isPresent()){
                                         return false;
                                     }
                                 }
                             }
                         } else {
                             if(toRank > fromRank){
-                                for(int j = 1; j <= fromFile-toFile; j++){
-                                    if(board[fromRank - j][fromFile - j].getPiece().isPresent()){
+                                for(int j = 1; j <= fromFile-toFile-1; j++){
+                                    if(board[fromRank + j][fromFile - j].getPiece().isPresent()){
                                         return false;
                                     }
                                 }
                             } else {
-                                for(int j = 1; j <= fromFile-toFile; j++){
-                                    if(board[fromRank + j][fromFile - j].getPiece().isPresent()){
+                                for(int j = 1; j <= fromFile-toFile-1; j++){
+                                    if(board[fromRank - j][fromFile - j].getPiece().isPresent()){
                                         return false;
                                     }
                                 }
