@@ -34,7 +34,7 @@ public class RookMoveReviewer extends MoveReviewerBase{
         int toRank = to.getRank();
         int toFile = to.getFileVal()-1;
 
-        if(!isCheck(move, chessboard)){
+        if(!isCheck(color, chessboard)){
             if(toRank == fromRank && toFile != fromFile){
                 if(toFile > fromFile){
                     for(int i = 1; i <= toFile-fromFile; i++){

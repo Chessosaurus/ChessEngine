@@ -65,7 +65,7 @@ public class KingMoveReviewer extends MoveReviewerBase {
         }
 
         //Überprüfung der Rochade
-        if(!isCheck(move, chessboard) && chessboard.isCastlingPossible(color)){
+        if(!isCheck(color, chessboard) && chessboard.isCastlingPossible(color)){
             if(toRank==7 && toFile==0 || toRank==0 && toFile ==7){/*Hier bedingung ob nach links oder nach rechts. Hier zuerst nach rechts überprüft*/
                 for (int i = 1; i < 3; i++) {
                     if(color.equals(Color.WHITE)){

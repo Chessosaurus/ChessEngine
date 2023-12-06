@@ -1,6 +1,7 @@
 package chessosaurus.review;
 
 import chessosaurus.base.Board;
+import chessosaurus.base.Color;
 import chessosaurus.base.Move;
 import chessosaurus.base.PieceType;
 
@@ -51,4 +52,16 @@ public class ReviewerContext implements IReviewerContext {
 
         return this.reviewer.isLegalMove(move, board);
     }
+
+
+    /**
+     * Checks if color is in check or not
+     * @param board Given chessboard
+     * @param color Color to check
+     * @return {@code true}, if color is in check, else {@code false}.
+     */
+    public boolean isCheck(Color color, Board board) {
+        return this.reviewer.isCheck(color, board);
+    }
+
 }

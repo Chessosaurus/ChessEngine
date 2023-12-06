@@ -14,11 +14,18 @@ import java.util.List;
 public interface IMoveFinder {
 
     /**
+     * Checks if color is in check or not
+     * @param board Given chessboard
+     * @param currentColor Color to check
+     * @return {@code true}, if color is in check, else {@code false}.
+     */
+    boolean isColorInCheck(Board board, Color currentColor);
+
+    /**
      * Calculates all legal moves.
      * @param board Given chessboard
      * @param currentColor Color for the moves to find
      * @return All legal moves
      */
     List<Move> getLegalMoves(Board board, Color currentColor);
-
 }

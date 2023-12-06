@@ -35,7 +35,7 @@ public class QueenMoveReviewer extends MoveReviewerBase{
         //int toRankForSearch = chessboard.getChessboard().length - to.getRank();
         int toFile = to.getFileVal()-1;
 
-        if(!isCheck(move, chessboard)){
+        if(!isCheck(color, chessboard)){
             for(int i = 1; i<=7; i++){
                 if(toRank == fromRank+i || toRank == fromRank-i){
                     if(toFile == fromFile+i || toFile == fromFile-i){

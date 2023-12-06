@@ -5,6 +5,7 @@ import chessosaurus.base.Color;
 import chessosaurus.base.Move;
 import chessosaurus.base.Square;
 import chessosaurus.control.Game;
+import chessosaurus.review.IReviewerContext;
 import chessosaurus.review.ReviewerContext;
 import chessosaurus.engine.IMoveFinder;
 import chessosaurus.engine.IEvaluation;
@@ -26,7 +27,7 @@ public class MiniMaxAlgorithm {
 
     private List<Move> possibleMoves;
 
-    protected ReviewerContext reviewerContext;
+    protected IReviewerContext reviewerContext;
 
     private final IMoveFinder moveFinder;
     protected static IEvaluation evaluation = new Evaluation();
@@ -78,7 +79,7 @@ public class MiniMaxAlgorithm {
         this.depth = depth;
     }
 
-    public void setReviewerContext(ReviewerContext reviewerContext) {
+    public void setReviewerContext(IReviewerContext reviewerContext) {
         this.reviewerContext = reviewerContext;
     }
 

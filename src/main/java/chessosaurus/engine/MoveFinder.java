@@ -20,6 +20,18 @@ public class MoveFinder implements IMoveFinder {
         this.reviewerContext = reviewerContext;
     }
 
+
+    /**
+     * Checks with ReviewerContext if color is in check or not
+     * @param board Given chessboard
+     * @param currentColor Color to check
+     * @return {@code true}, if color is in check, else {@code false}.
+     */
+    public boolean isColorInCheck(Board board, Color currentColor) {
+        return this.reviewerContext.isCheck(currentColor, board);
+    }
+
+
     /**
      * Calculates all legal moves.
      * @param board Given chessboard

@@ -45,15 +45,12 @@ abstract class MoveReviewerBase implements IMoveReviewer{
     /**
      * Checks if the king is in check.
      *
-     * @param move Is used to get the current Player color.
+     * @param color Is used to get the current Player color.
      * @param chessboard The chessboard of the current situation.
      * @return {@code true}, if the king is in a check, else {@code false}.
      */
-    public boolean isCheck(Move move, Board chessboard){
-        Color color = move.getFrom().getPiece().get().getColor();
+    public boolean isCheck(Color color, Board chessboard){
         Square[][] board = chessboard.getChessboard();
-        Square from = move.getFrom();
-        Square to = move.getTo();
 
 
         int kingRank = 0;

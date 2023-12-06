@@ -31,7 +31,7 @@ public class KnightMoveReviewer extends MoveReviewerBase{
         int fromFile = from.getFileVal()-1;
         int toFile = to.getFileVal()-1;
 
-        if(!isCheck(move, chessboard)){
+        if(!isCheck(color, chessboard)){
             if((toRank == fromRank+2 || toRank == fromRank-2) && (toFile == fromFile+1 || toFile == fromFile-1)) return true;
             else return (toRank == fromRank + 1 || toRank == fromRank - 1) && (toFile == fromFile + 2 || toFile == fromFile - 2);
         }
