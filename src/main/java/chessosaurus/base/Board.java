@@ -154,7 +154,7 @@ public class Board {
         int emptyCount = 0;
         Square[][] square = chessboard.getChessboard();
 
-        for (int i=0; i > square.length; i--){
+        for (int i=7; i >= 0; i--){
             for (int j=0; j < square.length; j++){
                 if(square[i][j].getPiece().isEmpty()){
                     emptyCount++;
@@ -170,9 +170,11 @@ public class Board {
                 fen.append(emptyCount);
                 emptyCount = 0;
             }
-            if(i<7) {
+
+            if(i>0){
                 fen.append('/');
             }
+
         }
 
 
