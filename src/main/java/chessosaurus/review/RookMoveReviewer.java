@@ -49,6 +49,7 @@ public class RookMoveReviewer extends MoveReviewerBase{
                         }
                     }
                 }
+                board[fromRank][fromFile].setCastlingRookPossible(false);
                 return true;
             } else if (toFile == fromFile && toRank != fromRank) {
                 if(toRank > fromRank){
@@ -64,6 +65,7 @@ public class RookMoveReviewer extends MoveReviewerBase{
                         }
                     }
                 }
+                board[fromRank][fromFile].setCastlingRookPossible(false);
                 return true;
             } else return false;
         }

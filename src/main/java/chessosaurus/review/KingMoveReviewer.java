@@ -77,14 +77,18 @@ public class KingMoveReviewer extends MoveReviewerBase {
                 if (wayClear) {
                     if(color.equals(Color.WHITE)){
                         if(board[0][7].getPiece().isPresent()){
-                            if(board[0][7].getPiece().get().getType().equals(PieceType.ROOK)){
-                                return board[0][7].getPiece().get().getColor().equals(Color.WHITE);
+                            if(board[0][7].isCastlingRookPossible()){
+                                if(board[0][7].getPiece().get().getType().equals(PieceType.ROOK)){
+                                    return board[0][7].getPiece().get().getColor().equals(Color.WHITE);
+                                }
                             }
                         }
                     } else {
                         if(board[7][7].getPiece().isPresent()){
-                            if(board[7][7].getPiece().get().getType().equals(PieceType.ROOK)){
-                                return board[7][7].getPiece().get().getColor().equals(Color.BLACK);
+                            if(board[7][7].isCastlingRookPossible()) {
+                                if(board[7][7].getPiece().get().getType().equals(PieceType.ROOK)){
+                                    return board[7][7].getPiece().get().getColor().equals(Color.BLACK);
+                                }
                             }
                         }
                     }
@@ -101,14 +105,18 @@ public class KingMoveReviewer extends MoveReviewerBase {
                 if(wayClear){
                     if(color.equals(Color.WHITE)){
                         if(board[0][0].getPiece().isPresent()){
-                            if(board[0][0].getPiece().get().getType().equals(PieceType.ROOK)){
-                                return board[0][0].getPiece().get().getColor().equals(Color.WHITE);
+                            if(board[0][0].isCastlingRookPossible()) {
+                                if (board[0][0].getPiece().get().getType().equals(PieceType.ROOK)) {
+                                    return board[0][0].getPiece().get().getColor().equals(Color.WHITE);
+                                }
                             }
                         }
                     }else {
                         if(board[7][0].getPiece().isPresent()){
-                            if(board[7][0].getPiece().get().getType().equals(PieceType.ROOK)){
-                                return board[7][0].getPiece().get().getColor().equals(Color.BLACK);
+                            if(board[0][0].isCastlingRookPossible()) {
+                                if (board[7][0].getPiece().get().getType().equals(PieceType.ROOK)) {
+                                    return board[7][0].getPiece().get().getColor().equals(Color.BLACK);
+                                }
                             }
                         }
                     }

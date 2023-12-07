@@ -8,6 +8,7 @@ public class Square {
     private int rank; // Zeilen
     private Optional<Piece> piece;
     private boolean enPassantPossible = false;
+    private boolean castlingRookPossible = true;
 
     public Square(int file, int rank) {
         this.file = transformToLiteral(file);
@@ -118,5 +119,13 @@ public class Square {
 
     public boolean isField(char file, int rank){
         return this.file == file && this.rank == rank;
+    }
+
+    public void setCastlingRookPossible(boolean castlingRookPossible) {
+        this.castlingRookPossible = castlingRookPossible;
+    }
+
+    public boolean isCastlingRookPossible() {
+        return castlingRookPossible;
     }
 }
