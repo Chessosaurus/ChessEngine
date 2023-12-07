@@ -34,10 +34,16 @@ abstract class MoveReviewerBase implements IMoveReviewer{
                 }
                 return true;
             } else return false;
-
         } else {
             if(to.getPiece().get().getColor() != from.getPiece().get().getColor()){
-                return isSpecificLegalMove(move,from.getPiece().get().getColor(),chessboard);
+                if(isSpecificLegalMove(move,from.getPiece().get().getColor(),chessboard)){
+                    for(int x = 0; x < 8; x++){
+                        for(int y = 0; y < 8; y++){
+                            chessboard.getChessboard()[x][y].setEnPassantPossible(false);
+                        }
+                    }
+                    return true;
+                }else return false;
             }else return false;
         }
     }
