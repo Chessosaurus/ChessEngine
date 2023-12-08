@@ -354,7 +354,6 @@ public class Board {
 
         int fromRank = move.getFrom().getRank()-1;
         int fromFile = move.getFrom().getFileVal()-1;
-        //this.getChessboard()[toRank][toFile].setPiece(move.getFrom().getPiece().isEmpty()?Optional.empty() : move.getFrom().getPiece());
         this.getChessboard()[toRank][toFile].setPiece(move.getFrom().getPiece().get());
         this.getChessboard()[fromRank][fromFile].setPiece(Optional.empty());
 
