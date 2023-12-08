@@ -12,6 +12,7 @@ WS : [ \t\n\r]+ -> skip;
 STARTPOS : 'startpos';
 POSITION : 'position';
 MOVES : 'moves';
+MOVE : [a-h][1-8][a-h][1-8];
 FEN : 'fen';
 SLASH : '/';
 WHITE : 'w';
@@ -42,9 +43,10 @@ whitemove: move
 
 blackmove: move
             | move whitemove;
+move : MOVE | MOVE promotable;
 
-move : FILE NUMBER FILE NUMBER
-        | FILE NUMBER FILE NUMBER promotable;
+//move : FILE NUMBER FILE NUMBER
+//        | FILE NUMBER FILE NUMBER promotable;
 
 promotable : queen | rook | knight | bishop;
 

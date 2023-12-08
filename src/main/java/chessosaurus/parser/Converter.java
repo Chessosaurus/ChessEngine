@@ -179,12 +179,15 @@ public class Converter implements InputVisitor {
 
     @Override
     public Move visitMove(InputParser.MoveContext ctx) {
-        String rank = ctx.FILE(0).getText();
+        String move = ctx.MOVE().getText();
+        Square from = new Square(move.charAt(0),move.charAt(1));
+        Square to = new Square(move.charAt(2),move.charAt(3));
+        /*String rank = ctx.FILE(0).getText();
         String file = ctx.NUMBER(0).getText();
         Square from = new Square(ctx.FILE(0).getText().charAt(0),
                 Integer.parseInt(ctx.NUMBER(0).getText()));
         Square to = new Square(ctx.FILE(1).getText().charAt(0),
-                Integer.parseInt(ctx.NUMBER(1).getText()));
+                Integer.parseInt(ctx.NUMBER(1).getText()));*/
         return ctx.promotable() == null ?
                 new Move(from, to)
                 : new Move(from, to, visitPromotable(ctx.promotable()));

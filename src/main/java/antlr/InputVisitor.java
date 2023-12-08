@@ -1,4 +1,4 @@
-// Generated from D:/_Studium/S5/ChessEngine/src/main/java/antlr\Input.g4 by ANTLR 4.12.0
+// Generated from D:/Github/Github/ChessEngine/src/main/java/antlr\Input.g4 by ANTLR 4.12.0
 package antlr;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
