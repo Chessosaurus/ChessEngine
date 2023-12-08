@@ -32,7 +32,14 @@ abstract class MoveReviewerBase implements IMoveReviewer{
                         chessboard.getChessboard()[x][y].setEnPassantPossible(false);
                     }
                 }
-                return true;
+                Board copiedBoard = new Board(chessboard);
+                if(copiedBoard.getChessboard()[move.getFrom().getRank()][move.getFrom().getFileVal()].getPiece().isPresent()){
+
+                copiedBoard.makeMove(move);
+                    if(!isCheck(copiedBoard.getChessboard()[move.getFrom().getRank()][move.getFrom().getFileVal()].getPiece().get().getColor(), copiedBoard)){
+                        return true;
+                    } else return false;
+                } else return false;
             } else return false;
         } else {
             if(to.getPiece().get().getColor() != from.getPiece().get().getColor()){
@@ -42,7 +49,14 @@ abstract class MoveReviewerBase implements IMoveReviewer{
                             chessboard.getChessboard()[x][y].setEnPassantPossible(false);
                         }
                     }
-                    return true;
+                    Board copiedBoard = new Board(chessboard);
+                    if(copiedBoard.getChessboard()[move.getFrom().getRank()][move.getFrom().getFileVal()].getPiece().isPresent()){
+
+                        copiedBoard.makeMove(move);
+                        if(!isCheck(copiedBoard.getChessboard()[move.getFrom().getRank()][move.getFrom().getFileVal()].getPiece().get().getColor(), copiedBoard)){
+                            return true;
+                        } else return false;
+                    } else return false;
                 }else return false;
             }else return false;
         }
