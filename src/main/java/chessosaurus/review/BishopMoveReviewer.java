@@ -26,14 +26,11 @@ public class BishopMoveReviewer extends MoveReviewerBase{
         Square from = move.getFrom();
         Square to = move.getTo();
         Square[][] board = chessboard.getChessboard();
-        //Color color = from.getPiece().getColor();
 
         int fromRank = from.getRank() -1;
-        //int fromRankForSearch = chessboard.getChessboard().length - from.getRank();
         int fromFile = from.getFileVal()-1;
 
         int toRank = to.getRank() -1;
-        //int toRankForSearch = chessboard.getChessboard().length - to.getRank();
         int toFile = to.getFileVal()-1;
 
         if(!isCheck(color, chessboard)){

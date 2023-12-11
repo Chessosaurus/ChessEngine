@@ -309,6 +309,11 @@ public class Board {
         return count;
     }
 
+    /**
+     * Converts piece to character
+     * @param piece Piece from board
+     * @return character for piece
+     */
     public char getCharFromPiece(Piece piece){
         char charFromPiece = ' ';
         if(piece.getColor().equals(Color.BLACK)){
@@ -333,21 +338,37 @@ public class Board {
         return charFromPiece;
     }
 
+    /**
+     * Evaluates if castling is possible
+     * @param color color of player
+     */
     public void setCastlingImpossible(Color color){
         if(color.equals(Color.WHITE)) whiteCastlingPossible = false;
         else blackCastlingPossible = false;
     }
 
+    /**
+     * Evaluates if castling is possible
+     * @param color color of player
+     */
     public boolean isCastlingPossible(Color color){
         if(color.equals(Color.WHITE)) return whiteCastlingPossible;
         else return blackCastlingPossible;
     }
 
-
+    /**
+     * Counts the amount of moves made
+     * @param moveCounter amount of moves made
+     */
     public void setMoveCounter(int moveCounter) {
         this.moveCounter = moveCounter;
     }
 
+    /**
+     * Executes move on board
+     * @param move to execute
+     * @return board after move
+     */
    public Board makeMove (Move move) {
         int toRank = move.getTo().getRank()-1;
         int toFile = move.getTo().getFileVal()-1;
@@ -359,14 +380,28 @@ public class Board {
 
         return this;
     }
+
+    /**
+     * Retrieves Square from Board
+     * @param sq Square to look for on board
+     * @return square from board with information
+     */
     public Square getCorrespondingSquare(Square sq){
         return chessboard[sq.getRank()-1][sq.getFileVal()-1];
     }
 
+    /**
+     * Sets the color of the player with the next turn
+     * @param nextTurn color
+     */
     public void setNextTurn(Color nextTurn) {
         this.nextTurn = nextTurn;
     }
 
+    /**
+     * Retrieves the color of the next player
+     * @return color of next player
+     */
     public Color getNextTurn() {
         return nextTurn;
     }

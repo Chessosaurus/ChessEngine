@@ -27,17 +27,34 @@ public class Square {
         this.piece = Optional.empty();
     }
 
+    /**
+     * Sets the Piece on a Square
+     * @param piece to set on Square
+     */
     public void setPiece(Piece piece){
         this.piece = Optional.of(piece);
     }
+    /**
+     * Sets the Piece on a Square
+     * @param piece to set on Square
+     */
     public void setPiece(Optional<Piece> piece){
         this.piece = piece;
     }
 
+    /**
+     * Returns the Piece of Square
+     * @return optional of Piece
+     */
     public Optional<Piece> getPiece(){
         return this.piece;
     }
 
+    /**
+     * Transforms the int value of a row into a literal for the moves
+     * @param row int value of row
+     * @return literal value of row
+     */
     private char transformToLiteral(int row){
         return switch (row) {
             case 1 -> 'a';
@@ -52,28 +69,28 @@ public class Square {
         };
     }
 
+    /**
+     * Returns the rank
+     * @return rank
+     */
     public int getRank()
     {
         return rank;
     }
 
+    /**
+     * Returns the file
+     * @return file
+     */
     public char getFile()
     {
         return file;
     }
 
-    public boolean equalsFrom(String from){
-        String toCheckOn = rank + String.valueOf(file);
-
-        if(from.equals(toCheckOn))
-        {
-            return  true;
-        }
-        else
-        {
-            return false;
-        }
-    }
+    /**
+     * Returns the value of a file
+     * @return int value of file
+     */
     public int getFileVal(){
 
         int intValue;
@@ -109,22 +126,44 @@ public class Square {
         return intValue;
     }
 
+    /**
+     * Sets the enPassant option
+     * @param enPassantPossible boolean
+     */
     public void setEnPassantPossible(boolean enPassantPossible) {
         this.enPassantPossible = enPassantPossible;
     }
 
+    /**
+     * Returns the enPassant information
+     * @return enPassantPossibke
+     */
     public boolean isEnPassantPossible() {
         return enPassantPossible;
     }
 
+    /**
+     * Returns true if the given Field is corresponding to this square
+     * @param file to check
+     * @param rank to check
+     * @return true if square is field you are looking for
+     */
     public boolean isField(char file, int rank){
         return this.file == file && this.rank == rank;
     }
 
+    /**
+     * Sets the castling option for Rook
+     * @param castlingRookPossible boolean
+     */
     public void setCastlingRookPossible(boolean castlingRookPossible) {
         this.castlingRookPossible = castlingRookPossible;
     }
 
+    /**
+     * Returns the castling option for Rook
+     * @return boolean
+     */
     public boolean isCastlingRookPossible() {
         return castlingRookPossible;
     }

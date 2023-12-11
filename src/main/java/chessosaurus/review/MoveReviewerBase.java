@@ -76,7 +76,7 @@ abstract class MoveReviewerBase implements IMoveReviewer{
         int kingRank = 0;
         int kingFile = 0;
 
-        //Ermittelt die Position des Königs des aktiven Spielers
+        //Retrieves current players king position
         for(int rank = 0; rank<8; rank++){
             for(int file = 0; file<8; file++){
                 if(board[rank][file].getPiece().isPresent()){
@@ -90,7 +90,7 @@ abstract class MoveReviewerBase implements IMoveReviewer{
 
         for(int i = 1; i<=8; i++){
 
-            //Ermittelt ob König diagonal angegriffen wird
+            //Checks whether the king is attack diagonally
             if(isValidPosition(kingRank+i, kingFile+i)) {
                 if (board[kingRank + i][kingFile + i].getPiece().isPresent()) {
                     if (board[kingRank + i][kingFile + i].getPiece().get().getColor() != color) {

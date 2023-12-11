@@ -14,6 +14,10 @@ public enum PieceType {
         this.value = value;
     }
 
+    /**
+     * Returns corresponging Value for piecetype
+     * @return int value
+     */
     public int getValue() {
         return value;
     }

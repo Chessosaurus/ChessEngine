@@ -25,7 +25,6 @@ public class KnightMoveReviewer extends MoveReviewerBase{
     boolean isSpecificLegalMove(Move move,Color color, Board chessboard) {
         Square from = move.getFrom();
         Square to = move.getTo();
-        //Color color = from.getPiece().getColor();
         int fromRank = from.getRank();
         int toRank = to.getRank();
         int fromFile = from.getFileVal()-1;

@@ -43,10 +43,10 @@ public class KingMoveReviewer extends MoveReviewerBase {
         Square to = move.getTo();
         Square[][] board = chessboard.getChessboard();
         int fromRank = from.getRank();
-        int fromFile = from.getFile()-1; //hier war get FileVal()
+        int fromFile = from.getFile()-1; //here was get FileVal()
 
         int toRank = to.getRank();
-        int toFile = to.getFile()-1; //hier war get FileVal()
+        int toFile = to.getFile()-1; //here was get FileVal()
         boolean wayClear = true;
 
         if(toRank == fromRank+1 || toRank == fromRank-1){
@@ -64,9 +64,9 @@ public class KingMoveReviewer extends MoveReviewerBase {
             return true;
         }
 
-        //Überprüfung der Rochade
+        //Check for castling
         if(!isCheck(color, chessboard) && chessboard.isCastlingPossible(color)){
-            if(toRank==7 && toFile==0 || toRank==0 && toFile ==7){/*Hier bedingung ob nach links oder nach rechts. Hier zuerst nach rechts überprüft*/
+            if(toRank==7 && toFile==0 || toRank==0 && toFile ==7){/*Here condition whether to the left or to the right. Checked here first to the right*/
                 for (int i = 1; i < 3; i++) {
                     if(color.equals(Color.WHITE)){
                         if(board[0][4+i].getPiece().isPresent()) wayClear = false;

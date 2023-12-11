@@ -33,18 +33,6 @@ public class BusinessController implements IController {
      */
     @Override
     public Board initializeGame() {
-        /*
-        Color colorOfEnemy;
-
-        Random random = new Random();
-        if (random.nextInt(2) == 0) {
-            colorOfEnemy = Color.WHITE;
-        } else {
-            colorOfEnemy = Color.BLACK;
-        }
-
-        this.game = new Game(colorOfEnemy, this.enemyMoverContext);
-         */
         this.game = new Game(null, this.enemyMoverContext, this.reviewerContext);
         return this.game.getChessboard();
     }

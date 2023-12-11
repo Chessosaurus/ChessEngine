@@ -39,7 +39,10 @@ public class OpeninggameRestReader implements IOpeninggameReader {
     public Move getMove(Board currentBoard, List<Move> allMoves) {
 
         int movesCount = allMoves.size();
-        Move currentMove = allMoves.get(movesCount-1);
+        Move currentMove = null;
+        if (!allMoves.isEmpty() && movesCount > 0) {
+            currentMove = allMoves.get(movesCount - 1);
+        }
         Move bestMove = null;
         String moveMade = "";
         List<Move> bestMovesAsMove = new ArrayList<>();

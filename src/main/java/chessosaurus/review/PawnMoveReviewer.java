@@ -26,13 +26,11 @@ public class PawnMoveReviewer extends MoveReviewerBase{
         Square from = move.getFrom();
         Square to = move.getTo();
         Square[][] board = chessboard.getChessboard();
-        //Color color = from.getPiece().getColor();
         int fromRank = from.getRank() -1;
         int fromRankForSearch = chessboard.getChessboard().length - from.getRank();
         int fromFile = from.getFileVal()-1;
 
         int toRank = to.getRank() -1;
-        //int toRankForSearch = chessboard.getChessboard().length - to.getRank();
         int toFile = to.getFileVal() -1;
 
         if(!isCheck(color, chessboard)){
@@ -41,7 +39,7 @@ public class PawnMoveReviewer extends MoveReviewerBase{
                     if(fromRank == 1 && toRank == 3 && fromFile == toFile){ //Checks if White Pawns first move
                         board[toRank][toFile].setEnPassantPossible(true);
                         return true;
-                    } else //Überprüfung auf En Passant
+                    } else //check for en passant
                         if(toRank == fromRank + 1 && fromFile == toFile){
                         return true;
                     } else return board[toRank - 1][toFile].isEnPassantPossible();
@@ -52,7 +50,7 @@ public class PawnMoveReviewer extends MoveReviewerBase{
                     } else
                         if (toRank == fromRank - 1 && fromFile == toFile){
                         return true;
-                    } else return board[toRank + 1][toFile].isEnPassantPossible(); //Überprüfung auf En Passant
+                    } else return board[toRank + 1][toFile].isEnPassantPossible(); //check for en passant
                 }
             } else if(board[toRank][toFile].getPiece().isPresent()){
                 if(color == Color.WHITE){

@@ -26,9 +26,7 @@ public class RookMoveReviewer extends MoveReviewerBase{
         Square from = move.getFrom();
         Square to = move.getTo();
         Square[][] board = chessboard.getChessboard();
-        //Color color = from.getPiece().getColor();
         int fromRank = from.getRank()-1;
-        //int fromRankForSearch = chessboard.getChessboard().length - from.getRank();
         int fromFile = from.getFileVal()-1;
 
         int toRank = to.getRank()-1;

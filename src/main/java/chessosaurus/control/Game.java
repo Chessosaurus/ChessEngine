@@ -32,22 +32,42 @@ public class Game {
         this.moves = new ArrayList<>();
     }
 
+    /**
+     * Returns the chessboard
+     * @return recent chessboard
+     */
     public Board getChessboard() {
         return this.chessboard;
     }
 
+    /**
+     * Sets the chessboard
+     * @param chessboard recent board
+     */
     public void setChessboard(Board chessboard) {
         this.chessboard = chessboard;
     }
 
+    /**
+     * Returns the moves made
+     * @return all moves made
+     */
     public List<Move> getMoves() {
         return new ArrayList<>(this.moves);
     }
 
+    /**
+     * Sets the moves made
+     * @param moves made
+     */
     public void setMoves(List<Move> moves) {
         this.moves = moves;
     }
 
+    /**
+     * Returns the information about the enemy
+     * @return enemy
+     */
     public Enemy getEnemy() {
         return enemy;
     }
@@ -77,6 +97,7 @@ public class Game {
         }
         else {
             // TODO: Hier hat Spieler an Frontend verloren
+            System.out.println("1-0");
         }
     }
 
@@ -88,7 +109,10 @@ public class Game {
         return this.enemy.getBestMove(this.moves, this.chessboard, this);
     }
 
-
+    /**
+     * Copies the board
+     * @return copied board
+     */
     public Board deepCloneBoard(){
         Board copiedBoard = new Board();
 
@@ -101,13 +125,9 @@ public class Game {
                 }else {
                     result[i][j].setPiece(Optional.empty());
                 }
-
-                //result[i][j] = this.chessboard.getChessboard()[i][j] == null? null : new Square(i,j);
-                //result[i][j].setPiece(this.chessboard.getChessboard()[i][j].getPiece().isEmpty()?null : this.chessboard.getChessboard()[i][j].getPiece());
             }
         }
 
-        //copiedBoard.setChessboard(result);
         copiedBoard.setMoveCounter(moves.size());
 
         return copiedBoard;

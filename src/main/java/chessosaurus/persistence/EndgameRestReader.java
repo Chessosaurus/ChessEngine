@@ -30,6 +30,12 @@ public class EndgameRestReader implements IEndgameReader {
         this.reviewerContext = reviewerContext;
     }
 
+    /**
+     * Returns a legal and highrated move from endgame tablebase
+     * @param currentBoardAsFen most recent board in fen notation
+     * @param currentBoard most recent board
+     * @return highrated legal move
+     */
     @Override
     public Move getMove(String currentBoardAsFen, Board currentBoard) {
         Move bestMove = null;

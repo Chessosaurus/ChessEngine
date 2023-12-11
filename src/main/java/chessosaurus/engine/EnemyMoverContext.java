@@ -46,14 +46,13 @@ public class EnemyMoverContext implements IEnemyMoverContext {
 
         int pieceCount = currentBoard.getPieceCount();
 
-        if (movesCount < 16 && movesCount!=0) {
+        if (movesCount < 16) {
             OpeningMoveSelector enemyMover = new OpeningMoveSelector(this.openinggameReader);
             move = enemyMover.getBestMove(currentBoard, allMoves);
         }
         if (move == null && pieceCount < 8) {
             EndMoveSelector enemyMover = new EndMoveSelector(this.endgameReader);
             String currentBoardFen = new Board().transformBoardToFen(currentBoard);
-            // TODO: checken ob Parameter nach Board gebraucht werden oder so belassen werden können(siehe _-_-_0_1).
             if(currentBoard.equals(Color.WHITE)){
                 Fen = currentBoardFen+"_w_-_-_0_1";
             } else {

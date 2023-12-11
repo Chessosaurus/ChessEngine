@@ -27,19 +27,38 @@ public class Move {
         this.to = to;
         promoted = Optional.empty();
     }
+
+    /**
+     * Creates a move given by the converter
+     * @param from start position
+     * @param to end position
+     * @param promoted information if piece can be promoted
+     */
     public Move(Square from, Square to,PieceType promoted){
         this.from = from;
         this.to = to;
         this.promoted = Optional.of(promoted);
     }
 
+    /**
+     * Returns From Square
+     * @return square
+     */
     public Square getFrom() {
         return this.from;
     }
+    /**
+     * Returns To Square
+     * @return square
+     */
     public Square getTo() {
         return this.to;
     }
 
+    /**
+     * Returns information about the piece being promoted
+     * @return promoted
+     */
     public Optional<PieceType> getPromoted() {
         return promoted;
     }
