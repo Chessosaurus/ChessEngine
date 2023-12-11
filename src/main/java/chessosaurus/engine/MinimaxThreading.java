@@ -13,11 +13,6 @@ import java.util.concurrent.*;
 public class MinimaxThreading {
 
     private final MiniMaxAlgorithm miniMaxAlgorithm;
-
-
-    private ExecutorService excutorService;
-    //private ReplaySubject<EvaluatedMove> searchresults;
-
     public MinimaxThreading(IMoveFinder moveFinder){
         this.miniMaxAlgorithm = new MiniMaxAlgorithm(moveFinder);
 
@@ -30,7 +25,6 @@ public class MinimaxThreading {
         List<Move> legalMoves = miniMaxAlgorithm.getMoveFinder().getLegalMoves(currentBoard, currentColor);
 
         int cores = Runtime.getRuntime().availableProcessors();
-        excutorService = Executors.newFixedThreadPool(cores);
         ExecutorService executor = Executors.newFixedThreadPool(cores);
         List<Future<Integer>> futures = new ArrayList<>();
 

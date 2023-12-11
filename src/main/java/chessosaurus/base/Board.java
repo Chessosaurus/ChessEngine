@@ -375,11 +375,35 @@ public class Board {
 
         int fromRank = move.getFrom().getRank()-1;
         int fromFile = move.getFrom().getFileVal()-1;
-        this.getChessboard()[toRank][toFile].setPiece(move.getFrom().getPiece().get());
-        this.getChessboard()[fromRank][fromFile].setPiece(Optional.empty());
+        this.chessboard[toRank][toFile].setPiece(move.getFrom().getPiece().get());
+        this.chessboard[fromRank][fromFile].setPiece(Optional.empty());
 
         return this;
+   }
+
+    /**
+     * Copies the board
+     * @return copied board
+     */
+    public Board deepCloneBoard(){
+        Board copiedBoard = new Board();
+
+        final Square[][] result = copiedBoard.getChessboard();
+
+        for (int i = 0; i < 8; i++){
+            for (int j = 0; j < 8; j++) {
+                if (this.chessboard[i][j].getPiece().isPresent()){
+                    result[i][j].setPiece(new Piece(this.chessboard[i][j].getPiece().get().getType(), this.chessboard[i][j].getPiece().get().getColor()));
+                }else {
+                    result[i][j].setPiece(Optional.empty());
+                }
+            }
+        }
+
+        return copiedBoard;
+
     }
+
 
     /**
      * Retrieves Square from Board
