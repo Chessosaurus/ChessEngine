@@ -53,8 +53,10 @@ public class MoveFinder implements IMoveFinder {
                         List<Move> possibleMoves = generateMovesForPiece(square, board);
 
                         for (Move move : possibleMoves) {
-                            if (reviewerContext.isLegalMove(move, board)) {
-                                legalMoves.add(move);
+                            if(move.getFrom().getPiece().isPresent()){
+                                if (reviewerContext.isLegalMove(move, board)) {
+                                    legalMoves.add(move);
+                                }
                             }
                         }
                     }

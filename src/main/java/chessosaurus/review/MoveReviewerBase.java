@@ -32,11 +32,11 @@ abstract class MoveReviewerBase implements IMoveReviewer{
                         chessboard.getChessboard()[x][y].setEnPassantPossible(false);
                     }
                 }
-                Board copiedBoard = new Board(chessboard);
-                if(copiedBoard.getChessboard()[move.getFrom().getRank()][move.getFrom().getFileVal()].getPiece().isPresent()){
+                Board copiedBoard = chessboard.deepCloneBoard();
+                if(copiedBoard.getChessboard()[move.getFrom().getRank()-1][ move.getFrom().getFileVal()-1].getPiece().isPresent()){
 
                 copiedBoard.makeMove(move);
-                    if(!isCheck(copiedBoard.getChessboard()[move.getFrom().getRank()][move.getFrom().getFileVal()].getPiece().get().getColor(), copiedBoard)){
+                    if(!isCheck(copiedBoard.getChessboard()[move.getTo().getRank()-1][move.getTo().getFileVal()-1].getPiece().get().getColor(), copiedBoard)){
                         return true;
                     } else return false;
                 } else return false;
@@ -49,11 +49,11 @@ abstract class MoveReviewerBase implements IMoveReviewer{
                             chessboard.getChessboard()[x][y].setEnPassantPossible(false);
                         }
                     }
-                    Board copiedBoard = new Board(chessboard);
-                    if(copiedBoard.getChessboard()[move.getFrom().getRank()][move.getFrom().getFileVal()].getPiece().isPresent()){
+                    Board copiedBoard = chessboard.deepCloneBoard();
+                    if(copiedBoard.getChessboard()[move.getFrom().getRank()-1][move.getFrom().getFileVal()-1].getPiece().isPresent()){
 
                         copiedBoard.makeMove(move);
-                        if(!isCheck(copiedBoard.getChessboard()[move.getFrom().getRank()][move.getFrom().getFileVal()].getPiece().get().getColor(), copiedBoard)){
+                        if(!isCheck(copiedBoard.getChessboard()[move.getTo().getRank()-1][move.getTo().getFileVal()-1].getPiece().get().getColor(), copiedBoard)){
                             return true;
                         } else return false;
                     } else return false;
