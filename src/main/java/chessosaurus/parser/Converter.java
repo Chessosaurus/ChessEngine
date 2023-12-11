@@ -4,6 +4,7 @@ import antlr.InputLexer;
 import antlr.InputParser;
 import antlr.InputVisitor;
 import chessosaurus.base.*;
+import chessosaurus.control.Game;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -16,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class Converter implements InputVisitor {
-    private Board parseStartFen(String fen) {
+    private ParseHelper parseStartFen(String fen) {
         return visitStart(
                 new InputParser(
                         new CommonTokenStream(
@@ -25,7 +26,7 @@ public class Converter implements InputVisitor {
     }
 
     @Override
-    public Board visitStart(InputParser.StartContext ctx) {
+    public ParseHelper visitStart(InputParser.StartContext ctx) {
         //fen notation
         if (ctx.FEN() != null) {
             Board b = visitRows(ctx.rows());
@@ -35,20 +36,22 @@ public class Converter implements InputVisitor {
             if(info.getEnpassant().isPresent()){
                 b.getCorrespondingSquare(info.getEnpassant().get()).setEnPassantPossible(true);
             }
-            return b;
+            return new ParseHelper(b,null,info.getNextTurn());
         }
         //arithmetic notation
         else {
             return visitMoves(ctx.moves());
         }
+        //return new Game(Color.BLACK,);
     }
 
 
     @Override
-    public Board visitMoves(InputParser.MovesContext ctx) {
+    public ParseHelper visitMoves(InputParser.MovesContext ctx) {
         Board board;
         //Change to parse fen
-        board = parseStartFen("position fen rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w - - 0 1");
+        ParseHelper helper = parseStartFen("position fen rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w - - 0 1");
+        board = helper.getBoard();
         List<Move> moves = visitWhitemove(ctx.whitemove());
         for (int i = 0; i < moves.size(); i++) {
             Move move = moves.get(i);
@@ -94,7 +97,7 @@ public class Converter implements InputVisitor {
                 board.getChessboard()[lastmove.getFrom().getRank()][lastmove.getFrom().getFileVal()-1].setEnPassantPossible(true);
             }
         }
-        return board;
+        return new ParseHelper(board,moves,board.getNextTurn());
     }
 
     private boolean castle(Board board, Move move, int rank) {

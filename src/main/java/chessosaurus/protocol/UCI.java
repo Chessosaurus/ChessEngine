@@ -5,8 +5,10 @@ import chessosaurus.base.Board;
 import chessosaurus.base.Color;
 import chessosaurus.base.Move;
 import chessosaurus.control.BusinessController;
+import chessosaurus.control.Game;
 import chessosaurus.control.IController;
 import chessosaurus.parser.Converter;
+import chessosaurus.parser.ParseHelper;
 import chessosaurus.persistence.EndgameRestReader;
 import chessosaurus.persistence.OpeninggameRestReader;
 import org.antlr.v4.runtime.CharStreams;
@@ -144,9 +146,11 @@ public class UCI {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         InputParser parser = new InputParser(tokens);
         InputParser.StartContext stc = parser.start();
-        Board board = new Converter().visitStart(stc);
-        this.controller.getGame().setChessboard(board);
-        this.controller.getGame().getEnemy().setColor(Color.BLACK);
+        ParseHelper helper = new Converter().visitStart(stc);
+        //Board board = new Converter().visitStart(stc);
+        this.controller.getGame().setChessboard(helper.getBoard());
+        this.controller.getGame().getEnemy().setColor(helper.getNext());
+        this.controller.getGame().setMoves(helper.getMoves());
 
 //        this.moves = new ArrayList<>();
 //        String input = inputString.substring(9).concat(" ");
@@ -199,7 +203,6 @@ public class UCI {
      * inputGo is used to tell the engine to determine the best move.
      */
     private void inputGo() {
-        // TODO durch den MINIMAX Algorithmus ersetzt werden.
         System.out.println("bestmove " + moveParser.fromMoveToString(this.controller.calculateBestMove()));
         goThread.interrupt();
     }
