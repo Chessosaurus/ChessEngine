@@ -1,25 +1,20 @@
 package chessosaurus.protocol;
 import antlr.InputLexer;
 import antlr.InputParser;
-import chessosaurus.base.Board;
-import chessosaurus.base.Color;
+
 import chessosaurus.base.Move;
-import chessosaurus.control.BusinessController;
-import chessosaurus.control.Game;
 import chessosaurus.control.IController;
 import chessosaurus.parser.Converter;
 import chessosaurus.parser.ParseHelper;
-import chessosaurus.persistence.EndgameRestReader;
-import chessosaurus.persistence.OpeninggameRestReader;
+
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 
-import java.io.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.Scanner;
-import java.util.concurrent.Future;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
