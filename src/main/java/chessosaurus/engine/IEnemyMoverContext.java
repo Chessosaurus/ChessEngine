@@ -3,7 +3,6 @@ package chessosaurus.engine;
 import chessosaurus.base.Board;
 import chessosaurus.base.Color;
 import chessosaurus.base.Move;
-import chessosaurus.control.Game;
 
 import java.util.List;
 

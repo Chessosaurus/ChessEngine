@@ -76,9 +76,12 @@ public class MoveFinder implements IMoveFinder {
      * @return All possible moves of a piece on the square.
      */
     private List<Move> generateMovesForPiece(Square square, Board board) {
-        Piece piece = square.getPiece().get();
-        PieceType pieceType = piece.getType();
+        Piece piece = null;
+        if(square.getPiece().isPresent()) {
+            piece = square.getPiece().get();
+        }
 
+        PieceType pieceType = piece.getType();
         List<Move> possibleMoves = new ArrayList<>();
 
         if (pieceType == PieceType.PAWN) {
@@ -111,8 +114,10 @@ public class MoveFinder implements IMoveFinder {
      */
     private List<Move> getPawnMoves(Square square, Board board) {
         List<Move> possibleMoves = new ArrayList<>();
-
-        Piece piece = square.getPiece().get();
+        Piece piece = null;
+        if(square.getPiece().isPresent()){
+            piece = square.getPiece().get();
+        }
         Color color = piece.getColor();
 
         int currentRank = square.getRank();

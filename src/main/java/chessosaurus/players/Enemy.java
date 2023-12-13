@@ -3,10 +3,7 @@ package chessosaurus.players;
 import chessosaurus.base.Board;
 import chessosaurus.base.Color;
 import chessosaurus.base.Move;
-import chessosaurus.control.Game;
-import chessosaurus.engine.EnemyMoverContext;
 import chessosaurus.engine.IEnemyMoverContext;
-
 import java.util.ArrayList;
 import java.util.List;
 

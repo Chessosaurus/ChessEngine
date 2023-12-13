@@ -3,7 +3,6 @@ package chessosaurus.engine;
 import chessosaurus.base.Board;
 import chessosaurus.base.Color;
 import chessosaurus.base.Move;
-import chessosaurus.control.Game;
 
 import java.util.List;
 
@@ -21,16 +20,11 @@ public class MiniMaxAlgorithm {
     private final IMoveFinder moveFinder;
     protected static IEvaluation evaluation = new Evaluation();
 
-    //private final IMoveReviewer moveReviewer;
 
     public MiniMaxAlgorithm(IMoveFinder moveFinder) {
         this.moveFinder = moveFinder;
 
 
-    }
-
-    public void setEvaluation(IEvaluation evaluation) {
-        this.evaluation = evaluation;
     }
 
     public IMoveFinder getMoveFinder() {

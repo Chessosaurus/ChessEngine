@@ -3,7 +3,6 @@ package chessosaurus.engine;
 import chessosaurus.base.Board;
 import chessosaurus.base.Color;
 import chessosaurus.base.Move;
-import chessosaurus.control.Game;
 import chessosaurus.persistence.IEndgameReader;
 import chessosaurus.persistence.IOpeninggameReader;
 
@@ -53,10 +52,10 @@ public class EnemyMoverContext implements IEnemyMoverContext {
         if (move == null && pieceCount < 8) {
             EndMoveSelector enemyMover = new EndMoveSelector(this.endgameReader);
             String currentBoardFen = new Board().transformBoardToFen(currentBoard);
-            if(currentBoard.equals(Color.WHITE)){
-                Fen = currentBoardFen+"_w_-_-_0_1";
-            } else {
+            if(currentBoard.getNextTurn().equals(Color.WHITE)){
                 Fen = currentBoardFen+"_b_-_-_0_1";
+            } else {
+                Fen = currentBoardFen+"_w_-_-_0_1";
             }
             move = enemyMover.getBestMove(Fen,currentBoard);
         }

@@ -3,23 +3,14 @@ package chessosaurus.control;
 
 import chessosaurus.base.*;
 import chessosaurus.engine.*;
-import chessosaurus.review.IReviewerContext;
 import chessosaurus.review.ReviewerContext;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
-import java.util.concurrent.ExecutionException;
-
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyList;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class MiniMaxTest {
 
-    private MinimaxThreading minimaxThreading;
-    private MiniMaxAlgorithm miniMaxAlgorithm;
+    private final MinimaxThreading minimaxThreading;
+    private final MiniMaxAlgorithm miniMaxAlgorithm;
 
     public MiniMaxTest() {
         ReviewerContext reviewerContext = new ReviewerContext();

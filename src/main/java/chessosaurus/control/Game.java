@@ -1,11 +1,9 @@
 package chessosaurus.control;
 
 import chessosaurus.base.*;
-import chessosaurus.engine.EnemyMoverContext;
 import chessosaurus.engine.IEnemyMoverContext;
 import chessosaurus.players.Enemy;
 import chessosaurus.review.IReviewerContext;
-import chessosaurus.review.ReviewerContext;
 
 import java.util.ArrayList;
 import java.util.List;

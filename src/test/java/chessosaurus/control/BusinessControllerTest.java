@@ -3,7 +3,6 @@ package chessosaurus.control;
 import chessosaurus.base.*;
 import chessosaurus.engine.IEnemyMoverContext;
 import chessosaurus.review.IReviewerContext;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
