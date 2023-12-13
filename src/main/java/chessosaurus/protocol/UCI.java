@@ -14,10 +14,14 @@ import chessosaurus.persistence.OpeninggameRestReader;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.Scanner;
 import java.util.concurrent.Future;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * The class UCI is responsible for the implementation of the UCI protocol.
@@ -35,6 +39,7 @@ public class UCI {
     List<Move> moves      = new ArrayList<>();
     private final IController controller;
     private final IMoveParser moveParser;
+    Properties properties = new Properties();
 
     public UCI(IController controller,
                IMoveParser moveParser) {
@@ -75,13 +80,19 @@ public class UCI {
             }
             else if (inputString.startsWith("go"))
             {
+                Pattern pattern = Pattern.compile("\\b(\\d+)\\b");
+                Matcher matcher = pattern.matcher(inputString);
+
+                if (matcher.find()) {
+                    String extractedNumber = matcher.group(1);
+
+                }
                 if (goThread == null || !goThread.isAlive()) {
                     goThread = new Thread(this::inputGo);
                     goThread.start();
                 } else {
                     System.out.println("Ein 'go'-Thread läuft bereits.");
                 }
-                //inputGo();
             }
             else if (inputString.startsWith("stop"))
             {
