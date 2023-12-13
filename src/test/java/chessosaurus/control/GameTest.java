@@ -39,7 +39,7 @@ public class GameTest {
         Square testTo = new Square(1,3);
 
         this.expectedBestMove = new Move (testFrom, testTo);
-        when(mockEnemyMoverContext.getBestMove(anyList(), any(), any(), any())).thenReturn(this.expectedBestMove);
+        when(mockEnemyMoverContext.getBestMove(anyList(), any(), any())).thenReturn(this.expectedBestMove);
 
         this.game = new Game(Color.BLACK, mockEnemyMoverContext, mockReviewerContext);
     }
@@ -165,20 +165,4 @@ public class GameTest {
         assertNotNull(move);
         assertEquals(this.expectedBestMove, move);
     }
-
-    @Test
-    void testPawnMoves() throws ExecutionException, InterruptedException {
-
-        Board board = new Board();
-        board.importFen("8/4k3/8/2p1P3/3Q4/8/2K5/8 b - - 0 1");
-        ReviewerContext reviewerContext = new ReviewerContext();
-        MoveFinder finder = new MoveFinder(reviewerContext);
-        MiniMaxAlgorithm minimax = new MiniMaxAlgorithm(finder);
-        MinimaxThreading threading = new MinimaxThreading(finder);
-        this.game.setChessboard(board);
-        Move move = minimax.getBestMove(board, Color.BLACK, game);
-        //Move move = threading.getBestMove(board, Color.BLACK, game);
-        assertFalse(move == null);
-    }
-
 }

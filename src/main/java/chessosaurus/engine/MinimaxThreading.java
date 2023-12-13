@@ -8,7 +8,6 @@ import chessosaurus.control.Game;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
-//import io.reactive.rxjava3.subjects.ReplaySubject;
 
 public class MinimaxThreading {
 
@@ -18,7 +17,7 @@ public class MinimaxThreading {
 
     }
 
-    public Move getBestMove(Board currentBoard, Color currentColor, Game currentGame) {
+    public Move getBestMove(Board currentBoard, Color currentColor) {
         int bestValue = Evaluation.worstValue;
         Move bestMove = null;
 
@@ -30,16 +29,20 @@ public class MinimaxThreading {
 
         for (Move move : legalMoves) {
             futures.add(executor.submit(() -> {
-                Board newBoard = currentGame.deepCloneBoard();
+                Board newBoard = currentBoard.deepCloneBoard();
                 newBoard.makeMove(move);
-                return miniMaxAlgorithm.evaluate(newBoard, currentColor, currentGame);
+                return miniMaxAlgorithm.evaluate(newBoard, currentColor);
             }));
         }
 
         executor.shutdown();
 
         try {
-            executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+            executor.awaitTermination(60, TimeUnit.SECONDS);
+
+            if (legalMoves.size() != futures.size()) {
+                throw new IllegalStateException("Size mismatch between legalMoves and futures.");
+            }
 
             for (int i = 0; i < futures.size(); i++) {
                 int value = futures.get(i).get();

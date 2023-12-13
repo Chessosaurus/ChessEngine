@@ -19,7 +19,7 @@ public class Evaluation implements IEvaluation {
                 if(square.getPiece().isPresent()) {
                     Piece piece = square.getPiece().get();
                     int value = piece.getType().getValue();
-                    if(piece.getColor() == color){
+                    if(piece.getColor() == Color.BLACK){
                         sum += value;
                     }else {
                         sum -= value;

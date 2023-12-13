@@ -37,7 +37,7 @@ public class EnemyMoverContext implements IEnemyMoverContext {
      * @return Best move
      */
     @Override
-    public Move getBestMove(List<Move> allMoves, Board currentBoard, Color currentColor, Game currentGame) {
+    public Move getBestMove(List<Move> allMoves, Board currentBoard, Color currentColor) {
         String Fen = "";
 
         Move move = null;
@@ -62,7 +62,7 @@ public class EnemyMoverContext implements IEnemyMoverContext {
         }
         if (move == null) {
             MinimaxThreading enemyMover = new MinimaxThreading(this.moveFinder);
-            move = enemyMover.getBestMove(currentBoard,currentColor, currentGame);
+            move = enemyMover.getBestMove(currentBoard,currentColor);
         }
 
         return move;

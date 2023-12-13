@@ -11,8 +11,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class BusinessControllerTest {
-/*
-    private final BusinessController businessController;
+
+   private final BusinessController businessController;
     private Game mockGame;
     private final Board expectedBoard = new Board();
 
@@ -112,5 +112,4 @@ public class BusinessControllerTest {
         assertEquals(expectedGame, game);
     }
 
- */
 }

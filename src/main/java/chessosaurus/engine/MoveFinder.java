@@ -2,6 +2,7 @@ package chessosaurus.engine;
 
 import chessosaurus.base.*;
 import chessosaurus.review.IReviewerContext;
+import chessosaurus.review.ReviewerContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
  */
 public class MoveFinder implements IMoveFinder {
 
-    private final IReviewerContext reviewerContext;
+    private IReviewerContext reviewerContext;
 
     public MoveFinder(IReviewerContext reviewerContext) {
         this.reviewerContext = reviewerContext;
@@ -54,6 +55,7 @@ public class MoveFinder implements IMoveFinder {
 
                         for (Move move : possibleMoves) {
                             if(move.getFrom().getPiece().isPresent()){
+                                this.reviewerContext = new ReviewerContext();
                                 if (reviewerContext.isLegalMove(move, board)) {
                                     legalMoves.add(move);
                                 }

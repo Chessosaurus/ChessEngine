@@ -22,6 +22,6 @@ public interface IEnemyMoverContext {
      * @param currentColor The color of the enemy
      * @return Best move
      */
-    Move getBestMove(List<Move> allMoves, Board currentBoard, Color currentColor, Game currentGame);
+    Move getBestMove(List<Move> allMoves, Board currentBoard, Color currentColor);
 
 }

@@ -15,7 +15,7 @@ import chessosaurus.base.PieceType;
 
 public class ReviewerContext implements IReviewerContext {
 
-    private IMoveReviewer reviewer;
+    //private IMoveReviewer reviewer;
 
     /**
      * Checks depending on the piece if the move is legal
@@ -28,29 +28,26 @@ public class ReviewerContext implements IReviewerContext {
         if (move.getFrom().getPiece().isEmpty()) {
             throw new IllegalArgumentException("From square is empty");
         }
+
         PieceType pieceType = move.getFrom().getPiece().get().getType();
         switch (pieceType) {
             case KING:
-                this.reviewer = new KingMoveReviewer();
-                break;
+                return new KingMoveReviewer().isLegalMove(move, board);
             case QUEEN:
-                this.reviewer = new QueenMoveReviewer();
-                break;
+                return new QueenMoveReviewer().isLegalMove(move, board);
             case ROOK:
-                this.reviewer = new RookMoveReviewer();
-                break;
+                return new RookMoveReviewer().isLegalMove(move, board);
             case BISHOP:
-                this.reviewer = new BishopMoveReviewer();
-                break;
+                return new BishopMoveReviewer().isLegalMove(move, board);
             case KNIGHT:
-                this.reviewer = new KnightMoveReviewer();
-                break;
+                return new KnightMoveReviewer().isLegalMove(move, board);
             case PAWN:
-                this.reviewer = new PawnMoveReviewer();
-                break;
-        }
+                return new PawnMoveReviewer().isLegalMove(move, board);
 
-        return this.reviewer.isLegalMove(move, board);
+
+        }
+            return false;
+
     }
 
 
@@ -61,7 +58,8 @@ public class ReviewerContext implements IReviewerContext {
      * @return {@code true}, if color is in check, else {@code false}.
      */
     public boolean isCheck(Color color, Board board) {
-        return this.reviewer.isCheck(color, board);
+        IMoveReviewer moveReviewer = new KingMoveReviewer();
+        return moveReviewer.isCheck(color, board);
     }
 
 }

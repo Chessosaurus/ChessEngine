@@ -106,31 +106,8 @@ public class Game {
      * @return best move
      */
     public Move calculateBestEnemyMove() {
-        return this.enemy.getBestMove(this.moves, this.chessboard, this);
+        return this.enemy.getBestMove(this.moves, this.chessboard);
     }
 
-    /**
-     * Copies the board
-     * @return copied board
-     */
-    public Board deepCloneBoard(){
-        Board copiedBoard = new Board();
 
-        final Square[][] result = copiedBoard.getChessboard();
-
-        for (int i = 0; i < 8; i++){
-            for (int j = 0; j < 8; j++) {
-                if (this.chessboard.getChessboard()[i][j].getPiece().isPresent()){
-                    result[i][j].setPiece(new Piece(this.chessboard.getChessboard()[i][j].getPiece().get().getType(), this.chessboard.getChessboard()[i][j].getPiece().get().getColor()));
-                }else {
-                    result[i][j].setPiece(Optional.empty());
-                }
-            }
-        }
-
-        copiedBoard.setMoveCounter(moves.size());
-
-        return copiedBoard;
-
-    }
 }

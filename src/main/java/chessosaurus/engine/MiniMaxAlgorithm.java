@@ -43,7 +43,7 @@ public class MiniMaxAlgorithm {
      *
      * @return bestMove
      */
-    public Move getBestMove(Board currentBoard, Color currentColor, Game currentGame) {
+    public Move getBestMove(Board currentBoard, Color currentColor) {
 
         int bestValue = Evaluation.worstValue;
         Move bestMove = null;
@@ -52,9 +52,9 @@ public class MiniMaxAlgorithm {
 
         for (Move move : legalMoves) {
 
-            Board newBoard = currentGame.deepCloneBoard();
+            Board newBoard = currentBoard.deepCloneBoard();
             newBoard.makeMove(move);
-            int value = evaluate(newBoard, currentColor, currentGame);
+            int value = evaluate(newBoard, currentColor);
 
 
             if (value > bestValue) {
@@ -75,23 +75,21 @@ public class MiniMaxAlgorithm {
      * Calculate the Value of a Move recursive and returns the Value
      * @param currentBoard
      * @param currentColor
-     * @param currentGame
      * @return Value of the Move
      */
 
-    protected int evaluate(Board currentBoard, Color currentColor, Game currentGame) {
-        return evaluate(currentBoard, currentColor, currentGame, 1);
+    protected int evaluate(Board currentBoard, Color currentColor) {
+        return evaluate(currentBoard, currentColor, 1);
     }
 
 
     /**
      * @param currentBoard
      * @param currentcolor
-     * @param currentGame
      * @param currentDepth
      * @return
      */
-    protected int evaluate(Board currentBoard, Color currentcolor, Game currentGame, int currentDepth) {
+    protected int evaluate(Board currentBoard, Color currentcolor,int currentDepth) {
 
         if (currentDepth == depth) {
             return evaluation.evaluateMove(currentBoard, currentcolor);
@@ -103,7 +101,7 @@ public class MiniMaxAlgorithm {
                 if (!moveFinder.isColorInCheck(currentBoard, playerColor)) {
                     return Evaluation.balancedValue;
                 }
-                if (currentGame.getEnemy().getColor() == currentcolor) {
+                if (playerColor == currentcolor) {
                     return Evaluation.mateValue - currentDepth;
                 } else {
                     return -Evaluation.mateValue - currentDepth;
@@ -112,9 +110,9 @@ public class MiniMaxAlgorithm {
                 if (currentDepth % 2 == 0) {
                     int max = Evaluation.worstValue;
                     for (Move move : legalMoves) {
-                        Board newBoard = currentGame.deepCloneBoard();
+                        Board newBoard = currentBoard.deepCloneBoard();
                         newBoard.makeMove(move);
-                        int value = evaluate(newBoard, playerColor, currentGame, currentDepth + 1);
+                        int value = evaluate(newBoard, playerColor, currentDepth + 1);
                         if (value > max) {
                             max = value;
                         }
@@ -123,9 +121,9 @@ public class MiniMaxAlgorithm {
                 } else {
                     int min = Evaluation.bestValue;
                     for (Move move : legalMoves) {
-                        Board newBoard = currentGame.deepCloneBoard();
+                        Board newBoard = currentBoard.deepCloneBoard();
                         newBoard.makeMove(move);
-                        int value = evaluate(newBoard, playerColor, currentGame, currentDepth + 1);
+                        int value = evaluate(newBoard, playerColor,currentDepth + 1);
 
                         if (value < min) {
                             min = value;

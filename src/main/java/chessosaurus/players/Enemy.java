@@ -37,11 +37,11 @@ public class Enemy {
      * @param currentBoard The current chessboard.
      * @return best possible move
      */
-    public Move getBestMove(List<Move> allMoves, Board currentBoard, Game currentGame) {
+    public Move getBestMove(List<Move> allMoves, Board currentBoard) {
         Board board = new Board(currentBoard);
         List<Move> moves = new ArrayList<>(allMoves);
 
-        Move bestMove = this.enemyMoverContext.getBestMove(moves, board, this.color, currentGame);
+        Move bestMove = this.enemyMoverContext.getBestMove(moves, board, this.color);
 
         return bestMove;
     }
