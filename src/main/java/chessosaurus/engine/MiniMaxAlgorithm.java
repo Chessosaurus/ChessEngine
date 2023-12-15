@@ -72,7 +72,7 @@ public class MiniMaxAlgorithm {
      * @return Value of the Move
      */
 
-    protected int evaluate(Board currentBoard, Color currentColor) {
+    public int evaluate(Board currentBoard, Color currentColor) {
         return evaluate(currentBoard, currentColor, 1);
     }
 
