@@ -88,8 +88,15 @@ public class MiniMaxAlgorithm {
         if (currentDepth == depth) {
             return evaluation.evaluateMove(currentBoard, currentcolor);
         } else {
-            Color playerColor = currentcolor.getOpposite();
+            Color playerColor;
+            if(currentDepth == 1) {
+                playerColor = Color.BLACK;
+            }else{
+                playerColor = currentcolor.getOpposite();
+            }
+
             List<Move> legalMoves = this.moveFinder.getLegalMoves(currentBoard, playerColor);
+
             if (legalMoves.isEmpty()) {
 
                 if (!moveFinder.isColorInCheck(currentBoard, playerColor)) {

@@ -19,7 +19,7 @@ public class MinimaxThreading {
         int bestValue = Evaluation.worstValue;
         Move bestMove = null;
 
-        List<Move> legalMoves = miniMaxAlgorithm.getMoveFinder().getLegalMoves(currentBoard, currentColor);
+        List<Move> legalMoves = miniMaxAlgorithm.getMoveFinder(). getLegalMoves(currentBoard, currentColor);
 
         int cores = Runtime.getRuntime().availableProcessors();
         ExecutorService executor = Executors.newFixedThreadPool(cores);

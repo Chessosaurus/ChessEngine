@@ -24,7 +24,7 @@ public class MiniMaxTest {
 
         // ARRANGE
         Board board = new Board();
-        board.importFen("8/4k3/8/2p1P3/3Q4/8/2K5/8 b - - 0 1");
+        board.importFen("r1b3r1/4kppp/pp2p3/2pBR1Q1/8/2NP4/PPP2PPP/R5K1 b - - 0 1");
 
 
         // ACT
