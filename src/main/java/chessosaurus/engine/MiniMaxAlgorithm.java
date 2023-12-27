@@ -11,11 +11,11 @@ import java.util.List;
  * <p>
  *
  * @author Timo Zink
- * @version 2.0
+ * @version 1.0
  */
 public class MiniMaxAlgorithm {
 
-    private int depth = 3;
+    private int depth = 4;
 
     private final IMoveFinder moveFinder;
     protected static IEvaluation evaluation = new Evaluation();
@@ -34,7 +34,8 @@ public class MiniMaxAlgorithm {
 
     /**
      * Returns the best move calculated using the Minimax algorithm.
-     *
+     * @param currentBoard
+     * @param currentColor
      * @return bestMove
      */
     public Move getBestMove(Board currentBoard, Color currentColor) {
@@ -59,7 +60,10 @@ public class MiniMaxAlgorithm {
         return bestMove;
 
     }
-
+    /**
+     * Set depth for Minimax to calculate.
+     * @param depth
+     */
     public void setDepth(int depth) {
         this.depth = depth;
     }
@@ -76,13 +80,6 @@ public class MiniMaxAlgorithm {
         return evaluate(currentBoard, currentColor, 1);
     }
 
-
-    /**
-     * @param currentBoard
-     * @param currentcolor
-     * @param currentDepth
-     * @return
-     */
     protected int evaluate(Board currentBoard, Color currentcolor,int currentDepth) {
 
         if (currentDepth == depth) {

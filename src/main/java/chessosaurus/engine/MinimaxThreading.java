@@ -7,6 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
 
+/**
+ * Determines the currently best move using the Minimax algorithm multithreaded.
+ * <p>
+ *
+ * @author Timo Zink
+ * @version 1.0
+ */
+
 public class MinimaxThreading {
 
     private final MiniMaxAlgorithm miniMaxAlgorithm;
@@ -15,6 +23,12 @@ public class MinimaxThreading {
 
     }
 
+    /**
+     * Returns the best move calculated using the Minimax algorithm. Multithreading with Futures.
+     * @param currentBoard
+     * @param currentColor
+     * @return bestMove
+     */
     public Move getBestMove(Board currentBoard, Color currentColor) {
         int bestValue = Evaluation.worstValue;
         Move bestMove = null;
