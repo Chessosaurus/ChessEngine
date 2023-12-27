@@ -107,7 +107,7 @@ abstract class MoveReviewerBase implements IMoveReviewer{
                         if (checkingPossibleDiagonally1){
                             switch (board[kingRank + i][kingFile + i].getPiece().get().getType()) {
                                 case PAWN:
-                                    if (i == 1 && color.equals(Color.WHITE)) return true;
+                                    if (i == 1 && color.equals(Color.BLACK)) return true;
                                     break;
                                 case BISHOP:
                                 case QUEEN:
@@ -126,7 +126,7 @@ abstract class MoveReviewerBase implements IMoveReviewer{
                         if(checkingPossibleDiagonally2){
                             switch (board[kingRank + i][kingFile - i].getPiece().get().getType()) {
                                 case PAWN:
-                                    if (i == 1 && color.equals(Color.WHITE)) return true;
+                                    if (i == 1 && color.equals(Color.BLACK)) return true;
                                     break;
                                 case BISHOP:
                                 case QUEEN:
@@ -146,7 +146,7 @@ abstract class MoveReviewerBase implements IMoveReviewer{
 
                             switch (board[kingRank - i][kingFile + i].getPiece().get().getType()) {
                             case PAWN:
-                                if (i == 1 && color == Color.BLACK) return true;
+                                if (i == 1 && color == Color.WHITE) return true;
                                 break;
                             case BISHOP:
                             case QUEEN:
@@ -165,7 +165,7 @@ abstract class MoveReviewerBase implements IMoveReviewer{
                         if(checkingPossibleDiagonally4){
                             switch (board[kingRank - i][kingFile - i].getPiece().get().getType()) {
                                 case PAWN:
-                                    if (i == 1 && color == Color.BLACK) return true;
+                                    if (i == 1 && color == Color.WHITE) return true;
                                     break;
                                 case BISHOP:
                                 case QUEEN:
