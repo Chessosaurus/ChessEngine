@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class MiniMaxAlgorithm {
 
-    private int depth = 4;
+    private int depth = 5;
 
     private final IMoveFinder moveFinder;
     protected static IEvaluation evaluation = new Evaluation();
