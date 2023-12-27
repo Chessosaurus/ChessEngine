@@ -20,12 +20,37 @@ public class KingMoveReviewer extends MoveReviewerBase {
             throw new IllegalArgumentException("From square is empty");
         }
         if(to.getPiece().isEmpty()){
-            return isSpecificLegalMove(move,from.getPiece().get().getColor() ,chessboard);
+            if(isSpecificLegalMove(move,from.getPiece().get().getColor() ,chessboard)){
+                Board copiedBoard = chessboard.deepCloneBoard();
+                if(copiedBoard.getChessboard()[move.getFrom().getRank()-1][ move.getFrom().getFileVal()-1].getPiece().isPresent()) {
+                    copiedBoard.makeMove(move);
+                    if(isCheck(from.getPiece().get().getColor(), copiedBoard)){
+                        return false;
+                    }else return true;
+                }else return false;
+            } else return false;
+
         } else {
             if(to.getPiece().get().getColor() != from.getPiece().get().getColor()){
-                return isSpecificLegalMove(move,from.getPiece().get().getColor(),chessboard);
+                if(isSpecificLegalMove(move,from.getPiece().get().getColor() ,chessboard)){
+                    Board copiedBoard = chessboard.deepCloneBoard();
+                    if(copiedBoard.getChessboard()[move.getFrom().getRank()-1][ move.getFrom().getFileVal()-1].getPiece().isPresent()) {
+                        copiedBoard.makeMove(move);
+                        if(isCheck(from.getPiece().get().getColor(), copiedBoard)){
+                            return false;
+                        }else return true;
+                    }else return false;
+                } else return false;
             }else if(to.getPiece().get().getColor().equals(from.getPiece().get().getColor()) && to.getPiece().get().getType().equals(PieceType.ROOK)){
-                return isSpecificLegalMove(move,from.getPiece().get().getColor() ,chessboard);
+                if(isSpecificLegalMove(move,from.getPiece().get().getColor() ,chessboard)){
+                    Board copiedBoard = chessboard.deepCloneBoard();
+                    if(copiedBoard.getChessboard()[move.getFrom().getRank()-1][ move.getFrom().getFileVal()-1].getPiece().isPresent()) {
+                        copiedBoard.makeMove(move);
+                        if(isCheck(from.getPiece().get().getColor(), copiedBoard)){
+                            return false;
+                        }else return true;
+                    }else return false;
+                } else return false;
             }else return false;
         }
     }
