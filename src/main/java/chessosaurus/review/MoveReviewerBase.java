@@ -117,7 +117,7 @@ abstract class MoveReviewerBase implements IMoveReviewer{
                                     break;
                             }
                         }
-                    }
+                    } else checkingPossibleDiagonally1 = false;
                 }
             }
             if(isValidPosition(kingRank+i, kingFile-i)) {
@@ -136,7 +136,7 @@ abstract class MoveReviewerBase implements IMoveReviewer{
                                     break;
                             }
                         }
-                    }
+                    } else checkingPossibleDiagonally2 = false;
                 }
             }
             if(isValidPosition(kingRank-i, kingFile+i)) {
@@ -156,7 +156,7 @@ abstract class MoveReviewerBase implements IMoveReviewer{
                                 break;
                             }
                         }
-                    }
+                    } else checkingPossibleDiagonally3 = false;
                 }
             }
             if(isValidPosition(kingRank-i, kingFile-i)) {
@@ -175,7 +175,7 @@ abstract class MoveReviewerBase implements IMoveReviewer{
                                     break;
                             }
                         }
-                    }
+                    } else checkingPossibleDiagonally4 = false;
                 }
             }
             //Ermittelt ob König vertikal oder horizontal angegriffen wird.
@@ -192,7 +192,7 @@ abstract class MoveReviewerBase implements IMoveReviewer{
                                     break;
                             }
                         }
-                    }
+                    } else checkingPossibleHorizontal1 = false;
                 }
             }
             if(isValidPosition(kingRank-i, kingFile)) {
@@ -208,7 +208,7 @@ abstract class MoveReviewerBase implements IMoveReviewer{
                                     break;
                             }
                         }
-                    }
+                    } else checkingPossibleHorizontal2 = false;
                 }
             }
             if(isValidPosition(kingRank, kingFile+i)) {
@@ -224,7 +224,7 @@ abstract class MoveReviewerBase implements IMoveReviewer{
                                     break;
                             }
                         }
-                    }
+                    } else checkingPossibleVertical1 = false;
                 }
             }
             if(isValidPosition(kingRank, kingFile-i)) {
@@ -240,8 +240,7 @@ abstract class MoveReviewerBase implements IMoveReviewer{
                                     break;
                             }
                         }
-
-                    }
+                    } else checkingPossibleVertical2 = false;
                 }
             }
         }
