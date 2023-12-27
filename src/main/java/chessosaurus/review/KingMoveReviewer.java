@@ -43,10 +43,10 @@ public class KingMoveReviewer extends MoveReviewerBase {
         Square to = move.getTo();
         Square[][] board = chessboard.getChessboard();
         int fromRank = from.getRank();
-        int fromFile = from.getFile()-1; //here was get FileVal()
+        int fromFile = from.getFileVal()-1; //here was get FileVal()
 
         int toRank = to.getRank();
-        int toFile = to.getFile()-1; //here was get FileVal()
+        int toFile = to.getFileVal()-1; //here was get FileVal()
         boolean wayClear = true;
 
         if(toRank == fromRank+1 || toRank == fromRank-1){

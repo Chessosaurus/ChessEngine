@@ -22,7 +22,7 @@ public class Evaluation implements IEvaluation {
                     if(piece.getColor() == Color.BLACK){
                         sum += value;
                     }else {
-                        sum -= value;
+                         sum -= value;
                     }
                 }
             }

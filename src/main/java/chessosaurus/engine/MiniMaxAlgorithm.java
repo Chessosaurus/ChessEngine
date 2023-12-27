@@ -86,15 +86,10 @@ public class MiniMaxAlgorithm {
     protected int evaluate(Board currentBoard, Color currentcolor,int currentDepth) {
 
         if (currentDepth == depth) {
-            return evaluation.evaluateMove(currentBoard, currentcolor);
+             return evaluation.evaluateMove(currentBoard, currentcolor);
         } else {
-            Color playerColor;
-            if(currentDepth == 1) {
-                playerColor = Color.BLACK;
-            }else{
-                playerColor = currentcolor.getOpposite();
-            }
 
+            Color playerColor = currentcolor.getOpposite();
             List<Move> legalMoves = this.moveFinder.getLegalMoves(currentBoard, playerColor);
 
             if (legalMoves.isEmpty()) {
@@ -110,19 +105,19 @@ public class MiniMaxAlgorithm {
             } else {
                 if (currentDepth % 2 == 0) {
                     int max = Evaluation.worstValue;
-                    for (Move move : legalMoves) {
-                        Board newBoard = currentBoard.deepCloneBoard();
-                        newBoard.makeMove(move);
-                        int value = evaluate(newBoard, playerColor, currentDepth + 1);
-                        if (value > max) {
-                            max = value;
+                     for (Move move : legalMoves) {
+                         Board newBoard = currentBoard.deepCloneBoard();
+                         newBoard.makeMove(move);
+                           int value = evaluate(newBoard, playerColor, currentDepth + 1);
+                           if (value > max) {
+                             max = value;
                         }
                     }
                     return max;
                 } else {
                     int min = Evaluation.bestValue;
-                    for (Move move : legalMoves) {
-                        Board newBoard = currentBoard.deepCloneBoard();
+                     for (Move move : legalMoves) {
+                         Board newBoard = currentBoard.deepCloneBoard();
                         newBoard.makeMove(move);
                         int value = evaluate(newBoard, playerColor,currentDepth + 1);
 
